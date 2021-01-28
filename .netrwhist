@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/dilanbar/.config/nvim'
+let g:netrw_dirhist_0='/home/dilanbar/.config'
+let g:netrw_dirhist_9='/home/dilanbar'
+let g:netrw_dirhist_8='/home/dilanbar/.config/nvim'
+let g:netrw_dirhist_7='/home/dilanbar/.config'
+let g:netrw_dirhist_6='/home/dilanbar'
+let g:netrw_dirhist_5='/home/dilanbar/.config'
+let g:netrw_dirhist_4='/home/dilanbar'
+let g:netrw_dirhist_3='/home/dilanbar/.config/nvim'
+let g:netrw_dirhist_2='/home/dilanbar/.config'

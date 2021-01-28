@@ -1,0 +1,17 @@
+{
+    "suggest.autoTrigger": "none",
+    "prettier.tabWidth": 4,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "scss",
+        "css",
+        "php",
+        "markdown",
+        "graphql",
+        "html",
+        "yaml",
+        "json",
+        "javascript",
+        "typescript",
+        "java"
+    ]
+}
