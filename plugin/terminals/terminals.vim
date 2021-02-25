@@ -21,11 +21,11 @@ function! OpenTerminal() abort
     elseif typeFile == "php"
         execute "vsp term://php %"
     elseif typeFile == "lua"
-        execute "vsp term://lua5.4 %"
+        execute "vsp term://lua %"
     elseif typeFile == "python"
         execute "vsp term://python %"
     elseif typeFile == "lua"
-        execute "vsp term://lua5.4 %"
+        execute "vsp term://lua %"
     else
         echom "Undefine FileType"
     endif

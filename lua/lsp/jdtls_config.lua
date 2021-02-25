@@ -1,6 +1,9 @@
 local M = {}
 function M.setup()
-  require('jdtls').start_or_attach({cmd = {'jdtls'}})
+  require('jdtls').start_or_attach({
+    cmd = {'/home/dilanbar/.local/servers/jdtls/jdtls'}
+    --cmd = {'jdtls'}
+  })
   --require'completion'.on_attach()
   -- Utility servers
   local map = function(type, key, value)
@@ -29,11 +32,11 @@ function M.setup()
     map('n','<leader>en', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
     map('n','<leader>es', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 
-    --map('n', [[<leader>ai]], [[<Cmd>lua require'jdtls'.organize_imports()<CR>]])
-    --map('n', [[<leader>av]], [[<Cmd>lua require('jdtls').extract_variable()<CR>]])
-    --map('v', [[<leader>av]], [[<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>]])
-    --map('v', [[<leader>am]], [[<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>]])
-    --map('n', [[<leader>ar]], [[<Cmd>lua require('jdtls').code_action(false, 'refactor')<CR>]])
+    map('n', [[<leader>ai]], [[<Cmd>lua require'jdtls'.organize_imports()<CR>]])
+    map('n', [[<leader>av]], [[<Cmd>lua require('jdtls').extract_variable()<CR>]])
+    map('v', [[<leader>av]], [[<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>]])
+    map('v', [[<leader>am]], [[<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>]])
+    map('n', [[<leader>ar]], [[<Cmd>lua require('jdtls').code_action(false, 'refactor')<CR>]])
 
   local jdtls_ui = require'jdtls.ui'
   function jdtls_ui.pick_one_async(items, _, _, cb)

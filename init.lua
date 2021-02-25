@@ -1,11 +1,4 @@
-vim.cmd [[packadd vimball]]
-
-package.loaded['globals'] = nil
-local globals_ok, msg = pcall(require, 'globals')
-if not globals_ok then
-    print("Failed to load globals:", msg)
-end
-
+require('globals')
 local opt = vim.opt
 
 --SETTINGS
@@ -32,7 +25,6 @@ opt.showmode       = false
 opt.re             = 0
 opt.tabstop        = 4
 opt.cmdheight      = 2
-opt.sw             = 4
 opt.shiftwidth     = 4
 opt.scrolloff      = 8
 opt.updatetime     = 50
@@ -42,7 +34,6 @@ opt.signcolumn     = 'yes'
 opt.encoding       = 'utf-8'
 opt.clipboard      = 'unnamedplus'
 opt.completeopt    = 'menuone,noinsert,noselect'
-opt.signcolumn     = 'yes'
 opt.guicursor      = {'n-v-c:block-Cursor/lCursor','i-ci-ve:ver25-Cursor2'}
 vim.cmd[[set shortmess+=c]]
 vim.cmd[[syntax on]]
@@ -56,6 +47,4 @@ vim.cmd[[set background=dark]]
 -- MODULES
 require('lsp')
 require('plugins')
-require('autocommands')
-require('custom')
-require('statusline')
+require('common')

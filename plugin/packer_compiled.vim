@@ -36,14 +36,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/ForkMaterial"
   },
-  ["auto-pairs"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/auto-pairs"
-  },
-  ["coc.nvim"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/coc.nvim"
-  },
   ["emmet-vim"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/emmet-vim"
@@ -51,14 +43,6 @@ _G.packer_plugins = {
   ["express_line.nvim"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/express_line.nvim"
-  },
-  fzf = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/fzf"
-  },
-  ["fzf.vim"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/fzf.vim"
   },
   gruvbox = {
     loaded = true,
@@ -72,9 +56,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/java-syntax.vim"
   },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
+  },
   nerdcommenter = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nerdcommenter"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
   },
   ["nvim-colorizer.lua"] = {
     loaded = true,
@@ -92,6 +84,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
   },
+  ["nvim-lsputils"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-lsputils"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
@@ -108,9 +104,29 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/plenary.nvim"
   },
+  popfix = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/popfix"
+  },
+  ["popup.nvim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/popup.nvim"
+  },
   rainbow = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/rainbow"
+  },
+  ["tabline.vim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/tabline.vim"
+  },
+  ["telescope-fzy-native.nvim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim"
+  },
+  ["telescope.nvim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
   ultisnips = {
     loaded = true,
@@ -135,10 +151,6 @@ _G.packer_plugins = {
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-fugitive"
-  },
-  ["vim-http-client"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-http-client"
   },
   ["vim-js"] = {
     loaded = true,

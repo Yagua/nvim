@@ -1,36 +1,16 @@
--- On ly required if you have packer in your `opt` pack
-local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
+local execute = vim.api.nvim_command
+local path_install = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-if not packer_exists then
-  -- TODO: Maybe handle windows better?
-  if vim.fn.input("Download Packer? (y for yes)") ~= "y" then
-    return
-  end
-
-  local directory = string.format(
-    '%s/site/pack/packer/opt/',
-    vim.fn.stdpath('data')
-  )
-
-  vim.fn.mkdir(directory, 'p')
-
-  local out = vim.fn.system(string.format(
-    'git clone %s %s',
-    'https://github.com/wbthomason/packer.nvim',
-    directory .. '/packer.nvim'
-  ))
-
-  print(out)
-  print("Downloading packer.nvim...")
-  print("( You'll need to restart now )")
-
-  return
+if vim.fn.empty(vim.fn.glob(path_install)) > 0 then
+    print("Auto Installing Packer.nvim...")
+    execute('!git clone https://github.com/wbthomason/packer.nvim ' .. path_install)
+    execute('packadd packer.nvim')
 end
 
 return require('packer').startup(function(use)
 
     -- INTELLISENSE
-    use 'neoclide/coc.nvim'
+    --use 'neoclide/coc.nvim'
     use 'wbthomason/packer.nvim'
     -- BETTER COMMENTS
     use 'scrooloose/nerdcommenter'
@@ -43,22 +23,30 @@ return require('packer').startup(function(use)
     use 'uiiaoo/java-syntax.vim'
     use 'yuezk/vim-js'
     use 'maxmellon/vim-jsx-pretty'
+    ---- AUTO PAIRS
+    use 'nvim-autopairs'
+    --use 'jiangmiao/auto-pairs'
     ---- ICONS
     use 'ryanoasis/vim-devicons'
     use 'kyazdani42/nvim-web-devicons'
-    ---- AUTO PAIRS FOR '(' '[' '{'
-    use 'jiangmiao/auto-pairs'
+    --TABLINE
+    use 'mkitt/tabline.vim'
     ---- CLOSETAGS
     use 'alvan/vim-closetag'
     ---- THEMES
-    --use 'DilanGMB/HorizonFork'
     use 'DilanGMB/ForkMaterial'
     use 'gruvbox-community/gruvbox'
     --use 'tjdevries/colorbuddy.vim'
+    --use 'DilanGMB/HorizonFork'
     --use 'RishabhRD/nvim-rdark'
     ---- FINDER
-    use {'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
-    use 'junegunn/fzf.vim'
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = {{
+         'nvim-lua/popup.nvim',
+         'nvim-telescope/telescope-fzy-native.nvim'
+      }}
+    }
     ---- GIT
     use 'tpope/vim-fugitive'
     ----SNIPPETS
@@ -72,12 +60,9 @@ return require('packer').startup(function(use)
     ---- DEBUGGING
     use 'puremourning/vimspector'
     use 'szw/vim-maximizer'
-    ----OTHERS
-    use 'https://github.com/kezhenxu94/vim-mysql-plugin.git'
-    use 'aquach/vim-http-client'
+    ----UTILS
+    use 'vim-mysql-plugin.git'
     use 'yggdroot/indentline'
-    use 'mfussenegger/nvim-jdtls'
-    ---- RAINBOW BRACKETS
     use 'luochen1990/rainbow'
     ---- TREE
     use 'kyazdani42/nvim-tree.lua'
@@ -85,15 +70,17 @@ return require('packer').startup(function(use)
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/plenary.nvim'
     use 'hrsh7th/nvim-compe'
+    use 'onsails/lspkind-nvim'
+    use 'RishabhRD/popfix'
+    use 'RishabhRD/nvim-lsputils'
+    use 'mfussenegger/nvim-jdtls'
     --use 'nvim-lua/completion-nvim'
     --use 'tjdevries/complextras.nvim'
-    --use 'RishabhRD/nvim-lsputils'
-    --use 'RishabhRD/popfix'
     ---- STATUS LINE
     use 'tjdevries/express_line.nvim'
-    ----FIRENVIM
-    --use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
     -- TREESITTER
     --use 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     --use 'nvim-treesitter/playground'
+    ----FIRENVIM
+    --use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
 end)

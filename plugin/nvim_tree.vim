@@ -1,5 +1,7 @@
+let g:nvim_tree_disable_netrw = 0
+let g:nvim_tree_hijack_netrw = 0
 let g:nvim_tree_quit_on_open = 1
-let g:nvim_tree_follow = 1
+"let g:nvim_tree_follow = 1
 let g:nvim_tree_hide_dotfiles = 1
 let g:nvim_tree_show_icons = {
     \ 'git': 1,

@@ -71,7 +71,12 @@ lsp.pyright.setup{ on_attach = on_attach_common }
 lsp.jsonls.setup{ on_attach = on_attach_common }
 --# LUA
 lsp.sumneko_lua.setup{
-    cmd = {'lua-language-server'},
+    cmd = {
+        '/home/dilanbar/.local/servers/lua-language-server/bin/Linux/lua-language-server',
+        '-E',
+        '/home/dilanbar/.local/servers/lua-language-server/main.lua'
+    },
+    --cmd = {'lua-language-server'},
     filetype = {'lua'},
     on_attach = on_attach_common
 }
@@ -103,93 +108,3 @@ lsp.cssls.setup{
 lsp.clangd.setup{ on_attach =on_attach_common }
 --# GO
 --lsp.gopls.setup{ on_attach=on_attach_common }
---====================
-
---local system_name
---if vim.fn.has("mac") == 1 then
-  --system_name = "macOS"
---elseif vim.fn.has("unix") == 1 then
-  --system_name = "Linux"
---elseif vim.fn.has('win32') == 1 then
-  --system_name = "Windows"
---else
-  --print("Unsupported system for sumneko")
---end
-
- --nvim-lsputils configuration
---vim.g.lsp_utils_location_opts = {
-    --height = 24,
-    --mode = 'split',
-    --list = {
-    --border = true,
-    --numbering = true
-    --},
-    --preview = {
-    --title = 'Location Preview',
-    --border = true,
-    --},
---}
-
-
---vim.g.lsp_utils_symbols_opts = {
-    --height = 24,
-    --mode = 'editor',
-    --list = {
-    --border = true,
-    --numbering = false,
-    --},
-    --preview = {
-    --title = 'Symbols Preview',
-    --border = true,
-    --},
-    --prompt = {}
---}
---vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
---vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
---vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
---vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
---vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
---vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
---vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
---vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
-
---vim.g.diagnostic_enable_virtual_text = 1
-
---local function lsp_reload(buffer)
-    --vim.lsp.stop_client(vim.lsp.get_active_clients(buffer))
-    --vim.cmd("edit")
---end
-
---local function lsp_stop(buffer)
-    --vim.lsp.diagnostic.clear(buffer)
-    --vim.lsp.stop_client(vim.lsp.get_active_clients(buffer))
---end
-
-----require'compe'.setup {
-  ----enabled = true,
-  ----debug = false,
-  ------ min_length = 1,
-  ----preselect = 'disable',
-
-  ----source = {
-    ----path = {
-	----priority = 9
-    ----},
-    ----buffer = {
-	----priority = 8
-    ----},
-    ----vsnip = {
-	----priority = 9
-    ----},
-    ----nvim_lsp = {
-	----priority = 10,
-	----sort = false
-    ----},
-    ------ nvim_lua = { ... overwrite source configuration ... };
-  ----};
-----}
-
---return{
-    --lsp_reload = lsp_reload,
-    --lsp_stop = lsp_stop
---}
