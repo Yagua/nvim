@@ -1,14 +1,15 @@
-local lsp = require'lspconfig'
+local lsp = require('lspconfig')
 
  --Utility servers
 local map = function(type, key, value)
-    vim.fn.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
+    vim.api.nvim_buf_set_keymap(0,type,key,value,{noremap = true, silent = true});
 end
 
 -- For snippet support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+--Diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
         -- Enable underline, use default values
@@ -34,9 +35,19 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
+--Diagnostics Signs
+vim.fn.sign_define("LspDiagnosticsSignError",
+    {text = ""})
+vim.fn.sign_define("LspDiagnosticsSignWarning",
+    {text = ""})
+vim.fn.sign_define("LspDiagnosticsSignInformation",
+    {text = ""})
+vim.fn.sign_define("LspDiagnosticsSignHint",
+    {text = ""})
+
 -- configuring LSP servers
 local on_attach_common = function(_)
-    print("LSP started.");
+    print("LSP Started.");
     --require'completion'.on_attach()
 
     -- GOTO mappings
@@ -70,41 +81,57 @@ lsp.pyright.setup{ on_attach = on_attach_common }
 --# JSON
 lsp.jsonls.setup{ on_attach = on_attach_common }
 --# LUA
+local sumneko_root_path = vim.fn.expand('$HOME')..'/.local/servers/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
 lsp.sumneko_lua.setup{
-    cmd = {
-        '/home/dilanbar/.local/servers/lua-language-server/bin/Linux/lua-language-server',
-        '-E',
-        '/home/dilanbar/.local/servers/lua-language-server/main.lua'
+    cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = vim.split(package.path, ';')
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'}
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true}
+            }
+        }
     },
-    --cmd = {'lua-language-server'},
-    filetype = {'lua'},
     on_attach = on_attach_common
 }
 --# VIM
---lsp.vimls.setup{ on_attach = on_attach_common }
+lsp.vimls.setup{ on_attach = on_attach_common }
 --# YAML
 --lsp.yamlls.setup{ on_attach = on_attach_common }
 --# HTML
 lsp.html.setup{
-    on_attach=on_attach_common,
+    on_attach = on_attach_common,
     capabilities = capabilities,
 }
 --# CSS
 lsp.cssls.setup{
-    on_attach=on_attach_common,
+    on_attach = on_attach_common,
     capabilities = capabilities,
 }
 --# DOCKER
 --lsp.dockerls.setup{
-    --on_attach=on_attach_common,
+    --on_attach = on_attach_common,
 --}
 --# PHP
 --lsp.intelephense.setup{
 --cmd = { "intelephense", "--stdio" },
 --filetypes = { "php" },
---on_attach=on_attach_common
+--on_attach = on_attach_common
 --}
 --# C++/C
-lsp.clangd.setup{ on_attach =on_attach_common }
+lsp.clangd.setup{ on_attach = on_attach_common }
 --# GO
---lsp.gopls.setup{ on_attach=on_attach_common }
+--lsp.gopls.setup{ on_attach = on_attach_common}

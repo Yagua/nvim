@@ -22,6 +22,7 @@ compe.setup {
       spell = true;
       tags = false;
       ultisnips = true;
+      snippets_nvim = false;
     };
   }
 
@@ -29,4 +30,3 @@ setmap("i", "<C-Space>", "compe#complete()", {expr = true, silent = true, norema
 setmap("i", "<C-e>", "compe#close('<C-e>')", {expr = true, silent = true, noremap = true})
 setmap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", {expr = true, silent = true, noremap = true})
 setmap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", {expr = true, silent = true, noremap = true})
---the comfirm key is define in autopairs module

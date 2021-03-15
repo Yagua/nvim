@@ -12,4 +12,4 @@ P = function(v)
 end
 
 -- `vim.opt`
-require('globals.opt')
+require('plugin.globals.opt')

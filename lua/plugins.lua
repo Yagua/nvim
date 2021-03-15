@@ -9,36 +9,39 @@ end
 
 return require('packer').startup(function(use)
 
-    -- INTELLISENSE
-    --use 'neoclide/coc.nvim'
+    -- PLUGIN MANAGER
     use 'wbthomason/packer.nvim'
+
     -- BETTER COMMENTS
     use 'scrooloose/nerdcommenter'
+    --use 'b3nj5m1n/kommentary'
+
     ---- EASYMOTION
     use 'easymotion/vim-easymotion'
+
     ---- SURROUND
     use 'tpope/vim-surround'
-    ---- BETTER SYNTAX SUPPORT
-    use 'sheerun/vim-polyglot'
-    use 'uiiaoo/java-syntax.vim'
-    use 'yuezk/vim-js'
-    use 'maxmellon/vim-jsx-pretty'
+
     ---- AUTO PAIRS
-    use 'nvim-autopairs'
-    --use 'jiangmiao/auto-pairs'
+    use 'windwp/nvim-autopairs'
+
     ---- ICONS
     use 'ryanoasis/vim-devicons'
     use 'kyazdani42/nvim-web-devicons'
+    use 'tjdevries/cyclist.vim'
+
     --TABLINE
     use 'mkitt/tabline.vim'
+
     ---- CLOSETAGS
     use 'alvan/vim-closetag'
+
     ---- THEMES
-    use 'DilanGMB/ForkMaterial'
+    use 'DilanGMB/nightbuddy'
     use 'gruvbox-community/gruvbox'
-    --use 'tjdevries/colorbuddy.vim'
-    --use 'DilanGMB/HorizonFork'
-    --use 'RishabhRD/nvim-rdark'
+    use 'tjdevries/colorbuddy.vim'
+    use 'Th3Whit3Wolf/onebuddy'
+
     ---- FINDER
     use {
       'nvim-telescope/telescope.nvim',
@@ -47,25 +50,32 @@ return require('packer').startup(function(use)
          'nvim-telescope/telescope-fzy-native.nvim'
       }}
     }
+
     ---- GIT
     use 'tpope/vim-fugitive'
+
     ----SNIPPETS
     use 'SirVer/ultisnips'
     use 'honza/vim-snippets'
     use 'mattn/emmet-vim'
-    ---- UNDO TREE
-    use 'mbbill/undotree'
-    ---- COLORIZER
-    use 'norcalli/nvim-colorizer.lua'
+
     ---- DEBUGGING
     use 'puremourning/vimspector'
     use 'szw/vim-maximizer'
+
     ----UTILS
-    use 'vim-mysql-plugin.git'
-    use 'yggdroot/indentline'
-    use 'luochen1990/rainbow'
+    use 'kezhenxu94/vim-mysql-plugin'
+    use 'mbbill/undotree'
+    use 'mhinz/vim-startify'
+    use 'norcalli/nvim-colorizer.lua'
+    use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
+    --use 'yggdroot/indentline'
+    --use 'p00f/nvim-ts-rainbow'
+    --use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
+
     ---- TREE
     use 'kyazdani42/nvim-tree.lua'
+
     ---- BUILT-IN LSP
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/plenary.nvim'
@@ -76,11 +86,15 @@ return require('packer').startup(function(use)
     use 'mfussenegger/nvim-jdtls'
     --use 'nvim-lua/completion-nvim'
     --use 'tjdevries/complextras.nvim'
+
     ---- STATUS LINE
     use 'tjdevries/express_line.nvim'
+
     -- TREESITTER
-    --use 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    --use 'nvim-treesitter/playground'
-    ----FIRENVIM
-    --use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
+    use {
+      'nvim-treesitter/nvim-treesitter',
+       run = function() vim.cmd [[TSUpdate]] end
+    }
+    use 'nvim-treesitter/playground'
+
 end)

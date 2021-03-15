@@ -1,6 +1,5 @@
 vim.cmd [[packadd express_line.nvim]]
-
-
+require('plugin.globals')
 RELOAD('el')
 require('el').reset_windows()
 
