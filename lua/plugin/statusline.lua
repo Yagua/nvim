@@ -9,6 +9,8 @@ local sections = require('el.sections')
 local subscribe = require('el.subscribe')
 local lsp_statusline = require('el.plugins.lsp_status')
 local helper = require('el.helper')
+--add username
+local userNm = vim.fn.expand('$USER')
 
 local git_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, bufnr)
   local icon = extensions.file_icon(_, bufnr)
@@ -61,6 +63,8 @@ require('el').setup {
       lsp_statusline.current_function,
       lsp_statusline.server_progress,
       git_changes,
+      --add user name
+      '[', userNm , ']',
       '[', builtin.line_with_width(3), ':',  builtin.column_with_width(2), ']',
       sections.collapse_builtin {
         '[',
