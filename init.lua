@@ -12,4 +12,3 @@ require('lsp')
 require('plugin.telescope')
 
 --Vimspector Modules
-require('plugin.vimspector')

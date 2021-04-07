@@ -22,6 +22,6 @@ let g:startify_bookmarks = [{'i': init}, {'o': opt}, {'p': plug}, {'z': zsh}]
 --enable incons in startify
 --vim.cmd([[
 --function! StartifyEntryFormat()
-        --return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
+  --return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 --endfunction
 --]])

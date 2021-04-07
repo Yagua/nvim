@@ -1,13 +1,14 @@
 local execute = vim.api.nvim_command
-local path_install = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-if vim.fn.empty(vim.fn.glob(path_install)) > 0 then
-    print("Auto Installing Packer.nvim...")
-    execute('!git clone https://github.com/wbthomason/packer.nvim ' .. path_install)
-    execute('packadd packer.nvim')
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  print("Auto Installing Packer.nvim...")
+  execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  execute('packadd packer.nvim')
 end
 
-return require('packer').startup(function(use)
+return require('packer').startup (
+  function(use)
 
     -- PLUGIN MANAGER
     use 'wbthomason/packer.nvim'
@@ -23,7 +24,7 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
 
     ---- AUTO PAIRS
-    use 'windwp/nvim-autopairs'
+    --use 'windwp/nvim-autopairs'
 
     ---- ICONS
     use 'ryanoasis/vim-devicons'
@@ -46,8 +47,8 @@ return require('packer').startup(function(use)
     use {
       'nvim-telescope/telescope.nvim',
       requires = {{
-         'nvim-lua/popup.nvim',
-         'nvim-telescope/telescope-fzy-native.nvim'
+        'nvim-lua/popup.nvim',
+        'nvim-telescope/telescope-fzy-native.nvim'
       }}
     }
 
@@ -93,8 +94,9 @@ return require('packer').startup(function(use)
     -- TREESITTER
     use {
       'nvim-treesitter/nvim-treesitter',
-       run = function() vim.cmd [[TSUpdate]] end
+      run = function() vim.cmd [[TSUpdate]] end
     }
     use 'nvim-treesitter/playground'
 
-end)
+  end
+)

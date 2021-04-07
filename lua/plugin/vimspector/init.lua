@@ -3,8 +3,8 @@ local exec, setmap = vim.api.nvim_exec, vim.api.nvim_set_keymap
 
 exec([[
 fun! GotoWin(id)
-    call win_gotoid(a:id)
-    MaximizerToggle
+  call win_gotoid(a:id)
+  MaximizerToggle
 endfun
 ]], true)
 
