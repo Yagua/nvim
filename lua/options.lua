@@ -29,5 +29,6 @@ opt.clipboard      = 'unnamedplus' -- Copy paste between Vim and everything else
 opt.guicursor      = {'n-v-c:block-Cursor/lCursor','i-ci-ve:ver25-Cursor2'} --Cursor settigs
 
 --COLORSCHEME SETTINGS
-vim.g.nb_style = ""
+
+vim.g.nb_style = "twilight"
 require('colorbuddy').colorscheme('nightbuddy')
