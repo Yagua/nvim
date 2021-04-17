@@ -17,14 +17,8 @@ return require('packer').startup (
     use 'scrooloose/nerdcommenter'
     --use 'b3nj5m1n/kommentary'
 
-    ---- EASYMOTION
-    use 'easymotion/vim-easymotion'
-
     ---- SURROUND
     use 'tpope/vim-surround'
-
-    ---- AUTO PAIRS
-    --use 'windwp/nvim-autopairs'
 
     ---- ICONS
     use 'ryanoasis/vim-devicons'
@@ -43,7 +37,7 @@ return require('packer').startup (
     use 'tjdevries/colorbuddy.vim'
     use 'Th3Whit3Wolf/onebuddy'
 
-    ---- FINDER
+    ---- TELESCOPE
     use {
       'nvim-telescope/telescope.nvim',
       requires = {{
@@ -70,7 +64,6 @@ return require('packer').startup (
     use 'mhinz/vim-startify'
     use 'norcalli/nvim-colorizer.lua'
     use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
-    --use 'yggdroot/indentline'
     --use 'p00f/nvim-ts-rainbow'
     --use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
 
@@ -85,7 +78,6 @@ return require('packer').startup (
     use 'RishabhRD/popfix'
     use 'RishabhRD/nvim-lsputils'
     use 'mfussenegger/nvim-jdtls'
-    --use 'nvim-lua/completion-nvim'
     --use 'tjdevries/complextras.nvim'
 
     ---- STATUS LINE

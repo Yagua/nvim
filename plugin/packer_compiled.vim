@@ -152,10 +152,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-devicons"
   },
-  ["vim-easymotion"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-easymotion"
-  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-fugitive"

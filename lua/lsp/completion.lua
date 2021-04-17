@@ -29,7 +29,8 @@ compe.setup {
   };
 }
 
-setmap("i", "<C-Space>", "compe#complete()", {expr = true, silent = true, noremap = true})
-setmap("i", "<C-e>", "compe#close('<C-e>')", {expr = true, silent = true, noremap = true})
-setmap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", {expr = true, silent = true, noremap = true})
-setmap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", {expr = true, silent = true, noremap = true})
+local opts = {expr = true, silent = true, noremap = true}
+setmap("i", "<C-Space>", "compe#complete()", opts )
+setmap("i", "<C-e>", "compe#close('<C-e>')", opts )
+setmap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", opts )
+setmap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", opts )
