@@ -4,6 +4,7 @@ opt.nvim_tree_hijack_netrw = 0
 opt.nvim_tree_quit_on_open = 1
 opt.nvim_tree_indent_markers = 1
 opt.nvim_tree_hide_dotfiles = 1
+opt.nvim_tree_auto_close = 1
 
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 vim.g.nvim_tree_bindings = {

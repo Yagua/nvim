@@ -15,7 +15,7 @@ return require('packer').startup (
 
     -- BETTER COMMENTS
     use 'scrooloose/nerdcommenter'
-    --use 'b3nj5m1n/kommentary'
+    --use 'tpope/vim-commentary'
 
     ---- SURROUND
     use 'tpope/vim-surround'
