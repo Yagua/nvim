@@ -60,6 +60,7 @@ return require('packer').startup (
 
     ----UTILS
     use 'kezhenxu94/vim-mysql-plugin'
+    use 'mhartington/formatter.nvim'
     use 'mbbill/undotree'
     use 'mhinz/vim-startify'
     use 'norcalli/nvim-colorizer.lua'
@@ -75,10 +76,10 @@ return require('packer').startup (
     use 'nvim-lua/plenary.nvim'
     use 'hrsh7th/nvim-compe'
     use 'onsails/lspkind-nvim'
-    use 'RishabhRD/popfix'
-    use 'RishabhRD/nvim-lsputils'
     use 'mfussenegger/nvim-jdtls'
     --use 'tjdevries/complextras.nvim'
+    --use 'RishabhRD/popfix'
+    --use 'RishabhRD/nvim-lsputils'
 
     ---- STATUS LINE
     use 'tjdevries/express_line.nvim'

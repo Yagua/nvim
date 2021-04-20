@@ -4,7 +4,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
      underline = true, -- Enable underline, use default values
      virtual_text = { -- Enable virtual text, override spacing to 4
        --spacing = 4,
-       --prefix = '',
+       --prefix = '',
      },
      -- Use a function to dynamically turn signs off
      -- and on, using buffer local variables

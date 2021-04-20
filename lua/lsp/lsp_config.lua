@@ -82,7 +82,15 @@ lsp.tsserver.setup{
   on_attach=on_attach
 }
 --# PYTHON
-lsp.pyright.setup{ on_attach = on_attach }
+lsp.pyls.setup{
+  plugins = {
+    pyls_mypy = {
+      enabled = true,
+      live_mode = false,
+    },
+  },
+  on_attach = on_attach
+}
 --# JSON
 lsp.jsonls.setup{ on_attach = on_attach }
 --# VIM
