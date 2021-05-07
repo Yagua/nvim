@@ -91,13 +91,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/formatter.nvim"
   },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/friendly-snippets"
+  },
   gruvbox = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/gruvbox"
-  },
-  ["lspkind-nvim"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
   },
   ["markdown-preview.nvim"] = {
     loaded = true,
@@ -171,10 +171,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
-  ultisnips = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/ultisnips"
-  },
   undotree = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/undotree"
@@ -199,10 +195,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-mysql-plugin"
   },
-  ["vim-snippets"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-snippets"
-  },
   ["vim-startify"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-startify"
@@ -210,6 +202,10 @@ _G.packer_plugins = {
   ["vim-surround"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-surround"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-vsnip"
   },
   vimspector = {
     loaded = true,

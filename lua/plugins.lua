@@ -50,8 +50,8 @@ return require('packer').startup (
     use 'tpope/vim-fugitive'
 
     ----SNIPPETS
-    use 'SirVer/ultisnips'
-    use 'honza/vim-snippets'
+    use "rafamadriz/friendly-snippets"
+    use "hrsh7th/vim-vsnip"
     use 'mattn/emmet-vim'
 
     ---- DEBUGGING
@@ -75,7 +75,6 @@ return require('packer').startup (
     use 'neovim/nvim-lspconfig'
     use 'nvim-lua/plenary.nvim'
     use 'hrsh7th/nvim-compe'
-    use 'onsails/lspkind-nvim'
     use 'mfussenegger/nvim-jdtls'
     --use 'tjdevries/complextras.nvim'
     --use 'RishabhRD/popfix'

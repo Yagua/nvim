@@ -25,10 +25,9 @@ opt.scrolloff      = 10            -- Limit number of the scroll action
 opt.updatetime     = 50            -- Make updates happen faster
 opt.colorcolumn    = 80            -- Set a column for 80 characters
 opt.signcolumn     = 'yes'         -- Always show the signcolumn
-opt.clipboard      = 'unnamedplus' -- Copy paste between Vim and everything else
+opt.clipboard      = ''            -- Copy paste between Vim and everything else
 opt.guicursor      = {'n-v-c:block-Cursor/lCursor','i-ci-ve:ver25-Cursor2'} --Cursor settigs
 
 --COLORSCHEME SETTINGS
-
 vim.g.nb_style = "twilight"
 require('colorbuddy').colorscheme('nightbuddy')

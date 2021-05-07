@@ -31,3 +31,17 @@ vim.fn.sign_define("LspDiagnosticsSignInformation",
     {text = ""})
 vim.fn.sign_define("LspDiagnosticsSignHint",
     {text = ""})
+
+--Diagnostics
+--vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
+  --vim.lsp.diagnostic.on_publish_diagnostics, {
+     --underline = true, -- Enable underline, use default values
+     --virtual_text = true,
+     --signs = true,
+     --update_in_insert = false, -- Disable a feature
+     ----virtual_text = { -- Enable virtual text, override spacing to 4
+       ------spacing = 4,
+       ------prefix = '',
+     ----},
+    --}
+--)
