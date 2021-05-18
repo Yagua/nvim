@@ -43,17 +43,12 @@ local git_changes = subscribe.buf_autocmd(
 require('el').setup {
   generator = function(_, _)
     return {
-      extensions.gen_mode {
-        format_string = '[ %s ]'
-      },
+      extensions.gen_mode { format_string = '[ %s ]' },
       git_branch,
       ' ',
       sections.split,
       git_icon,
-      sections.maximum_width(
-        builtin.responsive_file(140, 90),
-        0.30
-      ),
+      sections.maximum_width( builtin.responsive_file(140, 90), 0.30),
       sections.collapse_builtin {
         ' ',
         builtin.modified_flag
@@ -67,10 +62,7 @@ require('el').setup {
       '[', userNm , ']',
       '[', builtin.line_with_width(3), ':',  builtin.column_with_width(2), ']',
       sections.collapse_builtin {
-        '[',
-        builtin.help_list,
-        builtin.readonly_list,
-        ']',
+        '[', builtin.help_list, builtin.readonly_list, ']',
       },
       builtin.filetype,
     }

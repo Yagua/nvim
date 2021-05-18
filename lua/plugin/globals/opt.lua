@@ -2,7 +2,7 @@
 
 local function set_opts(opts_table)
   for k, v in pairs(opts_table) do
-    vim.opt[k] = v
+   vim.opt[k] = v
   end
 end
 
