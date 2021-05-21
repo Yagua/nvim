@@ -103,6 +103,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim"
   },
+  ["mysql-nvim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/mysql-nvim"
+  },
   nerdcommenter = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nerdcommenter"

@@ -64,7 +64,7 @@ require('el').setup {
       sections.collapse_builtin {
         '[', builtin.help_list, builtin.readonly_list, ']',
       },
-      builtin.filetype,
+      builtin.filetype
     }
   end
 }

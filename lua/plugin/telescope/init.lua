@@ -7,3 +7,4 @@ keymap("n", "<leader>sg", [[:lua require('telescope.builtin').find_files()<CR>]]
 keymap("n", "<leader>pw", [[:lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>]], opts )
 keymap("n", "<leader>bk", [[:lua require('telescope.builtin').buffers()<CR>]], opts )
 keymap("n", "<leader>vh", [[:lua require('telescope.builtin').help_tags()<CR>]], opts )
+keymap("n", "<leader>te", [[:Telescope<CR>]], opts )
