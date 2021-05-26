@@ -18,7 +18,7 @@ return require('packer').startup ( function(use)
   end
 
   -- Local plugins
-  local_use 'mysql-nvim'
+  local_use 'nvimdb'
 
   -- Plugin manager
   use 'wbthomason/packer.nvim'
@@ -69,7 +69,7 @@ return require('packer').startup ( function(use)
   use 'szw/vim-maximizer'
 
   -- Utils
-  use 'kezhenxu94/vim-mysql-plugin'
+  --use 'kezhenxu94/vim-mysql-plugin'
   use 'mhartington/formatter.nvim'
   use 'mbbill/undotree'
   use 'mhinz/vim-startify'

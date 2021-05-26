@@ -1,3 +1,6 @@
+--Mapleader
+vim.g.mapleader = " "
+
 -- General Modules
 require('plugins')
 require('plugin.globals')

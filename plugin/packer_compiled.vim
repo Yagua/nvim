@@ -103,10 +103,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim"
   },
-  ["mysql-nvim"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/mysql-nvim"
-  },
   nerdcommenter = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nerdcommenter"
@@ -142,6 +138,10 @@ _G.packer_plugins = {
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
+  },
+  nvimdb = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvimdb"
   },
   onebuddy = {
     loaded = true,
@@ -194,10 +194,6 @@ _G.packer_plugins = {
   ["vim-maximizer"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-maximizer"
-  },
-  ["vim-mysql-plugin"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-mysql-plugin"
   },
   ["vim-startify"] = {
     loaded = true,

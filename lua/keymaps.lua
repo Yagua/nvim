@@ -2,8 +2,6 @@ local setmap = vim.api.nvim_set_keymap
 local optnore = {expr = false, silent = false, noremap = true}
 local opts = {expr = false, silent = false, noremap = false }
 
-vim.g.mapleader = " "
-
 setmap("n", "<leader>ww", ":w!<CR>", optnore )
 setmap("n", "<leader>qq", ":q!<CR>", optnore )
 setmap("n", "<C-n>", ":NvimTreeToggle<CR>", optnore )
