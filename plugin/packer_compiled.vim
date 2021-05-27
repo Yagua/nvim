@@ -99,6 +99,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/gruvbox"
   },
+  ["gruvbox-flat.nvim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/gruvbox-flat.nvim"
+  },
   ["markdown-preview.nvim"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim"

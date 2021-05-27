@@ -43,6 +43,7 @@ return require('packer').startup ( function(use)
 
   -- Themes
   local_use 'nightbuddy'
+  use 'eddyekofo94/gruvbox-flat.nvim'
   use 'gruvbox-community/gruvbox'
   use 'tjdevries/colorbuddy.vim'
   use 'Th3Whit3Wolf/onebuddy'

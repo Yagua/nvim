@@ -22,7 +22,6 @@ local on_attach = function(_)
   keymap('n','<leader>re','<cmd>lua vim.lsp.buf.references()<CR>')
   keymap('n','<leader>vi','<cmd>lua vim.lsp.buf.implementation()<CR>')
   keymap('n','<leader>sh','<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  keymap('n','<leader>vh','<cmd>lua vim.lsp.buf.hover()<CR>')
   keymap('n','<leader>gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
   keymap('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
   keymap('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
@@ -122,3 +121,9 @@ lsp.cssls.setup{
 --lsp.gopls.setup{ on_attach = on_attach}
 ----# YAML
 --lsp.yamlls.setup{ on_attach = on_attach }
+
+--lsp.sqlls.setup{
+  --cmd = {"sql-language-server", "up", "--method", "stdio"},
+  --on_attach = on_attach,
+  --capabilities = capabilities,
+--}
