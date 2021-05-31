@@ -42,11 +42,9 @@ return require('packer').startup ( function(use)
   use 'alvan/vim-closetag'
 
   -- Themes
-  local_use 'nightbuddy'
+  local_use 'nebulous.nvim'
   use 'eddyekofo94/gruvbox-flat.nvim'
   use 'gruvbox-community/gruvbox'
-  use 'tjdevries/colorbuddy.vim'
-  use 'Th3Whit3Wolf/onebuddy'
 
   -- Telescope
   use {

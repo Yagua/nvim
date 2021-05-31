@@ -1,6 +1,7 @@
 require('plugin.autocommands')
 require('plugin.closetags')
 require('plugin.colorizer')
+require('plugin.colorscheme')
 require('plugin.commenter')
 require('plugin.formater')
 require('plugin.netrw')

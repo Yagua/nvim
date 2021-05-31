@@ -107,13 +107,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim"
   },
+  ["nebulous.nvim"] = {
+    loaded = true,
+    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nebulous.nvim"
+  },
   nerdcommenter = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nerdcommenter"
-  },
-  nightbuddy = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nightbuddy"
   },
   ["nvim-colorizer.lua"] = {
     loaded = true,
@@ -146,10 +146,6 @@ _G.packer_plugins = {
   nvimdb = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvimdb"
-  },
-  onebuddy = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/onebuddy"
   },
   ["packer.nvim"] = {
     loaded = true,
