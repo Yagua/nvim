@@ -71,10 +71,6 @@ end
 time("try_loadstring definition", false)
 time("Defining packer_plugins", true)
 _G.packer_plugins = {
-  ["colorbuddy.vim"] = {
-    loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/colorbuddy.vim"
-  },
   ["cyclist.vim"] = {
     loaded = true,
     path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/cyclist.vim"
