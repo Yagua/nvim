@@ -6,6 +6,26 @@ function M.setup()
     cmd = { server_cmd }
   })
 
+  --change runtimes
+  --require("jdtls").start_or_attach {
+    --cmd = { server_cmd },
+    --settings = {
+      --java = {
+        --configuration = {
+          --runtimes = {
+            --{
+              --name = "JavaSE-1.8",
+              --path = "/opt/jdk1.8/",
+            --}
+          --}
+        --}
+      --}
+    --},
+    --on_init = function(client)
+      --client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+    --end
+  --}
+
   -- Utility servers
   local keymap = function(type, key, value)
     vim.api.nvim_buf_set_keymap(0, type, key, value, {noremap = true, silent = true});

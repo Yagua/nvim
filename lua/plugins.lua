@@ -74,7 +74,6 @@ return require('packer').startup ( function(use)
   use 'mhinz/vim-startify'
   use 'norcalli/nvim-colorizer.lua'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
-  --use 'p00f/nvim-ts-rainbow'
   --use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
 
   -- Tree
@@ -85,9 +84,6 @@ return require('packer').startup ( function(use)
   use 'nvim-lua/plenary.nvim'
   use 'hrsh7th/nvim-compe'
   use 'mfussenegger/nvim-jdtls'
-  --use 'tjdevries/complextras.nvim'
-  --use 'RishabhRD/popfix'
-  --use 'RishabhRD/nvim-lsputils'
 
   -- Status line
   use 'tjdevries/express_line.nvim'

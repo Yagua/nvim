@@ -26,7 +26,7 @@ compe.setup {
     spell = { kind = "  (Spell)"},
     vsnip = { kind = "  (Snippet)" };
     nvim_lsp = true;
-    nvim_lua = false;
+    nvim_lua = true;
     tags = false;
     ultisnips = false;
   };

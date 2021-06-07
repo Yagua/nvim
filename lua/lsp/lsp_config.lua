@@ -92,7 +92,7 @@ lsp.pyls.setup{
   on_attach = on_attach
 }
 --# JSON
-lsp.jsonls.setup{ on_attach = on_attach }
+--lsp.jsonls.setup{ on_attach = on_attach }
 --# VIM
 lsp.vimls.setup{ on_attach = on_attach }
 --# C++/C
