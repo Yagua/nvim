@@ -47,8 +47,8 @@ local function save_profiles(threshold)
 end
 
 time("Luarocks path setup", true)
-local package_path_str = "/home/dilanbar/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/dilanbar/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/dilanbar/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/dilanbar/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/dilanbar/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/yagua/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/yagua/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/yagua/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/yagua/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/yagua/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -73,139 +73,139 @@ time("Defining packer_plugins", true)
 _G.packer_plugins = {
   ["cyclist.vim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/cyclist.vim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/cyclist.vim"
   },
   ["emmet-vim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/emmet-vim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/emmet-vim"
   },
   ["express_line.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/express_line.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/express_line.nvim"
   },
   ["formatter.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/formatter.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/formatter.nvim"
   },
   ["friendly-snippets"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/friendly-snippets"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/friendly-snippets"
   },
   gruvbox = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/gruvbox"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/gruvbox"
   },
   ["gruvbox-flat.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/gruvbox-flat.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/gruvbox-flat.nvim"
   },
   ["markdown-preview.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim"
   },
   ["nebulous.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nebulous.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nebulous.nvim"
   },
   nerdcommenter = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nerdcommenter"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nerdcommenter"
   },
   ["nvim-colorizer.lua"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
   ["nvim-compe"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-compe"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-compe"
   },
   ["nvim-jdtls"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-jdtls"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-jdtls"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
   nvimdb = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/nvimdb"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvimdb"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
   playground = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/playground"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/playground"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/plenary.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/plenary.nvim"
   },
   ["popup.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/popup.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/popup.nvim"
   },
   ["tabline.vim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/tabline.vim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/tabline.vim"
   },
   ["telescope-fzy-native.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
   undotree = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/undotree"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/undotree"
   },
   ["vim-closetag"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-closetag"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-closetag"
   },
   ["vim-devicons"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-devicons"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-devicons"
   },
   ["vim-fugitive"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-fugitive"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-fugitive"
   },
   ["vim-maximizer"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-maximizer"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-maximizer"
   },
   ["vim-startify"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-startify"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-startify"
   },
   ["vim-surround"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-surround"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
   ["vim-vsnip"] = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vim-vsnip"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-vsnip"
   },
   vimspector = {
     loaded = true,
-    path = "/home/dilanbar/.local/share/nvim/site/pack/packer/start/vimspector"
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vimspector"
   }
 }
 
