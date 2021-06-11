@@ -5,13 +5,7 @@ vim.cmd[[augroup highlight_yank]]
 vim.cmd[[augroup END]]
 
 --# JAVA
-vim.cmd[[augroup lsp]]
-  vim.cmd[[au!]]
-  vim.cmd[[au FileType java lua require'lsp.jdtls_config'.setup()]]
-vim.cmd[[augroup end]]
-
---# SQL / require plugin client
-vim.cmd[[augroup SqlFiles]]
+vim.cmd[[augroup jdtls_lsp]]
   vim.cmd[[autocmd!]]
-  vim.cmd[[autocmd FileType sql nnoremap <Leader>as A-- --defaults-group-suffix=<CR>-- -t<CR>--<CR>]]
-vim.cmd[[augroup END]]
+  vim.cmd[[autocmd FileType java lua require'lsp.jdtls_config'.setup()]]
+vim.cmd[[augroup end]]
