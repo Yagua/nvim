@@ -35,7 +35,7 @@ compe.setup {
 vim.lsp.protocol.CompletionItemKind = {
     "  (Text)",
     "  (Method)",
-    "  (Function)",
+    "  (Function)",
     "  (Constructor)",
     "ﴲ  (Field)",
     "  (Variable)",

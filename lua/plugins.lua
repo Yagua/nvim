@@ -84,6 +84,8 @@ return require('packer').startup ( function(use)
   use 'nvim-lua/plenary.nvim'
   use 'hrsh7th/nvim-compe'
   use 'mfussenegger/nvim-jdtls'
+  use 'RishabhRD/popfix'
+  use 'RishabhRD/nvim-lsputils'
 
   -- Status line
   use 'tjdevries/express_line.nvim'

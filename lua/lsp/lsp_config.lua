@@ -9,38 +9,43 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
  --Utility servers
+local keymap = function(type, key, value)
+  vim.api.nvim_buf_set_keymap(0, type, key, value, {noremap = true, silent = true});
+end
+
+--Custom code action handler
+vim.lsp.handlers['textDocument/codeAction'] =
+  require'lsputil.codeAction'.code_action_handler
 
 -- configuring LSP servers
-local on_attach = function(client, bufnr)
-  local opts = { noremap = true, silent = true }
-  local function buf_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local on_attach = function(_)
   print("[LSP]: Server Started");
 
-  buf_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_keymap('n', '<leader>du', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_keymap('n', '<leader>re', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_keymap('n', '<leader>vi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_keymap('n', '<leader>sh', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_keymap('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_keymap('n', '<leader>gw', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
-  buf_keymap('n', '<leader>gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+  keymap('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
+  keymap('n','<leader>du','<cmd>lua vim.lsp.buf.definition()<CR>')
+  keymap('n','<leader>re','<cmd>lua vim.lsp.buf.references()<CR>')
+  keymap('n','<leader>vi','<cmd>lua vim.lsp.buf.implementation()<CR>')
+  keymap('n','<leader>sh','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  keymap('n','<leader>gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  keymap('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+  keymap('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
   -- ACTION mappings
-  buf_keymap('n', '<leader>ah', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  keymap('n','<leader>ah',  '<cmd>lua vim.lsp.buf.hover()<CR>')
+  keymap('n','<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+  keymap('n','<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>')
   -- Few language severs support these three
-  buf_keymap('n', '<leader>=',  '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_keymap('n', '<leader>ai', '<cmd>lua vim.lsp.buf.incoming_calls()<CR>', opts)
-  buf_keymap('n', '<leader>ao', '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>', opts)
+  keymap('n','<leader>=',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
+  keymap('n','<leader>ai',  '<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+  keymap('n','<leader>ao',  '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
   -- Diagnostics mapping
-  buf_keymap('n', '<leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_keymap('n', '<leader>en', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_keymap('n', '<leader>es', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  keymap('n','<leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  keymap('n','<leader>en', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+  keymap('n','<leader>es', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 end
 
 --=======SERVERS======
 --# LUA
-local sumneko_root_path = os.getenv('HOME')..'/.local/servers/lua-language-server'
+local sumneko_root_path = vim.fn.expand('$HOME')..'/.local/servers/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
 lsp.sumneko_lua.setup{
   cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
