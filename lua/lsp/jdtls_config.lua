@@ -42,10 +42,10 @@ function M.setup()
   keymap("v", "<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>")
 
   -- Root dir config
-  local root_markers = { 'gradlew', 'pom.xml', 'build.gradle' }
+  local root_markers = { 'pom.xml', 'build.gradle' }
   local root_dir = require('jdtls.setup').find_root(root_markers)
   local workspace_folder = string.format(
-    "%s/.workspace/ws-%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
+    "%s/.workspace/ws-%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:h:t")
   )
 
   -- Jdtls configs
