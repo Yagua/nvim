@@ -86,7 +86,7 @@ lsp.tsserver.setup{
   on_attach = on_attach
 }
 --# PYTHON
-lsp.pyls.setup{
+lsp.pylsp.setup{
   plugins = {
     pyls_mypy = {
       enabled = true,
@@ -95,8 +95,6 @@ lsp.pyls.setup{
   },
   on_attach = on_attach
 }
---# JSON
---lsp.jsonls.setup{ on_attach = on_attach }
 --# VIM
 lsp.vimls.setup{ on_attach = on_attach }
 --# C++/C
@@ -111,21 +109,28 @@ lsp.cssls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
 }
+--# GO
+lsp.gopls.setup{
+  cmd = { "gopls", "serve" },
+  filetypes = { "go", "gomod" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+--# PHP
+--lsp.intelephense.setup{
+  --cmd = { "intelephense", "--stdio" },
+  --filetypes = { "php" },
+  --on_attach = on_attach,
+--}
+--# JSON
+--lsp.jsonls.setup{ on_attach = on_attach }
 --# DOCKER
 --lsp.dockerls.setup{
   --on_attach = on_attach,
 --}
-----# PHP
---lsp.intelephense.setup{
-  --cmd = { "intelephense", "--stdio" },
-  --filetypes = { "php" },
-  --on_attach = on_attach
---}
-----# GO
---lsp.gopls.setup{ on_attach = on_attach}
 ----# YAML
 --lsp.yamlls.setup{ on_attach = on_attach }
-
 --lsp.sqlls.setup{
   --cmd = {"sql-language-server", "up", "--method", "stdio"},
   --on_attach = on_attach,

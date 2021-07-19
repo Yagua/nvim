@@ -7,7 +7,7 @@ end
 
 vim.api.nvim_command('packadd packer.nvim')
 
-local no_errors = pcall(function()
+local no_errors, error_msg = pcall(function()
 
   local time
   local profile_info
@@ -25,7 +25,7 @@ local no_errors = pcall(function()
   else
     time = function(chunk, start) end
   end
-
+  
 local function save_profiles(threshold)
   local sorted_times = {}
   for chunk_name, time_taken in pairs(profile_info) do
@@ -221,5 +221,5 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
-  vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: ".v:exception | echom "Please check your config for correctness" | echohl None')
+  vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

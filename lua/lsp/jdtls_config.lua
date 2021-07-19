@@ -45,7 +45,7 @@ function M.setup()
   local root_markers = { 'pom.xml', 'build.gradle' }
   local root_dir = require('jdtls.setup').find_root(root_markers)
   local workspace_folder = string.format(
-    "%s/.workspace/ws-%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:h:t")
+    "%s/.workspace/ws-%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
   )
 
   -- Jdtls configs
