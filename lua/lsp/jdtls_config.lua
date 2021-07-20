@@ -58,13 +58,17 @@ function M.setup()
       configuration = {
         runtimes = {
           {
-            name = "JavaSE-14",
-            path = "/opt/jdk-14.0.2/"
+            name = "JavaSE-1.8",
+            path = "/opt/Java/jdk1.8/",
           },
           {
-            name = "JavaSE-1.8",
-            path = "/opt/jdk1.8/",
-          }
+            name = "JavaSE-11",
+            path = "/opt/Java/jdk-11.0.12/",
+          },
+          {
+            name = "JavaSE-14",
+            path = "/opt/Java/jdk-14.0.2/"
+          },
         }
       }
     }
