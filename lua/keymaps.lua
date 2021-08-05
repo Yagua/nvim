@@ -17,3 +17,6 @@ setmap("n", "<leader>ma", ":MaximizerToggle!<CR>", optnore )
 setmap("n", "<leader>y", "\"+y", optnore)
 setmap("v", "<leader>y", "\"+y", optnore)
 setmap("v", "<leader>Y", "gg\"+yG", optnore)
+
+setmap("n", "<Right>", "gt", optnore)
+setmap("n", "<Left>", "gT", optnore)
