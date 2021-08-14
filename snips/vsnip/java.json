@@ -147,6 +147,10 @@
     "prefix": "etter",
     "body": ["public ${1:void} ${2:name}($3) {", "\t$0", "}"],
     "description": "setter or getter body"
+  },
+  "docc": {
+    "prefix": "docc",
+    "body": ["/**","* ${0}", "*/"],
+    "description": "Documentation comment"
   }
-
 }
