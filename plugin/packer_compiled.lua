@@ -212,6 +212,10 @@ _G.packer_plugins = {
   vimspector = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vimspector"
+  },
+  vimtex = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vimtex"
   }
 }
 

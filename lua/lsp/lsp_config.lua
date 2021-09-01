@@ -45,8 +45,9 @@ end
 
 --=======SERVERS======
 --# LUA
-local sumneko_root_path = vim.fn.expand('$HOME')..'/.local/servers/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
+local HOME = os.getenv("HOME")
+local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
+local sumneko_binary = string.format("%s/bin/Linux/lua-language-server", sumneko_root_path)
 lsp.sumneko_lua.setup{
   cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
     settings = {
@@ -115,6 +116,14 @@ lsp.gopls.setup{
   filetypes = { "go", "gomod" },
   on_attach = on_attach,
   capabilities = capabilities,
+}
+
+--TEMPORARY
+lsp.texlab.setup{
+  cmd = { string.format("%s/.local/servers/texlab/texlab", HOME) },
+  filetypes = { "tex", "bib" },
+  on_attach = on_attach,
+  --capabilities = capabilities,
 }
 
 --# PHP

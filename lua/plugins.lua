@@ -97,4 +97,7 @@ return require('packer').startup ( function(use)
   }
   use 'nvim-treesitter/playground'
 
+  -- LaTex
+  use 'lervag/vimtex'
+
 end)

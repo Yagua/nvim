@@ -63,6 +63,6 @@ vim.lsp.protocol.CompletionItemKind = {
 setmap("i", "<CR>", "compe#confirm('<CR>')", opts )
 setmap("i", "<C-Space>", "compe#complete()", opts )
 setmap("i", "<C-e>", "compe#close('<C-e>')", opts )
-setmap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", opts )
-setmap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", opts )
+setmap("i", "<C-d>", "compe#scroll({ 'delta': +4 })", opts )
+setmap("i", "<C-f>", "compe#scroll({ 'delta': -4 })", opts )
 --setmap("i", "<C-...>", "compe#close('<C-...>')", opts )
