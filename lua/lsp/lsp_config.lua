@@ -123,7 +123,7 @@ lsp.texlab.setup{
   cmd = { string.format("%s/.local/servers/texlab/texlab", HOME) },
   filetypes = { "tex", "bib" },
   on_attach = on_attach,
-  --capabilities = capabilities,
+  capabilities = capabilities,
 }
 
 --# PHP
