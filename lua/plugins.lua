@@ -13,7 +13,7 @@ return require('packer').startup ( function(use)
     if vim.fn.isdirectory(vim.fn.expand("~/Plugins/" .. plug_path)) == 1 then
       use("~/Plugins/" .. plug_path)
     else
-      use(string.format('%s/%s', vim.fn.expand("$HOME"), plug_path))
+      use(string.format('%s/%s', os.getenv("HOME"), plug_path))
     end
   end
 
@@ -25,7 +25,6 @@ return require('packer').startup ( function(use)
 
   -- Better comments
   use 'scrooloose/nerdcommenter'
-  --use 'tpope/vim-commentary'
 
   -- Surround
   use 'tpope/vim-surround'
@@ -61,20 +60,16 @@ return require('packer').startup ( function(use)
   -- Snippets
   use "rafamadriz/friendly-snippets"
   use "hrsh7th/vim-vsnip"
-  use 'mattn/emmet-vim'
 
   -- Debugging
-  use 'puremourning/vimspector'
-  use 'szw/vim-maximizer'
+  use 'mfussenegger/nvim-dap'
 
   -- Utils
-  --use 'kezhenxu94/vim-mysql-plugin'
   use 'mhartington/formatter.nvim'
   use 'mbbill/undotree'
   use 'mhinz/vim-startify'
   use 'norcalli/nvim-colorizer.lua'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
-  --use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'
@@ -93,7 +88,7 @@ return require('packer').startup ( function(use)
   -- Treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = function() vim.cmd [[TSUpdate]] end
+    run = function() vim.cmd[[TSUpdate]] end
   }
   use 'nvim-treesitter/playground'
 

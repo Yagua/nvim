@@ -1,16 +1,9 @@
-vim.cmd [[packadd express_line.nvim]]
-require('plugin.globals')
-RELOAD('el')
-require('el').reset_windows()
-
 local builtin = require('el.builtin')
 local extensions = require('el.extensions')
 local sections = require('el.sections')
 local subscribe = require('el.subscribe')
 local lsp_statusline = require('el.plugins.lsp_status')
 local helper = require('el.helper')
---add username
-local userNm = vim.fn.expand('$USER')
 
 local git_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, bufnr)
   local icon = extensions.file_icon(_, bufnr)
@@ -59,7 +52,7 @@ require('el').setup {
       lsp_statusline.server_progress,
       git_changes,
       --add user name
-      '[', userNm , ']',
+      '[', os.getenv('USER') , ']',
       '[', builtin.line_with_width(3), ':',  builtin.column_with_width(2), ']',
       sections.collapse_builtin {
         '[', builtin.help_list, builtin.readonly_list, ']',

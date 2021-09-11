@@ -73,10 +73,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/cyclist.vim"
   },
-  ["emmet-vim"] = {
-    loaded = true,
-    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/emmet-vim"
-  },
   ["express_line.nvim"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/express_line.nvim"
@@ -116,6 +112,10 @@ _G.packer_plugins = {
   ["nvim-compe"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-compe"
+  },
+  ["nvim-dap"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/nvim-dap"
   },
   ["nvim-jdtls"] = {
     loaded = true,
@@ -193,10 +193,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-fugitive"
   },
-  ["vim-maximizer"] = {
-    loaded = true,
-    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-maximizer"
-  },
   ["vim-startify"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-startify"
@@ -208,10 +204,6 @@ _G.packer_plugins = {
   ["vim-vsnip"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-vsnip"
-  },
-  vimspector = {
-    loaded = true,
-    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vimspector"
   },
   vimtex = {
     loaded = true,

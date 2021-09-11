@@ -1,9 +1,9 @@
-vim.cmd[[set shortmess+=c]] --  Don't pass messages to |ins-completion-menu|.
-vim.opt.completeopt = { "menuone" , "noinsert", "noselect" }
-
 local compe = require('compe')
 local setmap = vim.api.nvim_set_keymap
 local opts = {expr = true, silent = true, noremap = true}
+
+vim.cmd[[set shortmess+=c]] --  Don't pass messages to |ins-completion-menu|.
+vim.opt.completeopt = { "menuone" , "noinsert", "noselect" }
 
 compe.setup {
   enabled = true;

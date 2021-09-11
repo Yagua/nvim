@@ -1,5 +1,4 @@
 --COLORIZER_SETUP
-vim.o.termguicolors = true
 require('colorizer').setup(
   {'*';},
   {

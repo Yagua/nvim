@@ -1,21 +1,37 @@
--- setup lsp
 local lsp = require('lspconfig')
 
--- external modules
-require('lsp.diagnostics')
+--Diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+     underline = true, -- Enable underline, use default values
+     virtual_text = true,
+     signs = true,
+     update_in_insert = false, -- Disable a feature
+     --virtual_text = { -- Enable virtual text, override spacing to 4
+       ----spacing = 4,
+       ----prefix = '',
+     --},
+    }
+)
+
+--Diagnostics Signs
+vim.fn.sign_define("LspDiagnosticsSignError", {text = ""})
+vim.fn.sign_define("LspDiagnosticsSignWarning", {text = ""})
+vim.fn.sign_define("LspDiagnosticsSignInformation", {text = ""})
+vim.fn.sign_define("LspDiagnosticsSignHint", {text = ""})
 
 -- For snippet support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+--Custom code action handler
+vim.lsp.handlers['textDocument/codeAction'] =
+  require'lsputil.codeAction'.code_action_handler
+
  --Utility servers
 local keymap = function(type, key, value)
   vim.api.nvim_buf_set_keymap(0, type, key, value, {noremap = true, silent = true});
 end
-
---Custom code action handler
-vim.lsp.handlers['textDocument/codeAction'] =
-  require'lsputil.codeAction'.code_action_handler
 
 -- configuring LSP servers
 local on_attach = function(_)

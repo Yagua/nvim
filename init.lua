@@ -18,15 +18,11 @@ vim.g.mapleader = " "
 
 -- General Modules
 require('plugins')
-require('plugin.globals')
-require('plugin')
-require('options')
-require('keymaps')
+require('yagua.options')
+require('yagua.keymaps')
 
 --Lsp Modules
-require('lsp')
+require('yagua.lsp')
 
---Telescope Modules
-require('plugin.telescope')
-
---Vimspector Modules
+--Telescope
+require("yagua.telescope")
