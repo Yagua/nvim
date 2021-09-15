@@ -20,6 +20,7 @@ g.startify_bookmarks = {
   { ['o']  = set_path(".config/nvim/lua/yagua/options.lua") },
   { ['p']  = set_path(".config/nvim/lua/plugins.lua") },
   { ['z']  = set_path(".config/zsh/zshrc") },
+  { ['w']  = set_path(".config/i3/config") },
 }
 
 --enable incons in startify

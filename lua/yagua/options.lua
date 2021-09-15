@@ -2,7 +2,7 @@ local load_opts = require("yagua.globals").opts
 
 --SETTINGS
 load_opts {
-  cursorline     = true,          -- Highlight the current line
+  cursorline     = true,         -- Highlight the current line
   showmatch      = true,         -- show matching brackets when text indicator is over them
   relativenumber = true,         -- Show line numbers
   number         = true,         -- Show the actual number
