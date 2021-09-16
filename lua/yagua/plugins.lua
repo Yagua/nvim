@@ -70,6 +70,7 @@ return require('packer').startup ( function(use)
   use 'mhinz/vim-startify'
   use 'norcalli/nvim-colorizer.lua'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
+  use 'szw/vim-maximizer'
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'

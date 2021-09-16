@@ -17,7 +17,7 @@
 vim.g.mapleader = " "
 
 -- General Modules
-require('plugins')
+require('yagua.plugins')
 require('yagua.options')
 require('yagua.keymaps')
 

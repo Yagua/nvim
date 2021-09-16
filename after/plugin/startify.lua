@@ -18,7 +18,7 @@ g.startify_session_delete_buffers = 1
 g.startify_bookmarks = {
   { ['i']  = set_path(".config/nvim/init.lua") },
   { ['o']  = set_path(".config/nvim/lua/yagua/options.lua") },
-  { ['p']  = set_path(".config/nvim/lua/plugins.lua") },
+  { ['p']  = set_path(".config/nvim/lua/yagua/plugins.lua") },
   { ['z']  = set_path(".config/zsh/zshrc") },
   { ['w']  = set_path(".config/i3/config") },
 }

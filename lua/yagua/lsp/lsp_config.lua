@@ -15,10 +15,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
 )
 
 --Diagnostics Signs
-vim.fn.sign_define("LspDiagnosticsSignError", {text = ""})
-vim.fn.sign_define("LspDiagnosticsSignWarning", {text = ""})
-vim.fn.sign_define("LspDiagnosticsSignInformation", {text = ""})
-vim.fn.sign_define("LspDiagnosticsSignHint", {text = ""})
+--vim.fn.sign_define("LspDiagnosticsSignError", {text = ""})
+--vim.fn.sign_define("LspDiagnosticsSignWarning", {text = ""})
+--vim.fn.sign_define("LspDiagnosticsSignInformation", {text = ""})
+--vim.fn.sign_define("LspDiagnosticsSignHint", {text = ""})
 
 -- For snippet support
 local capabilities = vim.lsp.protocol.make_client_capabilities()

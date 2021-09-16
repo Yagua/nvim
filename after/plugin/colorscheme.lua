@@ -1,5 +1,6 @@
 --Colorscheme Settings
-require("nebulous").setup {
+local nebulous = require("nebulous")
+nebulous.setup {
   variant = "fullmoon",
   disable = {
     background = false,
