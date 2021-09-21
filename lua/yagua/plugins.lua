@@ -56,6 +56,7 @@ return require('packer').startup ( function(use)
 
   -- Git
   use 'tpope/vim-fugitive'
+  use 'lewis6991/gitsigns.nvim'
 
   -- Snippets
   use "rafamadriz/friendly-snippets"

@@ -85,6 +85,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/friendly-snippets"
   },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+  },
   gruvbox = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/gruvbox"

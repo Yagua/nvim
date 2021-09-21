@@ -20,3 +20,9 @@ setmap("v", "<leader>Y", "gg\"+yG", optnore)
 
 setmap("n", "<Right>", "gt", optnore)
 setmap("n", "<Left>", "gT", optnore)
+
+setmap("n", "<A-,>", "<C-W>5<", optnore)
+setmap("n", "<A-.>", "<C-W>5>", optnore)
+setmap("n", "<C-,>", "<C-W><", optnore)
+setmap("n", "<C-.>", "<C-W>>", optnore)
+setmap("n", "<Leader>=", "<C-W>=", optnore)

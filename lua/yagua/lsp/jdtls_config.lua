@@ -78,7 +78,7 @@ function M.setup()
 
   --UI
   require('jdtls.ui').pick_one_async = function (items, _, _, cb)
-    require'lsputil.codeAction'.code_action_handler(nil, nil, items, nil, nil, nil, cb)
+    require'lsputil.codeAction'.code_action_handler(nil, items, nil, nil, cb)
   end
 
   --Setup client
