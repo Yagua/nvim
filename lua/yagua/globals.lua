@@ -7,4 +7,9 @@ function globals.opts(opts_table)
   end
 end
 
+function ST(table)
+  print(vim.inspect(table))
+  return table
+end
+
 return globals
