@@ -25,8 +25,8 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 --Custom code action handler
---vim.lsp.handlers['textDocument/codeAction'] =
-  --require'lsputil.codeAction'.code_action_handler
+vim.lsp.handlers['textDocument/codeAction'] =
+  require'lsputil.codeAction'.code_action_handler
 
  --Utility servers
 local keymap = function(type, key, value)
@@ -35,7 +35,7 @@ end
 
 -- configuring LSP servers
 local on_attach = function(_)
-  print("[LSP]: Server Started");
+  print("[LSP] Server Started");
 
   keymap('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
   keymap('n','<leader>du','<cmd>lua vim.lsp.buf.definition()<CR>')

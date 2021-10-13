@@ -7,7 +7,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   execute('packadd packer.nvim')
 end
 
-return require('packer').startup ( function(use)
+return require('packer').startup(function(use)
 
   local local_use = function(plug_path)
     if vim.fn.isdirectory(vim.fn.expand("~/Plugins/" .. plug_path)) == 1 then

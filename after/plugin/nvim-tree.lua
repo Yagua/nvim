@@ -1,18 +1,21 @@
 local opt = vim.g
 opt.nvim_tree_quit_on_open = 1
 opt.nvim_tree_indent_markers = 1
+opt.nvim_tree_hide_dotfiles = 1
 
 -- following options are the default
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 require'nvim-tree'.setup {
-  disable_netrw       = false,
+  disable_netrw       = true,
   hijack_netrw        = true,
   open_on_setup       = false,
   open_on_tab         = false,
   auto_close          = false,
   hijack_cursor       = false,
   update_cwd          = false,
-  lsp_diagnostics     = false,
+  diagnostics     = {
+    enable = false,
+  },
   update_focused_file = {
     enable = false,
     update_cwd = false,
