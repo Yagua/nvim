@@ -4,9 +4,8 @@ local server_cmd =  string.format('%s/.local/servers/jdtls/jdtls', HOME)
 
 function M.setup()
   -- Utils
+  require('jdtls').setup_dap()
   require('jdtls.setup').add_commands()
-  --require('lsp-status').register_progress()
-  --require('jdtls').setup_dap()
 
   -- Mappings
   local keymap = function(type, key, value)
@@ -75,6 +74,13 @@ function M.setup()
   }
   -- CMD
   config.cmd = { server_cmd, workspace_folder }
+  local bundles = {
+    vim.fn.glob(HOME .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
+  }
+  vim.list_extend(bundles, vim.split(vim.fn.glob(HOME .. "/.local/dev_tools/java/vscode-java-test/server/*.jar"), "\n"))
+  config['init_options'] = {
+    bundles = bundles
+  }
 
   --UI
   require('jdtls.ui').pick_one_async = function (items, _, _, cb)

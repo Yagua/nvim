@@ -12,5 +12,3 @@ local dotfiles = function()
     },
   }):find()
 end
-
-dotfiles()

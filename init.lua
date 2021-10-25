@@ -24,3 +24,6 @@ require('yagua.lsp')
 
 --Telescope
 require("yagua.telescope")
+
+--dap
+require("yagua.dap")
