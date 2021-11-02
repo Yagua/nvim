@@ -1,21 +1,31 @@
+local M = {}
 local dap = require("dap")
 local keymap = vim.api.nvim_set_keymap
 local options = { noremap = true, silent = true }
 
+dap.defaults.fallback.external_terminal = {
+  command = '/usr/bin/alacritty';
+  args = {'-e'};
+}
+
+M.setup = function()
 --java
-dap.adapters.java = {
+dap.configurations.java = {
   {
     type = 'java',
-    request = 'attach',
     name = "Debug (Attach) - Remote",
+    request = 'attach',
     hostName = "127.0.0.1",
     port = 5005,
   },
 }
+end
 
---vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
---vim.fn.sign_define('DapBreakpointRejected', {text='🟦', texthl='', linehl='', numhl=''})
---vim.fn.sign_define('DapStopped', {text='⭐️', texthl='', linehl='', numhl=''})
+--vim.fn.sign_define('DapBreakpoint', {text='B', texthl='', linehl='', numhl=''})
+--vim.fn.sign_define("DapBreakpointCondition", { text = "C", texthl = "", linehl = "", numhl = "" })
+--vim.fn.sign_define('DapBreakpointRejected', {text='R', texthl='', linehl='', numhl=''})
+--vim.fn.sign_define('DapLogPoint', {text='L', texthl='', linehl='', numhl=''})
+--vim.fn.sign_define('DapStopped', {text='→', texthl='', linehl='debugPC', numhl=''})
 
 keymap('n', '<leader>dh', ':lua require"dap".toggle_breakpoint()<CR>', options)
 keymap('n', '<leader>dH', ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", options)
@@ -35,3 +45,7 @@ keymap('n', '<leader>da', ':lua require"debugHelper".attach()<CR>', options)
 keymap('n', '<leader>dA', ':lua require"debugHelper".attachToRemote()<CR>', options)
 keymap('n', '<leader>di', ':lua require"dap.ui.widgets".hover()<CR>', options)
 keymap('n', '<leader>ds', ':lua local widgets=require"dap.ui.widgets";widgets.centered_float(widgets.scopes)<CR>', options)
+
+M.setup()
+
+return M

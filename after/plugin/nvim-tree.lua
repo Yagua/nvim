@@ -16,6 +16,10 @@ require'nvim-tree'.setup {
   diagnostics     = {
     enable = false,
   },
+  filters = {
+    dotfiles = true,
+    custom = {}
+  },
   update_focused_file = {
     enable = false,
     update_cwd = false,

@@ -1,11 +1,11 @@
 local M = {}
 local HOME = os.getenv('HOME')
-local server_cmd =  string.format('%s/.local/servers/jdtls/jdtls', HOME)
+local jdtls = require("jdtls")
 
-function M.setup()
+local jdtls_on_attach = function(_, _)
   -- Utils
-  require('jdtls').setup_dap()
-  require('jdtls.setup').add_commands()
+  jdtls.setup_dap({ hotcodereplace = 'auto' })
+  jdtls.setup.add_commands()
 
   -- Mappings
   local keymap = function(type, key, value)
@@ -39,18 +39,24 @@ function M.setup()
   keymap("v", "<leader>am", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR")
   keymap("n", "<leader>ar", "<Cmd>lua require('jdtls').extract_variable()<CR>")
   keymap("v", "<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>")
+end
 
+function M.setup_jdtls()
   -- Root dir config
-  local root_markers = { 'pom.xml', 'build.gradle' }
-  local root_dir = require('jdtls.setup').find_root(root_markers)
+  local root_markers = {
+    "gradlew",
+    "mvnw",
+    ".git",
+    --'pom.xml',
+    --'build.gradle'
+  }
+  local root_dir = jdtls.setup.find_root(root_markers)
   local workspace_folder = string.format(
-    "%s/.workspace/ws-%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
+    "%s/.local/share/eclipse/%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
   )
 
   -- Jdtls configs
-  local config = {
-    --flags = { allow_incremental_sync = true }
-  }
+  local config = {}
 
   config.settings = {
     java = {
@@ -58,7 +64,7 @@ function M.setup()
         runtimes = {
           {
             name = "JavaSE-1.8",
-            path = "/opt/Java/jdk1.8.0_111",
+            path = "/opt/Java/jdk1.8.0_111/",
           },
           {
             name = "JavaSE-11",
@@ -72,14 +78,37 @@ function M.setup()
       }
     }
   }
+
   -- CMD
-  config.cmd = { server_cmd, workspace_folder }
+  config.cmd = {
+    "/opt/Java/jdk-14.0.2/bin/java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.protocol=true",
+    "-Dlog.level=ALL",
+    "-Xms1g",
+    "-jar", vim.fn.glob(HOME .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    "-configuration", HOME .. "/.local/servers/jdtls/config_linux",
+    "-data", workspace_folder,
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens", "java.base/java.util=ALL-UNNAMED",
+    "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+  }
+
+  config.on_attach = jdtls_on_attach
+
   local bundles = {
     vim.fn.glob(HOME .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
   }
   vim.list_extend(bundles, vim.split(vim.fn.glob(HOME .. "/.local/dev_tools/java/vscode-java-test/server/*.jar"), "\n"))
+
+  local extendedClientCapabilities = jdtls.extendedClientCapabilities
+  extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
   config['init_options'] = {
-    bundles = bundles
+    bundles = bundles,
+    extendedClientCapabilities = extendedClientCapabilities;
   }
 
   --UI
@@ -88,7 +117,7 @@ function M.setup()
   end
 
   --Setup client
-  require('jdtls').start_or_attach(config)
+  jdtls.start_or_attach(config)
 end
 
 return M
