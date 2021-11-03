@@ -25,7 +25,7 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- Better comments
-  use 'scrooloose/nerdcommenter'
+  use 'numToStr/Comment.nvim'
 
   -- Surround
   use 'tpope/vim-surround'
