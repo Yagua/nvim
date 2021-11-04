@@ -6,7 +6,9 @@ local jdtls_on_attach = function(_, _)
   -- Utils
   jdtls.setup_dap({ hotcodereplace = 'auto' })
   jdtls.setup.add_commands()
+end
 
+function M.setup_jdtls()
   -- Mappings
   local keymap = function(type, key, value)
     vim.api.nvim_buf_set_keymap(0, type, key, value, {noremap = true, silent = true});
@@ -39,9 +41,7 @@ local jdtls_on_attach = function(_, _)
   keymap("v", "<leader>am", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR")
   keymap("n", "<leader>ar", "<Cmd>lua require('jdtls').extract_variable()<CR>")
   keymap("v", "<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>")
-end
 
-function M.setup_jdtls()
   -- Root dir config
   local root_markers = {
     "gradlew",
