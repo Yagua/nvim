@@ -7,9 +7,18 @@ function globals.opts(opts_table)
   end
 end
 
-function P(element)
-  print(vim.inspect(element))
-  return element
+P = function(v)
+  print(vim.inspect(v))
+  return v
+end
+
+RELOAD = function(...)
+  return require("plenary.reload").reload_module(...)
+end
+
+R = function(name)
+  RELOAD(name)
+  return require(name)
 end
 
 return globals
