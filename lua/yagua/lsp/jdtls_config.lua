@@ -6,6 +6,7 @@ local jdtls_on_attach = function(_, _)
   -- Utils
   jdtls.setup_dap({ hotcodereplace = 'auto' })
   jdtls.setup.add_commands()
+  require('jdtls.dap').setup_dap_main_class_configs() --temporary
 end
 
 function M.setup_jdtls()
