@@ -4,8 +4,8 @@ local keymap = vim.api.nvim_set_keymap
 local options = { noremap = true, silent = true }
 
 dap.defaults.fallback.external_terminal = {
-  command = '/usr/bin/alacritty';
-  args = {'-e'};
+  command = '/usr/bin/alacritty',
+  args = {'-e'},
 }
 
 M.setup = function()
