@@ -67,6 +67,10 @@ return require('packer').startup(function(use)
 
   -- Debugging
   use 'mfussenegger/nvim-dap'
+  use "rcarriga/nvim-dap-ui"
+  -- use "theHamsta/nvim-dap-virtual-text"
+
+  use 'jbyuki/one-small-step-for-vimkind'
 
   -- Utils
   use 'mhartington/formatter.nvim'

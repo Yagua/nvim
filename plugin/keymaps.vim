@@ -1,8 +1,8 @@
 nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
+nnoremap <A-h> :wincmd h<CR>
+nnoremap <A-n> :wincmd l<CR>
+nnoremap <A-t> :wincmd j<CR>
+nnoremap <A-c> :wincmd k<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y gg"+yG
@@ -20,7 +20,7 @@ nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>ma :MaximizerToggle!<CR>
 
 " Terminal keymaps
-tnoremap <c-h> <C-\><C-n><C-w>h
-tnoremap <c-j> <C-\><C-n><C-w>j
-tnoremap <c-k> <C-\><C-n><C-w>k
-tnoremap <c-l> <C-\><C-n><C-w>l
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-n> <C-\><C-n><C-w>j
+tnoremap <A-t> <C-\><C-n><C-w>k
+tnoremap <A-c> <C-\><C-n><C-w>l

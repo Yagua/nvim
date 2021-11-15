@@ -1,5 +1,6 @@
 local M = {}
 local dap = require("dap")
+local dap_ui = require("dapui")
 local keymap = vim.api.nvim_set_keymap
 local options = { noremap = true, silent = true }
 
@@ -9,22 +10,71 @@ dap.defaults.fallback.external_terminal = {
 }
 
 M.setup = function()
---java
-dap.configurations.java = {
-  {
-    type = 'java',
-    name = "Debug (Attach) - Remote",
-    request = 'attach',
-    hostName = "127.0.0.1",
-    port = 5005,
-  },
-  {
-    type = 'java',
-    name = "Debug Non-Project class",
-    request = 'launch',
-    program = "${file}",
-  },
-}
+  --java
+  dap.configurations.java = {
+    {
+      type = 'java',
+      name = "Debug (Attach) - Remote",
+      request = 'attach',
+      hostName = "127.0.0.1",
+      port = 5005,
+    },
+    {
+      type = 'java',
+      name = "Debug Non-Project class",
+      request = 'launch',
+      program = "${file}",
+    },
+  }
+
+  dap.configurations.lua = {
+    {
+      type = 'nlua',
+      request = 'attach',
+      name = "Attach to running Neovim instance",
+      port = 44444,
+    }
+  }
+  dap.adapters.nlua = function(callback, config)
+    local port = config.port
+    local opts = {
+      args = {
+        '-e', vim.v.progpath,
+        '-c', string.format('lua require("osv").launch({port = %d})', port),
+      },
+      cwd = vim.fn.getcwd(),
+      detached = true
+    }
+    local handle
+    local pid_or_err
+    handle, pid_or_err = vim.loop.spawn('alacritty', opts, function(code)
+      handle:close()
+      if code ~= 0 then
+        print('nvim exited', code)
+      end
+    end)
+    assert(handle, 'Could not run alacritty:' .. pid_or_err)
+
+    -- doing a `client = new_tcp(); client:connect()` within vim.wait doesn't work
+    -- because an extra client connecting confuses `osv`, so sleep a bit instead
+    -- to wait until server is started
+    vim.cmd('sleep')
+    callback({ type = 'server', host = '127.0.0.1', port = port })
+  end
+end
+
+dap_ui.setup {}
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dap_ui.open()
+end
+
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dap_ui.close()
+end
+
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dap_ui.close()
 end
 
 --vim.fn.sign_define('DapBreakpoint', {text='B', texthl='', linehl='', numhl=''})
