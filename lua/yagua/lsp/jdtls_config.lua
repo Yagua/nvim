@@ -15,7 +15,6 @@ function M.setup_jdtls()
     vim.api.nvim_buf_set_keymap(0, type, key, value, {noremap = true, silent = true});
   end
 
-  keymap('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
   keymap('n','<leader>du','<cmd>lua vim.lsp.buf.definition()<CR>')
   keymap('n','<leader>re','<cmd>lua vim.lsp.buf.references()<CR>')
   keymap('n','<leader>vi','<cmd>lua vim.lsp.buf.implementation()<CR>')
@@ -36,11 +35,11 @@ function M.setup_jdtls()
   keymap('n','<leader>en', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
   keymap('n','<leader>es', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
   -- Jdtls keymaps
-  keymap("n", "<leader>oi", "<Cmd>lua require'jdtls'.organize_imports()<CR>")
+  keymap("n", "<leader>or", "<Cmd>lua require'jdtls'.organize_imports()<CR>")
   keymap("n", "<leader>av", "<Cmd>lua require'jdtls'.test_class()<CR>")
-  keymap("n", "<leader>av", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>")
+  keymap("n", "<leader>tm", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>")
   keymap("v", "<leader>am", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR")
-  keymap("n", "<leader>ar", "<Cmd>lua require('jdtls').extract_variable()<CR>")
+  keymap("n", "<leader>am", "<Cmd>lua require('jdtls').extract_variable()<CR>")
   keymap("v", "<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>")
 
   -- Root dir config
@@ -89,6 +88,7 @@ function M.setup_jdtls()
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
     "-Xms1g",
+    "-javaagent:" .. HOME .. "/.local/dev_tools/java/bundles/lombok/lombok.jar",
     "-jar", vim.fn.glob(HOME .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     "-configuration", HOME .. "/.local/servers/jdtls/config_linux",
     "-data", workspace_folder,

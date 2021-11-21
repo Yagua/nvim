@@ -6,7 +6,7 @@ load_opts {
   showmatch      = true,         -- show matching brackets when text indicator is over them
   relativenumber = true,         -- Show line numbers
   number         = true,         -- Show the actual number
-  showcmd        = true,        -- Show partial commands at the bottom of screen
+  showcmd        = true,         -- Show partial commands at the bottom of screen
   hidden         = true,         -- Keep multiple buffers open
   smartindent    = true,         -- Makes indenting smart
   expandtab      = true,         -- Converts tabs to spaces
