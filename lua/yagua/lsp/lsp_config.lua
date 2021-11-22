@@ -1,6 +1,9 @@
 local lsp = require('lspconfig')
+local jdtls = require("jdtls")
+local M = {}
+local HOME = os.getenv('HOME')
 
---Diagnostics
+--diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
   vim.lsp.diagnostic.on_publish_diagnostics, {
      underline = true, -- Enable underline, use default values
@@ -14,57 +17,158 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
     }
 )
 
---Diagnostics Signs
---vim.fn.sign_define("LspDiagnosticsSignError", {text = ""})
---vim.fn.sign_define("LspDiagnosticsSignWarning", {text = ""})
---vim.fn.sign_define("LspDiagnosticsSignInformation", {text = ""})
---vim.fn.sign_define("LspDiagnosticsSignHint", {text = ""})
-
--- For snippet support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-
--- capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
+--capabilities
+local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
+custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
+custom_capabilities = require("cmp_nvim_lsp").update_capabilities(custom_capabilities)
 
 --Custom code action handler
 vim.lsp.handlers['textDocument/codeAction'] =
   require'lsputil.codeAction'.code_action_handler
 
- --Utility servers
-local keymap = function(type, key, value)
-  vim.api.nvim_buf_set_keymap(0, type, key, value, {noremap = true, silent = true});
-end
-
--- configuring LSP servers
-local on_attach = function(_)
-  print("[LSP] Server Started");
-
-  keymap('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
-  keymap('n','<leader>du','<cmd>lua vim.lsp.buf.definition()<CR>')
-  keymap('n','<leader>re','<cmd>lua vim.lsp.buf.references()<CR>')
-  keymap('n','<leader>vi','<cmd>lua vim.lsp.buf.implementation()<CR>')
-  keymap('n','<leader>sh','<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  keymap('n','<leader>gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  keymap('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-  keymap('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+--keymaps
+local key_maps = {
+  {"n","gD","<cmd>lua vim.lsp.buf.declaration()"},
+  {"n","<leader>du","<cmd>lua vim.lsp.buf.definition()"},
+  {"n","<leader>re","<cmd>lua vim.lsp.buf.references()"},
+  {"n","<leader>vi","<cmd>lua vim.lsp.buf.implementation()"},
+  {"n","<leader>sh","<cmd>lua vim.lsp.buf.signature_help()"},
+  {"n","<leader>gt","<cmd>lua vim.lsp.buf.type_definition()"},
+  {"n","<leader>gw","<cmd>lua vim.lsp.buf.document_symbol()"},
+  {"n","<leader>gW","<cmd>lua vim.lsp.buf.workspace_symbol()"},
   -- ACTION mappings
-  keymap('n','<leader>ah',  '<cmd>lua vim.lsp.buf.hover()<CR>')
-  keymap('n','<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  keymap('n','<leader>rn',  '<cmd>lua vim.lsp.buf.rename()<CR>')
+  {"n","<leader>ah",  "<cmd>lua vim.lsp.buf.hover()"},
+  {"n","<leader>ca", "<cmd>lua vim.lsp.buf.code_action()"},
+  {"n","<leader>rn",  "<cmd>lua vim.lsp.buf.rename()"},
   -- Few language severs support these three
-  keymap('n','<leader>=',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
-  keymap('n','<leader>ai',  '<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
-  keymap('n','<leader>ao',  '<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+  {"n","<leader>=",  "<cmd>lua vim.lsp.buf.formatting()"},
+  {"n","<leader>ai",  "<cmd>lua vim.lsp.buf.incoming_calls()"},
+  {"n","<leader>ao",  "<cmd>lua vim.lsp.buf.outgoing_calls()"},
   -- Diagnostics mapping
-  keymap('n','<leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  keymap('n','<leader>en', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-  keymap('n','<leader>es', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  {"n","<leader>ee", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()"},
+  {"n","<leader>en", "<cmd>lua vim.lsp.diagnostic.goto_next()"},
+  {"n","<leader>es", "<cmd>lua vim.lsp.diagnostic.goto_prev()"},
+}
+
+--set keymaps
+local set_keymaps = function(key_maps)
+  local km_ops = {noremap = true, silent = true}
+  for _, maps in pairs(key_maps) do
+    local mode, keys, command = unpack(maps)
+    vim.api.nvim_buf_set_keymap(0, mode, keys,
+      string.format("%s<CR>", command), km_ops);
+  end
 end
 
---=======SERVERS======
---# LUA
-local HOME = os.getenv("HOME")
+--on attach
+local on_attach = function(_)
+  set_keymaps(key_maps)
+end
+
+--# Java
+--custom jdtls_on_attach
+local function jdtls_on_attach(_)
+  jdtls.setup_dap({hotcodereplace = 'auto'})
+  jdtls.setup.add_commands()
+  require('jdtls.dap').setup_dap_main_class_configs() --temporary
+
+  --UI
+  require('jdtls.ui').pick_one_async = function (items, _, _, cb)
+    require'lsputil.codeAction'.code_action_handler(nil, items, nil, nil, cb)
+  end
+
+  local jdtls_keymaps = {
+    {"n", "<leader>or", "<Cmd>lua require('jdtls').organize_imports()"},
+    {"n", "<leader>av", "<Cmd>lua require('jdtls').test_class()"},
+    {"n", "<leader>tm", "<Cmd>lua require('jdtls').test_nearest_method()"},
+    {"v", "<leader>am", "<Esc><Cmd>lua require('jdtls').extract_variable(true)"},
+    {"n", "<leader>am", "<Cmd>lua require('jdtls').extract_variable()"},
+    {"n", "<leader>om", "<Cmd>lua require('jdtls').extract_constant()"},
+    {"v", "<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)"},
+    {"n","<leader>ca", "<cmd>lua require('jdtls').code_action()"},
+  }
+
+  local extended_keymaps = vim.fn.extend(key_maps, jdtls_keymaps)
+  set_keymaps(extended_keymaps)
+end
+
+--setup jdtls
+M.setup_jdtls = function()
+  -- Root dir config
+  local root_markers = {
+    "gradlew",
+    "mvnw",
+    ".git",
+    --'pom.xml',
+    --'build.gradle'
+  }
+  local root_dir = jdtls.setup.find_root(root_markers)
+  local workspace_folder = string.format(
+    "%s/.local/share/eclipse/%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
+  )
+  -- Jdtls configs
+  local config = {}
+
+  config.settings = {
+    java = {
+      configuration = {
+        runtimes = {
+          {
+            name = "JavaSE-1.8",
+            path = "/opt/Java/jdk1.8.0_111/",
+          },
+          {
+            name = "JavaSE-11",
+            path = "/opt/Java/jdk-11.0.12/",
+          },
+          {
+            name = "JavaSE-14",
+            path = "/opt/Java/jdk-14.0.2/"
+          },
+        }
+      }
+    }
+  }
+
+  -- CMD
+  config.cmd = {
+    "/opt/Java/jdk-14.0.2/bin/java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.protocol=true",
+    "-Dlog.level=ALL",
+    "-Xms1g",
+    "-javaagent:" .. HOME .. "/.local/dev_tools/java/bundles/lombok/lombok.jar", --lombok support
+    "-jar", vim.fn.glob(HOME .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    "-configuration", HOME .. "/.local/servers/jdtls/config_linux",
+    "-data", workspace_folder,
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens", "java.base/java.util=ALL-UNNAMED",
+    "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+  }
+
+  config.on_attach = jdtls_on_attach
+  config.capabilities = custom_capabilities
+
+  local bundles = {
+    vim.fn.glob(HOME .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
+  }
+  vim.list_extend(bundles, vim.split(vim.fn.glob(HOME .. "/.local/dev_tools/java/vscode-java-test/server/*.jar"), "\n"))
+
+  local extendedClientCapabilities = jdtls.extendedClientCapabilities
+  extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
+
+  config.init_options = {
+    bundles = bundles,
+    extendedClientCapabilities = extendedClientCapabilities;
+  }
+
+  --Setup client
+  jdtls.start_or_attach(config)
+end
+
+--# Lua
 local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
 local sumneko_binary = string.format("%s/bin/Linux/lua-language-server", sumneko_root_path)
 lsp.sumneko_lua.setup{
@@ -91,7 +195,7 @@ lsp.sumneko_lua.setup{
       }
     },
   on_attach = on_attach,
-  capabilities = capabilities
+  capabilities = custom_capabilities
 }
 --# JS/TS
 lsp.tsserver.setup{
@@ -105,8 +209,9 @@ lsp.tsserver.setup{
       "typescript.tsx"
     },
   on_attach = on_attach,
-  capabilities = capabilities,
+  capabilities = custom_capabilities,
 }
+
 --# PYTHON
 lsp.pylsp.setup{
   plugins = {
@@ -116,31 +221,34 @@ lsp.pylsp.setup{
     },
   },
   on_attach = on_attach,
+  capabilities = custom_capabilities,
 }
 --# VIM
 lsp.vimls.setup{
   on_attach = on_attach,
+  capabilities = custom_capabilities,
 }
 --# C++/C
 lsp.clangd.setup{
   on_attach = on_attach,
+  capabilities = custom_capabilities,
 }
 --# HTML
 lsp.html.setup{
   on_attach = on_attach,
-  capabilities = capabilities,
+  capabilities = custom_capabilities,
 }
 --# CSS
 lsp.cssls.setup{
   on_attach = on_attach,
-  capabilities = capabilities,
+  capabilities = custom_capabilities,
 }
 --# GO
 lsp.gopls.setup{
   cmd = { "gopls", "serve" },
   filetypes = { "go", "gomod" },
   on_attach = on_attach,
-  capabilities = capabilities,
+  capabilities = custom_capabilities,
 }
 
 --TEMPORARY / latex
@@ -148,7 +256,7 @@ lsp.texlab.setup{
   cmd = { string.format("%s/.local/servers/texlab/texlab", HOME) },
   filetypes = { "tex", "bib" },
   on_attach = on_attach,
-  capabilities = capabilities,
+  capabilities = custom_capabilities,
 }
 
 --# PHP
@@ -168,5 +276,7 @@ lsp.texlab.setup{
 --lsp.sqlls.setup{
   --cmd = {"sql-language-server", "up", "--method", "stdio"},
   --on_attach = on_attach,
-  --capabilities = capabilities,
+  --capabilities = custom_capabilities,
 --}
+
+return M
