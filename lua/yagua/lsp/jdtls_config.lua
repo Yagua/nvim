@@ -107,10 +107,11 @@ function M.setup_jdtls()
   local extendedClientCapabilities = jdtls.extendedClientCapabilities
   extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
-  config['init_options'] = {
+  config.init_options = {
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities;
   }
+  config.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   --UI
   require('jdtls.ui').pick_one_async = function (items, _, _, cb)

@@ -62,8 +62,8 @@ return require('packer').startup(function(use)
 
   -- Snippets
   use 'rafamadriz/friendly-snippets'
-  use 'hrsh7th/vim-vsnip'
-  --use 'L3MON4D3/LuaSnip'
+  use 'L3MON4D3/LuaSnip'
+  -- use 'hrsh7th/vim-vsnip'
 
   -- Debugging
   use 'mfussenegger/nvim-dap'
@@ -82,6 +82,8 @@ return require('packer').startup(function(use)
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'
+  -- use 'tamago324/lir.nvim'
+  -- use "tamago324/lir-git-status.nvim"
 
   -- Built-in lsp
   use 'neovim/nvim-lspconfig'
@@ -96,8 +98,8 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lua'
-  use 'hrsh7th/cmp-vsnip'
-  --use 'saadparwaiz1/cmp_luasnip'
+  use 'saadparwaiz1/cmp_luasnip'
+  -- use 'hrsh7th/cmp-vsnip'
 
 
   -- Status line

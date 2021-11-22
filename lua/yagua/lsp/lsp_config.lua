@@ -23,6 +23,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
 -- For snippet support
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+-- capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 
 --Custom code action handler
 vim.lsp.handlers['textDocument/codeAction'] =
@@ -87,7 +90,8 @@ lsp.sumneko_lua.setup{
         }
       }
     },
-  on_attach = on_attach
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 --# JS/TS
 lsp.tsserver.setup{
@@ -100,7 +104,8 @@ lsp.tsserver.setup{
       "typescriptreact",
       "typescript.tsx"
     },
-  on_attach = on_attach
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 --# PYTHON
 lsp.pylsp.setup{
@@ -110,12 +115,16 @@ lsp.pylsp.setup{
       live_mode = false,
     },
   },
-  on_attach = on_attach
+  on_attach = on_attach,
 }
 --# VIM
-lsp.vimls.setup{ on_attach = on_attach }
+lsp.vimls.setup{
+  on_attach = on_attach,
+}
 --# C++/C
-lsp.clangd.setup{ on_attach = on_attach }
+lsp.clangd.setup{
+  on_attach = on_attach,
+}
 --# HTML
 lsp.html.setup{
   on_attach = on_attach,

@@ -1,4 +1,3 @@
-nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <C-h> :wincmd h<CR>
 nnoremap <C-l> :wincmd l<CR>
 nnoremap <C-j> :wincmd j<CR>
