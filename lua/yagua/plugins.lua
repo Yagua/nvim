@@ -62,8 +62,8 @@ return require('packer').startup(function(use)
 
   -- Snippets
   use 'rafamadriz/friendly-snippets'
-  use 'L3MON4D3/LuaSnip'
-  -- use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip'
+  -- use 'L3MON4D3/LuaSnip'
 
   -- Debugging
   use 'mfussenegger/nvim-dap'
@@ -98,8 +98,8 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lua'
-  use 'saadparwaiz1/cmp_luasnip'
-  -- use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/cmp-vsnip'
+  -- use 'saadparwaiz1/cmp_luasnip'
 
 
   -- Status line

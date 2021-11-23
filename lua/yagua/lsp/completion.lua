@@ -8,8 +8,8 @@ cmp.setup {
   snippet = {
     expand = function(args)
       --vsnip
-      require("luasnip").lsp_expand(args.body)
-      -- vim.fn["vsnip#anonymous"](args.body)
+      vim.fn["vsnip#anonymous"](args.body)
+      -- require("luasnip").lsp_expand(args.body)
     end
   },
   mapping = {
@@ -24,11 +24,11 @@ cmp.setup {
     },
     sources = {
       { name = "nvim_lsp"},
+      { name = "vsnip"},
       { name = "nvim_lua"},
-      { name = "luasnip"},
       { name = "buffer", keyword_lenght = 5 },
       { name = "path"},
-      -- { name = "vsnip"},
+      -- { name = "luasnip"},
     },
    formatting = {
      format = lspkind.cmp_format({
@@ -38,8 +38,8 @@ cmp.setup {
          nvim_lsp = "[LSP]",
          nvim_lua = "[api]",
          path = "[path]",
-         luasnip = "[snip]",
-         -- vsnip = "[snip]",
+         vsnip = "[snip]",
+         -- luasnip = "[snip]",
        }
      })
    },
