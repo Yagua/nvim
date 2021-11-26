@@ -101,7 +101,6 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-vsnip'
   -- use 'saadparwaiz1/cmp_luasnip'
 
-
   -- Status line
   use 'tjdevries/express_line.nvim'
 
@@ -111,8 +110,5 @@ return require('packer').startup(function(use)
     run = function() vim.cmd[[TSUpdate]] end
   }
   use 'nvim-treesitter/playground'
-
-  -- LaTex
-  use 'lervag/vimtex'
 
 end)
