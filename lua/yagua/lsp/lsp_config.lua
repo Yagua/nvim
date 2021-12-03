@@ -6,11 +6,11 @@ local HOME = os.getenv('HOME')
 --diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
   vim.lsp.diagnostic.on_publish_diagnostics, {
-     underline = true, -- Enable underline, use default values
+     underline = true,
      virtual_text = true,
      signs = true,
-     update_in_insert = false, -- Disable a feature
-     --virtual_text = { -- Enable virtual text, override spacing to 4
+     update_in_insert = false,
+     --virtual_text = {
        ----spacing = 4,
        ----prefix = '',
      --},
@@ -21,10 +21,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with (
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
 custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
 custom_capabilities = require("cmp_nvim_lsp").update_capabilities(custom_capabilities)
-
---Custom code action handler
-vim.lsp.handlers['textDocument/codeAction'] =
-  require'lsputil.codeAction'.code_action_handler
 
 --keymaps
 local key_maps = {
@@ -65,6 +61,39 @@ local on_attach = function(_)
   set_keymaps(key_maps)
 end
 
+local custom_code_action = function(items, prompt, label_fn, cb)
+  local finders = require'telescope.finders'
+  local actions = require'telescope.actions'
+  local pickers = require'telescope.pickers'
+  local themes = require("telescope.themes")
+  local action_state = require'telescope.actions.state'
+  local conf = require("telescope.config").values
+
+  local opts = themes.get_cursor{}
+  pickers.new(opts, {
+    prompt_title = prompt,
+    finder = finders.new_table {
+      results = items,
+      entry_maker = function (entry)
+        return {
+          value = entry,
+          display = label_fn(entry),
+          ordinal = label_fn(entry)
+        }
+      end,
+    },
+    sorter = conf.generic_sorter(opts),
+    attach_mappings = function (prompt_bufnr)
+      actions.select_default:replace(function ()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry(prompt_bufnr)
+        cb(selection.value)
+      end)
+      return true
+    end
+  }):find()
+end
+
 --# Java
 --custom jdtls_on_attach
 local function jdtls_on_attach(_)
@@ -73,9 +102,7 @@ local function jdtls_on_attach(_)
   require('jdtls.dap').setup_dap_main_class_configs() --temporary
 
   --UI
-  require('jdtls.ui').pick_one_async = function (items, _, _, cb)
-    require'lsputil.codeAction'.code_action_handler(nil, items, nil, nil, cb)
-  end
+  require('jdtls.ui').pick_one_async = custom_code_action
 
   local jdtls_keymaps = {
     {"n", "<leader>or", "<Cmd>lua require('jdtls').organize_imports()"},

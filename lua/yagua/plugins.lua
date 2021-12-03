@@ -89,8 +89,6 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'nvim-lua/plenary.nvim'
   use 'mfussenegger/nvim-jdtls'
-  use 'RishabhRD/popfix'
-  use 'RishabhRD/nvim-lsputils'
 
   -- Completion
   use 'hrsh7th/nvim-cmp'
