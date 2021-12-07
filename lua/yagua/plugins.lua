@@ -75,10 +75,10 @@ return require('packer').startup(function(use)
   -- Utils
   use 'mhartington/formatter.nvim'
   use 'mbbill/undotree'
-  use 'mhinz/vim-startify'
   use 'norcalli/nvim-colorizer.lua'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
   use 'szw/vim-maximizer'
+  -- use 'mhinz/vim-startify'
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'

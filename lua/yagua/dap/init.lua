@@ -40,6 +40,7 @@ M.setup = function()
     local opts = {
       args = {
         "new-window",
+        "-n", "[Lua Debug]",
         vim.v.progpath,
         '-c', string.format('lua require("osv").launch({port = %d})', port),
       },

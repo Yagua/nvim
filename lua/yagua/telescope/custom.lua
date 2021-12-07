@@ -1,12 +1,16 @@
+local builtin = require("telescope.builtin")
+local themes = require("telescope.themes")
 local M = {}
 
 -- our picker function: colors
 M.search_dotfiles = function ()
-  require("telescope.builtin").find_files {
+  local setts = themes.get_dropdown {
     prompt_title = "~ dotfiles ~",
     cwd = "~/.config/nvim/",
-    hidden = false
+    hidden = false,
+    previewer = false
   }
+  builtin.find_files(setts)
 end
 
 return M

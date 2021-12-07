@@ -2,10 +2,9 @@ local builtin = require('el.builtin')
 local extensions = require('el.extensions')
 local sections = require('el.sections')
 local subscribe = require('el.subscribe')
-local lsp_statusline = require('el.plugins.lsp_status')
-local helper = require('el.helper')
+local diagnostics = require('el.diagnostic')
 
-local git_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, bufnr)
+local get_icon = subscribe.buf_autocmd("el_file_icon", "BufRead", function(_, bufnr)
   local icon = extensions.file_icon(_, bufnr)
   if icon then
     return icon .. ' '
@@ -33,6 +32,35 @@ local git_changes = subscribe.buf_autocmd(
   end
 )
 
+local lsp_diagnostics = diagnostics.make_buffer(function(_, _, counts)
+  local items = {}
+  local result = ""
+
+  if counts.errors > 0 then
+    table.insert(items, string.format("E:%s", counts.errors))
+  end
+
+  if counts.warnings > 0 then
+    table.insert(items, string.format("W:%s", counts.warnings))
+  end
+
+  if counts.infos > 0 then
+    table.insert(items, string.format("I:%s", counts.infos))
+  end
+
+  if counts.hints > 0 then
+    table.insert(items, string.format("H:%s", counts.hints))
+  end
+
+  result = vim.fn.trim(table.concat(items, " "))
+
+  if vim.fn.len(result) > 0 then
+    return string.format("[%s]", result)
+  end
+
+  return ""
+end)
+
 require('el').setup {
   generator = function(_, _)
     return {
@@ -40,24 +68,21 @@ require('el').setup {
       git_branch,
       ' ',
       sections.split,
-      git_icon,
-      sections.maximum_width( builtin.make_responsive_file(140, 90), 0.30),
+      get_icon,
+      sections.maximum_width(builtin.make_responsive_file(140, 90), 0.30),
       sections.collapse_builtin {
         ' ',
         builtin.modified_flag
       },
       sections.split,
-      -- helper.buf_var('vista_nearest_method_or_function'),
-      lsp_statusline.current_function,
-      lsp_statusline.server_progress,
+      lsp_diagnostics,
       git_changes,
-      --add user name
       '[', os.getenv('USER') , ']',
       '[', builtin.line_with_width(3), ':',  builtin.column_with_width(2), ']',
       sections.collapse_builtin {
         '[', builtin.help_list, builtin.readonly_list, ']',
       },
-      builtin.filetype
+      builtin.filetype,
     }
   end
 }
