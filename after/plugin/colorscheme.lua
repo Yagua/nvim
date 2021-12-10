@@ -1,5 +1,7 @@
 --Colorscheme Settings
 local nebulous = require("nebulous")
+local scheme = require("nebulous.functions").get_colors("fullmoon")
+
 nebulous.setup {
   variant = "fullmoon",
   disable = {
@@ -13,11 +15,11 @@ nebulous.setup {
     variables  = false,
   },
   custom_colors = {
-    LineNr =       { fg = "#5BBBDA", bg = "NONE", style = "NONE" },
-    CursorLineNr = { fg = "#DCC03A", bg = "NONE", style = "NONE" },
-    TelescopeResultsBorder = { fg = "#A5A6A9", bg = "NONE", style = "NONE" },
-    TelescopePreviewBorder = { fg = "#A5A6A9", bg = "NONE", style = "NONE" },
-    TelescopePromptBorder =  { fg = "#A5A6A9", bg = "NONE", style = "NONE" },
-    TelescopeBorder =        { fg = "#A5A6A9", bg = "NONE", style = "NONE" },
+    LineNr =       { fg = scheme.Blue,   bg = scheme.none, style = scheme.none },
+    CursorLineNr = { fg = scheme.Yellow, bg = scheme.none, style = scheme.none },
+    TelescopeResultsBorder = { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
+    TelescopePreviewBorder = { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
+    TelescopePromptBorder =  { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
+    TelescopeBorder =        { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
   }
 }
