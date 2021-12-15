@@ -28,6 +28,8 @@ local key_maps = {
   {"n", "<leader>ao", "<cmd>lua vim.lsp.buf.outgoing_calls()"},
   -- Diagnostics mapping
   {"n", "<leader>ee", "<cmd>lua vim.diagnostic.open_float()"},
+  -- Custom functions
+  {"n", "<leader>en", "<cmd>lua require('yagua.lsp.util').diagnostics_qfixlist()"},
 }
 
 --set keymaps
