@@ -74,6 +74,11 @@ _G.packer_plugins = {
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
+  ["bufferline.nvim"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
+    url = "https://github.com/akinsho/bufferline.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -134,6 +139,11 @@ _G.packer_plugins = {
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/gruvbox-flat.nvim",
     url = "https://github.com/eddyekofo94/gruvbox-flat.nvim"
   },
+  ["kanagawa.nvim"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
+    url = "https://github.com/rebelot/kanagawa.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -143,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
     url = "https://github.com/iamcco/markdown-preview.nvim"
+  },
+  ["material.nvim"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/material.nvim",
+    url = "https://github.com/marko-cerovac/material.nvim"
   },
   ["nebulous.nvim"] = {
     loaded = true,

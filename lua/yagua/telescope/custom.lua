@@ -3,11 +3,22 @@ local themes = require("telescope.themes")
 local M = {}
 
 -- our picker function: colors
+M.nvim_dotfiles = function ()
+  local setts = themes.get_dropdown {
+    prompt_title = "~ Nvim-dotfiles ~",
+    cwd = "~/.dotfiles/nvim/.config/nvim/",
+    hidden = false,
+    previewer = false
+  }
+  builtin.find_files(setts)
+end
+
+-- our picker function: colors
 M.search_dotfiles = function ()
   local setts = themes.get_dropdown {
     prompt_title = "~ dotfiles ~",
-    cwd = "~/.config/nvim/",
-    hidden = false,
+    cwd = "~/.dotfiles/",
+    hidden = true,
     previewer = false
   }
   builtin.find_files(setts)

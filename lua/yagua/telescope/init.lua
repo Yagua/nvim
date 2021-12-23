@@ -26,4 +26,5 @@ keymap("n", "<leader>bk", [[:lua require('telescope.builtin').buffers()<CR>]], o
 keymap("n", "<leader>th", [[:lua require('telescope.builtin').help_tags()<CR>]], opts )
 keymap("n", "<leader>gr", [[:lua require('telescope.builtin').live_grep()<CR>]], opts )
 keymap("n", "<leader>te", [[:Telescope<CR>]], opts )
-keymap("n", "<leader>do", [[:lua require("yagua.telescope.custom").search_dotfiles()<CR>]], opts )
+keymap("n", "<leader>do", [[:lua require("yagua.telescope.custom").nvim_dotfiles()<CR>]], opts )
+keymap("n", "<leader>dO", [[:lua require("yagua.telescope.custom").search_dotfiles()<CR>]], opts )

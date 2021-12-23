@@ -1,4 +1,4 @@
---Colorscheme Settings
+-- Colorscheme Settings
 local nebulous = require("nebulous")
 local scheme = require("nebulous.functions").get_colors("fullmoon")
 
@@ -7,6 +7,7 @@ nebulous.setup {
   disable = {
     background = false,
     endOfBuffer = false,
+    terminal_colors = false,
   },
   italic = {
     comments   = true,
