@@ -91,15 +91,15 @@ M.setup_jdtls = function()
         runtimes = {
           {
             name = "JavaSE-1.8",
-            path = "/opt/jdks/jdk1.8.0_111/",
+            path = "/opt/jdks/jdk1.8.0_202",
           },
           {
             name = "JavaSE-11",
-            path = "/opt/jdks/jdk-11.0.12/",
+            path = "/opt/jdks/jdk-11.0.3",
           },
           {
             name = "JavaSE-14",
-            path = "/opt/jdks/jdk-14.0.2/"
+            path = "/opt/jdks/jdk-14.0.2"
           },
         }
       }
@@ -151,9 +151,9 @@ end
 
 --# Lua
 local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
-local sumneko_binary = string.format("%s/bin/Linux/lua-language-server", sumneko_root_path)
+local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 lsp.sumneko_lua.setup{
-  cmd = { sumneko_binary, '-E', sumneko_root_path .. '/main.lua' },
+  cmd = { sumneko_binary },
     settings = {
       Lua = {
         runtime = {
@@ -204,6 +204,7 @@ lsp.pylsp.setup{
   on_attach = on_attach,
   capabilities = custom_capabilities,
 }
+
 --# Vim
 lsp.vimls.setup{
   on_attach = on_attach,

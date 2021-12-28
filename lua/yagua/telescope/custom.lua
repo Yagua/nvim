@@ -19,7 +19,10 @@ M.search_dotfiles = function ()
     prompt_title = "~ dotfiles ~",
     cwd = "~/.dotfiles/",
     hidden = true,
-    previewer = false
+    previewer = false,
+    file_ignore_patterns = {
+      "nvim"
+    }
   }
   builtin.find_files(setts)
 end
