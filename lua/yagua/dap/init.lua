@@ -35,21 +35,22 @@ M.setup = function()
       port = 44444,
     }
   }
+
   dap.adapters.nlua = function(callback, config)
     local port = config.port
     local opts = {
       args = {
-        "new-window",
-        "-n", "[Lua Debug]",
-        vim.v.progpath,
-        '-c', string.format('lua require("osv").launch({port = %d})', port),
+        "--listen-on=unix:/tmp/kitty_nvim_sock",
+        "--title", "[Lua Debug]",
+        "--execute", vim.v.progpath, "-c",
+        string.format("lua require('osv').launch({port = %d})", port),
       },
       cwd = vim.fn.getcwd(),
       detached = true
     }
     local handle
     local pid_or_err
-    handle, pid_or_err = vim.loop.spawn('tmux', opts, function(code)
+    handle, pid_or_err = vim.loop.spawn("kitty", opts, function(code)
       handle:close()
       if code ~= 0 then
         print('nvim exited', code)
