@@ -6,12 +6,8 @@ local options = { noremap = true, silent = true }
 dap.defaults.fallback.terminal_win_cmd = 'tabnew'
 -- dap.defaults.fallback.force_external_terminal = true -- use external terminal
 dap.defaults.fallback.external_terminal = {
-  command = '/usr/bin/kitty',
+  command = '/usr/bin/alacritty',
   args = {'-e'},
-  -- args = {
-  --    "@", "--to", "unix:/tmp/kitty_yagua_socket", "launch", "--type=tab",
-  --    "--keep-focus", "--tab-title", "Debug Terminal",
-  -- },
 }
 
 M.setup = function()
@@ -40,25 +36,21 @@ M.setup = function()
       port = 44444,
     }
   }
-
   dap.adapters.nlua = function(callback, config)
     local port = config.port
     local opts = {
-      args ={
-        "@", "--to", "unix:/tmp/kitty_yagua_socket",
-        "launch", "--type=tab",
-        string.format("--cwd=%s", vim.fn.getcwd()),
-        "--tab-title", "Lua Debug",
-        vim.v.progpath, "-c",
-        string.format("lua require('osv').launch({port = %d})", port),
+      args = {
+        "new-window",
+        "-n", "[Lua Debug]",
+        vim.v.progpath,
+        '-c', string.format('lua require("osv").launch({port = %d})', port),
       },
       cwd = vim.fn.getcwd(),
       detached = true
     }
-
     local handle
     local pid_or_err
-    handle, pid_or_err = vim.loop.spawn("kitty", opts, function(code)
+    handle, pid_or_err = vim.loop.spawn('tmux', opts, function(code)
       handle:close()
       if code ~= 0 then
         print('nvim exited', code)
@@ -66,6 +58,9 @@ M.setup = function()
     end)
     assert(handle, 'Could not run command:' .. pid_or_err)
 
+    -- doing a `client = new_tcp(); client:connect()` within vim.wait doesn't work
+    -- because an extra client connecting confuses `osv`, so sleep a bit instead
+    -- to wait until server is started
     vim.cmd('sleep')
     callback({ type = 'server', host = '127.0.0.1', port = port })
   end

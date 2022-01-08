@@ -8,7 +8,8 @@ M.nvim_dotfiles = function ()
     prompt_title = "~ Nvim-dotfiles ~",
     cwd = "~/.dotfiles/nvim/.config/nvim/",
     hidden = false,
-    previewer = false
+    previewer = false,
+    file_ignore_patterns = { "%.git" }
   }
   builtin.find_files(setts)
 end
@@ -21,7 +22,8 @@ M.search_dotfiles = function ()
     hidden = true,
     previewer = false,
     file_ignore_patterns = {
-      "nvim"
+      "nvim",
+      "%.git"
     }
   }
   builtin.find_files(setts)
