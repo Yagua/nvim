@@ -19,7 +19,7 @@ nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>ma :MaximizerToggle!<CR>
 
 " Terminal keymaps
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-l> <C-\><C-n><C-w>j
-tnoremap <C-j> <C-\><C-n><C-w>k
-tnoremap <C-k> <C-\><C-n><C-w>l
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-l> <C-\><C-n><C-w>j
+tnoremap <A-j> <C-\><C-n><C-w>k
+tnoremap <A-k> <C-\><C-n><C-w>l
