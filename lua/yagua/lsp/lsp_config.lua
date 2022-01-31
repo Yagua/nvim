@@ -45,8 +45,103 @@ local set_keymaps = function(km)
 end
 
 --on attach
-local on_attach = function(_)
+local custom_attach = function(_)
   set_keymaps(key_maps)
+end
+
+-- server variables
+local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
+local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
+
+local servers = {
+  vimls = true,
+  html = true,
+  cssls = true,
+  yamlls = true,
+  rust_analyzer = true,
+
+  tsserver = {
+    cmd = {"typescript-language-server", "--stdio"},
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx"
+    },
+  },
+
+  pylsp = {
+    plugins = {
+      pyls_mypy = {
+        enabled = true,
+        live_mode = false,
+      },
+    },
+  },
+
+  clangd = {
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--suggest-missing-includes",
+      "--clang-tidy",
+      "--header-insertion=iwyu",
+    },
+  },
+
+  gopls = {
+    cmd = { "gopls", "serve" },
+    filetypes = { "go", "gomod" },
+  },
+
+  sumneko_lua = {
+    cmd = { sumneko_binary },
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+          -- Setup your lua path
+          path = vim.split(package.path, ';')
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = {'vim'}
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+          }
+        }
+      }
+    },
+  },
+}
+
+-- load servers and its configs
+local load_servers = function (server, config)
+  if not config then
+    return
+  end
+
+  if type(config) ~= "table" then
+    config = {}
+  end
+
+  config = vim.tbl_deep_extend("force", {
+    on_attach = custom_attach,
+    capabilities = custom_capabilities
+  }, config)
+
+  lsp[server].setup(config)
+end
+
+for server, config in pairs(servers) do
+  load_servers(server, config)
 end
 
 --# Java
@@ -150,128 +245,5 @@ M.setup_jdtls = function()
   --Setup client
   jdtls.start_or_attach(config)
 end
-
---# Lua
-local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
-local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
-lsp.sumneko_lua.setup{
-  cmd = { sumneko_binary },
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-          -- Setup your lua path
-          path = vim.split(package.path, ';')
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = {'vim'}
-        },
-        workspace = {
-        -- Make the server aware of Neovim runtime files
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-          }
-        }
-      }
-    },
-  on_attach = on_attach,
-  capabilities = custom_capabilities
-}
---# Js/Ts
-lsp.tsserver.setup{
-  cmd = {"typescript-language-server", "--stdio"},
-    filetypes = {
-      "javascript",
-      "javascriptreact",
-      "javascript.jsx",
-      "typescript",
-      "typescriptreact",
-      "typescript.tsx"
-    },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
-
---# Python
-lsp.pylsp.setup{
-  plugins = {
-    pyls_mypy = {
-      enabled = true,
-      live_mode = false,
-    },
-  },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
-
---# Vim
-lsp.vimls.setup{
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# C++/C
-lsp.clangd.setup{
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# Html
-lsp.html.setup{
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# Css
-lsp.cssls.setup{
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
---# Go
-lsp.gopls.setup{
-  cmd = { "gopls", "serve" },
-  filetypes = { "go", "gomod" },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
-
---# Rust
-lsp.rust_analyzer.setup{
-  cmd = { HOME .. "/.local/servers/rust-analizer/rust-analyzer"},
-  filetypes = { "rust" },
-  settings = {
-    ["rust-analyzer"] = {},
-  },
-  on_attach = on_attach,
-  capabilities = custom_capabilities,
-}
-
---TEMPORARY / latex
--- lsp.texlab.setup{
---   cmd = { string.format("%s/.local/servers/texlab/texlab", HOME) },
---   filetypes = { "tex", "bib" },
---   on_attach = on_attach,
---   capabilities = custom_capabilities,
--- }
-
---# PHP
---lsp.intelephense.setup{
-  --cmd = { "intelephense", "--stdio" },
-  --filetypes = { "php" },
-  --on_attach = on_attach,
---}
---# JSON
---lsp.jsonls.setup{ on_attach = on_attach }
---# DOCKER
---lsp.dockerls.setup{
-  --on_attach = on_attach,
---}
-----# YAML
---lsp.yamlls.setup{ on_attach = on_attach }
---lsp.sqlls.setup{
-  --cmd = {"sql-language-server", "up", "--method", "stdio"},
-  --on_attach = on_attach,
-  --capabilities = custom_capabilities,
---}
 
 return M
