@@ -222,5 +222,10 @@
         "prefix": "grantuser",
         "body": "GRANT ALL PRIVILEGES ON ${1:db}.${2:tb} TO '${3:user_name}'@'${4:localhost}';",
         "description": "Grant privileges"
+    },
+    "bcom":{
+        "prefix": "bcom",
+        "body": "/* ${1:comment} */",
+        "description": "Block comment"
     }
 }
