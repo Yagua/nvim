@@ -38,9 +38,9 @@ local key_maps = {
 local set_keymaps = function(km)
   local km_ops = {noremap = true, silent = true}
   for _, maps in pairs(km) do
-    local mode, keys, command = unpack(maps)
-    vim.api.nvim_buf_set_keymap(0, mode, keys,
-      string.format("%s<CR>", command), km_ops);
+    local mode, lhs, rhs = unpack(maps)
+    vim.api.nvim_buf_set_keymap(0, mode, lhs, string.format("%s<CR>", rhs),
+      km_ops);
   end
 end
 
