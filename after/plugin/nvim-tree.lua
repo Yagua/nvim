@@ -1,7 +1,5 @@
 local opt = vim.g
-opt.nvim_tree_quit_on_open = 1
 opt.nvim_tree_indent_markers = 1
-opt.nvim_tree_hide_dotfiles = 1
 
 -- following options are the default
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
@@ -17,6 +15,11 @@ require'nvim-tree'.setup {
   update_to_buf_dir   = {
     enable = true,
     auto_open = true,
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    },
   },
   diagnostics = {
     enable = false,
