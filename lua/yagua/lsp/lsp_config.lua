@@ -180,7 +180,9 @@ M.setup_jdtls = function()
     "%s/.local/share/eclipse/%s", HOME, vim.fn.fnamemodify(root_dir, ":p:h:t")
   )
   -- Jdtls configs
-  local config = {}
+  local config = {
+      handlers = {},
+  }
 
   config.settings = {
     java = {
@@ -241,6 +243,9 @@ M.setup_jdtls = function()
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities;
   }
+
+  -- mute progress (status bar shows this)
+  config.handlers['language/status'] = function() end
 
   --Setup client
   jdtls.start_or_attach(config)

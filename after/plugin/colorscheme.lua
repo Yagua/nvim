@@ -22,5 +22,8 @@ nebulous.setup {
     TelescopePreviewBorder = { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
     TelescopePromptBorder =  { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
     TelescopeBorder =        { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
+    -- highlight groups for custom status line
+    StatusLineWarn = { fg = scheme.DarkOrange, bg = scheme.Grey, scheme.none },
+    StatusLineModes = { fg = scheme.Aqua, bg = scheme.none, scheme.none },
   }
 }
