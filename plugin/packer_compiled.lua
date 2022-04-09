@@ -104,11 +104,6 @@ _G.packer_plugins = {
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/cyclist.vim",
     url = "https://github.com/tjdevries/cyclist.vim"
   },
-  ["express_line.nvim"] = {
-    loaded = true,
-    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/express_line.nvim",
-    url = "https://github.com/tjdevries/express_line.nvim"
-  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/formatter.nvim",
