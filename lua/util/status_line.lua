@@ -9,8 +9,6 @@ M.status_line = function ()
     [=[[ %{luaeval("require('util.status_line').get_mode()")} ]]=],
     "%*",
 
-    [[ %{luaeval("require('util.status_line').get_git_info()")} ]],
-
     [[ %<%{luaeval("require('util.status_line').file_or_lsp_status()")} %m%r%= ]],
 
     "%=",
@@ -39,6 +37,7 @@ M.get_diagnostic_status = function ()
   local items = { "ERROR", "WARN", "HINT", "INFO" }
   local result = {}
 
+  if #vim.diagnostic.get(0) < 1 then return "" end
   for _, item in pairs(items) do
     local element_num = #vim.diagnostic.get(0, {
       severity = vim.diagnostic.severity[item]
@@ -56,30 +55,6 @@ M.get_diagnostic_status = function ()
   end
 end
 
--- get git info
-M.get_git_info = function ()
-  local items = {}
-
-  items.git_branch = function ()
-    local job = Job:new({
-      command = "git",
-      args = { "branch", "--show-current" },
-      cwd = vim.fn.getcwd(),
-    })
-
-    local ok, result = pcall(function ()
-      return vim.trim(job:sync()[1])
-    end)
-
-    if ok then
-      return string.format("%s %s", dvi.get_icon(".gitattributes"), result)
-    else return ""
-    end
-  end
-
-  return items.git_branch()
-end
-
 -- get name of the current mode
 M.get_mode = function ()
   local mode = vim.api.nvim_get_mode().mode
@@ -90,7 +65,7 @@ M.get_mode = function ()
     rm = 'More  ',     cv = 'Vim Ex',     ce = 'Ex (r)',      r  = 'Prompt',
     [''] = 'V·Blck', ['r?'] = 'Cnfirm', ['!']  = 'Shell ', [''] = 'S·Block',
   }
-  return modes[mode] or '_'
+  return modes[mode] or mode
 end
 
 -- format uri to make readable file names
@@ -108,10 +83,11 @@ end
 -- get file name or lsp status
 M.file_or_lsp_status = function ()
   local messages = vim.lsp.util.get_progress_messages()
+  local bufnr = vim.api.nvim_get_current_buf()
   local mode = M.get_mode()
 
   if mode ~= 'Normal' or vim.tbl_isempty(messages) then
-    local fname = M.format_uri(vim.uri_from_bufnr(vim.api.nvim_get_current_buf()))
+    local fname = M.format_uri(vim.uri_from_bufnr(bufnr))
     return string.format("%s %s",
       dvi.get_icon(vim.fn.fnamemodify(fname, ":e")) or "", fname)
   end
@@ -142,11 +118,36 @@ function M.dap_status()
   local ok, dap = pcall(require, 'dap')
   if not ok then return '' end
   local status = dap.status()
-
-  if status ~= '' then
-    return string.format("[DAP: %s]", status)
-  end
-  return ''
+  if status == '' then return '' end
+  return string.format("[DAP: %s]", status)
 end
+
+-- get git info
+-- M.get_git_info = function ()
+--   local items = {}
+--   local is_git_dir = vim.fn.system("git rev-parse --git-dir 2>/dev/null")
+--   is_git_dir = vim.fn.trim(is_git_dir)
+--   if is_git_dir == "" then return "" end
+--
+--   items.git_branch = function ()
+--     local job = Job:new({
+--       command = "git",
+--       args = { "branch", "--show-current" },
+--       cwd = vim.fn.getcwd(),
+--     })
+--
+--     local ok, result = pcall(function ()
+--       return vim.trim(job:sync()[1])
+--     end)
+--
+--     if ok then
+--       local res = string.format("%s %s", dvi.get_icon(".gitattributes"), result)
+--       return res
+--     else return ""
+--     end
+--   end
+--
+--   return items.git_branch()
+-- end
 
 return M
