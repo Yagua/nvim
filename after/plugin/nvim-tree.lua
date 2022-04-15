@@ -1,7 +1,3 @@
-local opt = vim.g
-opt.nvim_tree_indent_markers = 1
-
--- following options are the default
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 require'nvim-tree'.setup {
   disable_netrw       = true,
@@ -82,7 +78,17 @@ require'nvim-tree'.setup {
         { key = "q",              cb = tree_cb("close") }
       }
     }
-  }
+  },
+  renderer = {
+    indent_markers = {
+      enable = true,
+      icons = {
+        corner = "└ ",
+        edge = "│ ",
+        none = "  ",
+      },
+    },
+  },
 }
 
 vim.api.nvim_set_keymap("n", "<c-n>", ":NvimTreeToggle<CR>", {noremap = true})
