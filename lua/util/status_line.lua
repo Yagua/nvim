@@ -122,6 +122,11 @@ function M.dap_status()
   return string.format("[DAP: %s]", status)
 end
 
+M.winbar = function ()
+  -- TODO: implement winbar status
+end
+
+
 -- get git info
 -- M.get_git_info = function ()
 --   local items = {}

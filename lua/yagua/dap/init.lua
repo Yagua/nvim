@@ -93,6 +93,38 @@ M.setup = function()
     vim.cmd('sleep')
     callback({ type = 'server', host = '127.0.0.1', port = port })
   end
+
+  --python
+  dap.configurations.python = { --custom configurations
+    {
+      type = 'python',
+      request = 'launch',
+      name = 'Django-project',
+      program = vim.fn.getcwd() .. '/manage.py',
+      args = {'runserver', '--noreload'},
+      console = "integratedTerminal"
+    },
+    {
+      type = 'python',
+      request = 'launch',
+      name = 'Django-promt',
+      program = vim.fn.getcwd() .. '/manage.py',
+      args = function()
+        local manage_file = vim.fn.getcwd() .. '/manage.py'
+        if vim.fn.filereadable(manage_file) <= 0 then return {} end
+        local args = vim.fn.trim(vim.fn.input("Args: "))
+        return vim.fn.split(args, [[\s]])
+      end,
+      console = "integratedTerminal"
+    }
+  }
+  -- custom dap.adapters.python configuration here
+
+  if not dap.adapters.python then
+    local dappy = require('dap-python')
+    dappy.setup('~/.virtualenvs/debugpy/bin/python')
+  end
+
 end
 
 -- local dap_ui = require("dapui")
