@@ -44,9 +44,6 @@ return require('packer').startup(function(use)
 
   -- Themes
   local_use 'nebulous.nvim'
-  use 'eddyekofo94/gruvbox-flat.nvim'
-  use 'rebelot/kanagawa.nvim'
-  use 'gruvbox-community/gruvbox'
 
   -- Telescope
   use {
