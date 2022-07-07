@@ -10,11 +10,18 @@ end
 
 return require('packer').startup(function(use)
 
-  local local_use = function(plug_path)
-    if vim.fn.isdirectory(vim.fn.expand("~/Plugins/" .. plug_path)) == 1 then
-      use("~/Plugins/" .. plug_path)
+  local local_use = function(plug)
+    local root_path = vim.fn.expand("~/Plugins/")
+    if vim.fn.isdirectory(root_path) ~= 1 then
+      print(string.format(
+        "Local plugin directory '%s' does not exists", root_path))
+      return
+    end
+    if vim.fn.isdirectory(root_path .. plug) == 1 then
+      use(root_path .. plug)
     else
-      use(string.format('%s/%s', os.getenv("HOME"), plug_path))
+      print(string.format(
+        "Plugin '%s' does not exists in %s", plug, root_path))
     end
   end
 

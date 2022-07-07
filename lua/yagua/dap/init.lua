@@ -113,7 +113,7 @@ M.setup = function()
         local manage_file = vim.fn.getcwd() .. '/manage.py'
         if vim.fn.filereadable(manage_file) <= 0 then return {} end
         local args = vim.fn.trim(vim.fn.input("Args: "))
-        return vim.fn.split(args, [[\s]])
+        return vim.fn.split(args, [[\s\+]])
       end,
       console = "integratedTerminal"
     }

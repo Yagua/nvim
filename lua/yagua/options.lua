@@ -28,9 +28,9 @@ load_opts {
   colorcolumn    = "80",         -- Set a column for 80 characters
   signcolumn     = 'yes',        -- Always show the signcolumn
   clipboard      = '',           -- Copy paste between Vim and everything else
-  guicursor      = { 'n-v-c:block-Cursor/lCursor', 'i-ci-ve:ver25-Cursor2' }, --Cursor settigs
-  statusline     = [[%!luaeval('require("util.status_line").status_line()')]],
-  -- winbar = [[%!luaeval('require("util.status_line").winbar()')]],
+  guicursor      = { 'n-v-c:block-Cursor/lCursor', 'i-ci-ve:ver25-Cursor2' },  --Cursor settigs
+  statusline     = [[%!luaeval('require("util.status_line").status_line()')]], -- Custom statusline
+  -- winbar = [[%!luaeval('require("util.status_line").winbar()')]], -- Custom winbar
   formatoptions  = vim.opt.formatoptions
     - "a" -- Auto formatting text
     - "t" -- Auto-wrap text using textwidth

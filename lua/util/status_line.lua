@@ -1,5 +1,5 @@
-local Job = require("plenary.job")
 local dvi = require("nvim-web-devicons")
+-- local Job = require("plenary.job")
 local M = {}
 
 -- setup status line
@@ -58,14 +58,14 @@ end
 -- get name of the current mode
 M.get_mode = function ()
   local mode = vim.api.nvim_get_mode().mode
-  local modes = {
+  local modes_map = {
     n  = 'Normal',     no = 'N·OpPd',     v  = 'Visual',      V  = 'V·Line',
     c  = 'Cmmand',     s  = 'Select',     S  = 'S·Line',      t  = 'Term',
     i  = 'Insert',     ic = 'ICompl',     R  = 'Rplace',      Rv = 'VRplce',
     rm = 'More  ',     cv = 'Vim Ex',     ce = 'Ex (r)',      r  = 'Prompt',
     [''] = 'V·Blck', ['r?'] = 'Cnfirm', ['!']  = 'Shell ', [''] = 'S·Block',
   }
-  return modes[mode] or mode
+  return modes_map[mode] or mode
 end
 
 -- format uri to make readable file names
