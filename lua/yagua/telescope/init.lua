@@ -1,6 +1,7 @@
 local keymap = vim.api.nvim_set_keymap
 local opts = {noremap = true}
 local telescope = require("telescope")
+local actions = require("telescope.actions")
 
 telescope.setup {
   defaults = {
@@ -14,6 +15,13 @@ telescope.setup {
       find_files = {
         theme = "ivy"
       }
+    },
+    mappings = {
+      i = {
+        ["<C-f>"] = function(prompt_bufnr)
+          actions.delete_buffer(prompt_bufnr)
+        end
+      },
     }
   },
 }

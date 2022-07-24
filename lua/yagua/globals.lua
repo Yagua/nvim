@@ -7,18 +7,26 @@ globals.opts = function (opts_table)
   end
 end
 
-P = function(v)
-  print(vim.inspect(v))
-  return v
+P = function(arg)
+  print(vim.inspect(arg))
+  return arg
 end
 
-RELOAD = function(...)
-  return require("plenary.reload").reload_module(...)
+PP = function(...)
+  local args = { ... }
+  for _, arg in pairs(args) do
+    print(vim.inspect(arg))
+  end
+  return args
 end
 
 R = function(name)
   RELOAD(name)
   return require(name)
+end
+
+RELOAD = function(...)
+  return require("plenary.reload").reload_module(...)
 end
 
 return globals
