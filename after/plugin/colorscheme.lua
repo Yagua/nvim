@@ -1,9 +1,9 @@
 -- Colorscheme Settings
 local nebulous = require("nebulous")
-local scheme = require("nebulous.functions").get_colors("fullmoon")
+local scheme = require("nebulous.functions").get_colors("nova")
 
 nebulous.setup {
-  variant = "fullmoon",
+  variant = "nova",
   disable = {
     background = false,
     endOfBuffer = false,
