@@ -24,13 +24,8 @@ neogit.setup {
     hunk = { "", "" },
   },
   mappings = {
-    status = {
-      ["q"] = function ()
-        vim.api.nvim_buf_delete(0, {})
-        vim.api.nvim_cmd({cmd = "lc!"}, {})
-      end
-    }
+    status = {}
   }
 }
 
-keymap("n", "<leader>no", ":lc %:h | Neogit<CR>", options)
+keymap("n", "<leader>no", ":lua require('neogit').open()<CR>", options)

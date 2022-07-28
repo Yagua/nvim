@@ -10,7 +10,7 @@ custom_capabilities = require("cmp_nvim_lsp").update_capabilities(custom_capabil
 
 --keymaps
 local key_maps = {
-  {"n", "gD", "<cmd>lua vim.lsp.buf.declaration()"},
+  {"n", "<leader>gD", "<cmd>lua vim.lsp.buf.declaration()"},
   {"n", "<leader>du", "<cmd>lua vim.lsp.buf.definition()"},
   {"n", "<leader>re", "<cmd>lua vim.lsp.buf.references()"},
   {"n", "<leader>vi", "<cmd>lua vim.lsp.buf.implementation()"},

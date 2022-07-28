@@ -21,7 +21,6 @@ load_opts {
   tabstop        = 4,            -- Number of spaces that a <Tab> in the file counts for
   softtabstop    = 4,            -- Number of spaces that a <Tab> counts in <Tab> or <BS>.
   shiftwidth     = 4,            -- Number of spaces to use for each step of (auto)indent.
-  laststatus     = 3,            -- Goblal status line
   cmdheight      = 2,            -- Height of the command bar
   scrolloff      = 10,           -- Limit number of the scroll action
   updatetime     = 50,           -- Make updates happen faster
@@ -31,7 +30,6 @@ load_opts {
   mouse          = '',
   guicursor      = { 'n-v-c:block-Cursor/lCursor', 'i-ci-ve:ver25-Cursor2' },  --Cursor settigs
   statusline     = [[%!luaeval('require("util.status_line").status_line()')]], -- Custom statusline
-  -- winbar = [[%!luaeval('require("util.status_line").winbar()')]], -- Custom winbar
   formatoptions  = vim.opt.formatoptions
     - "a" -- Auto formatting text
     - "t" -- Auto-wrap text using textwidth
