@@ -65,6 +65,7 @@ M.setup = function()
       port = 44444,
     }
   }
+
   dap.adapters.nlua = function(callback, config)
     local port = config.port
     local opts = {
@@ -118,13 +119,6 @@ M.setup = function()
       console = "integratedTerminal"
     }
   }
-  -- custom dap.adapters.python configuration here
-
-  if not dap.adapters.python then
-    local dappy = require('dap-python')
-    dappy.setup('~/.virtualenvs/debugpy/bin/python')
-  end
-
 end
 
 -- local dap_ui = require("dapui")
