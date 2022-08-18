@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
 
   -- Local plugins
   local_use 'nvimdb'
+  local_use 'nebulous.nvim'
 
   -- Plugin manager
   use 'wbthomason/packer.nvim'
@@ -48,9 +49,6 @@ return require('packer').startup(function(use)
 
   -- Closetags
   use 'alvan/vim-closetag'
-
-  -- Themes
-  local_use 'nebulous.nvim'
 
   -- Telescope
   use {
@@ -84,12 +82,10 @@ return require('packer').startup(function(use)
   use 'norcalli/nvim-colorizer.lua'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
   use 'szw/vim-maximizer'
-  -- use 'mhinz/vim-startify'
+  use 'rest-nvim/rest.nvim'
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'
-  -- use 'tamago324/lir.nvim'
-  -- use "tamago324/lir-git-status.nvim"
 
   -- Built-in lsp
   use 'neovim/nvim-lspconfig'
