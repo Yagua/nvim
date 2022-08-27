@@ -41,8 +41,8 @@ return require('packer').startup(function(use)
   -- Icons
   use 'ryanoasis/vim-devicons'
   use 'kyazdani42/nvim-web-devicons'
-  use 'tjdevries/cyclist.vim'
   use 'onsails/lspkind-nvim'
+  -- use 'tjdevries/cyclist.vim'
 
   --Tabline
   use 'mkitt/tabline.vim'

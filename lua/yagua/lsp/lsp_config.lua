@@ -60,6 +60,7 @@ local servers = {
   yamlls = true,
   rust_analyzer = true,
   sqls = true,
+  dockerls = true,
 
   tsserver = {
     cmd = {"typescript-language-server", "--stdio"},

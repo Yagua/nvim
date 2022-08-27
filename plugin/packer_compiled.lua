@@ -99,11 +99,6 @@ _G.packer_plugins = {
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
-  ["cyclist.vim"] = {
-    loaded = true,
-    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/cyclist.vim",
-    url = "https://github.com/tjdevries/cyclist.vim"
-  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/formatter.nvim",

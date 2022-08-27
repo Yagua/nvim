@@ -101,14 +101,17 @@ M.setup = function()
       type = 'python',
       request = 'launch',
       name = 'Django-project',
+      django = true,
       program = vim.fn.getcwd() .. '/manage.py',
       args = {'runserver', '--noreload'},
-      console = "integratedTerminal"
+      console = "integratedTerminal",
+      justMyCode = false,
     },
     {
       type = 'python',
       request = 'launch',
       name = 'Django-promt',
+      django = true,
       program = vim.fn.getcwd() .. '/manage.py',
       args = function()
         local manage_file = vim.fn.getcwd() .. '/manage.py'
@@ -116,7 +119,8 @@ M.setup = function()
         local args = vim.fn.trim(vim.fn.input("Args: "))
         return vim.fn.split(args, [[\s\+]])
       end,
-      console = "integratedTerminal"
+      console = "integratedTerminal",
+      justMyCode = false,
     }
   }
 end
