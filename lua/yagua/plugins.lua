@@ -82,7 +82,8 @@ return require('packer').startup(function(use)
   use 'norcalli/nvim-colorizer.lua'
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install'  }
   use 'szw/vim-maximizer'
-  use 'rest-nvim/rest.nvim'
+  use 'NTBBloodbath/rest.nvim'
+  use {"akinsho/toggleterm.nvim", tag = "v2.*"}
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'
