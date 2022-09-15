@@ -5,6 +5,7 @@ nnoremap <C-k> :wincmd k<CR>
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y gg"+yG
+xnoremap <leader>p "_dP
 
 nnoremap <Right> gt
 nnoremap <Left> gT
