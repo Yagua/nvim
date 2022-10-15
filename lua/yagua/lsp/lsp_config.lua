@@ -6,7 +6,7 @@ local HOME = os.getenv('HOME')
 --capabilities
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
 custom_capabilities.textDocument.completion.completionItem.snippetSupport = true
-custom_capabilities = require("cmp_nvim_lsp").update_capabilities(custom_capabilities)
+custom_capabilities = require("cmp_nvim_lsp").default_capabilities(custom_capabilities)
 
 --keymaps
 local key_maps = {
@@ -55,7 +55,13 @@ local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_
 
 local servers = {
   vimls = true,
-  html = true,
+  html = {
+    cmd = {"vscode-html-language-server", "--stdio"},
+    filetypes = {
+      "html",
+      "jsp",
+    }
+  },
   cssls = true,
   yamlls = true,
   rust_analyzer = true,

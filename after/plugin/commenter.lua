@@ -1,4 +1,5 @@
 local commenter = require('Comment')
+local ft = require('Comment.ft')
 
 commenter.setup {
   ---Add a space b/w comment and the line
@@ -43,3 +44,6 @@ commenter.setup {
     ---Post-hook, called after commenting is done
     post_hook = nil,
 }
+
+ft.http = '# %s'
+ft.jsp = '<%-- %s --%>'

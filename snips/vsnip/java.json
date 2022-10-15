@@ -74,6 +74,19 @@
     ],
     "description": "try/catch block"
   },
+  "trycatchfinally": {
+    "prefix": "try_catch_finally",
+    "body": [
+      "try {",
+      "\t$1",
+      "} catch (${2:Exception} ${3:e}) {",
+      "\t$4//${0:TODO}: handle exception",
+      "} finally {",
+      "\t$5",
+      "}"
+    ],
+    "description": "try/catch block"
+  },
   "tryresources": {
     "prefix": "try_resources",
     "body": [
