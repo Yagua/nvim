@@ -30,7 +30,7 @@ load_opts {
   clipboard      = '',           -- Copy paste between Vim and everything else
   mouse          = '',           -- Disable mouse
   guicursor      = {'n-v-c:block-Cursor/lCursor', 'i-ci-ve:ver25-Cursor2'},  --Cursor settigs
-  statusline     = [[%!luaeval('require("util.status_line").status_line()')]], -- Custom statusline
+  statusline     = [[%!luaeval('require("extras.status_line").status_line()')]], -- Custom statusline
   list = true,  -- enable listchars
   listchars = { -- custom list characters
     tab = "» ",

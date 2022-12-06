@@ -24,3 +24,8 @@ tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-l> <C-\><C-n><C-w>j
 tnoremap <A-j> <C-\><C-n><C-w>k
 tnoremap <A-k> <C-\><C-n><C-w>l
+
+nnoremap <silent><leader>x :lua require("extras.utils").save_and_exec()<CR>
+nnoremap <silent><leader>ws :%s/\s\+$//e<CR>
+nnoremap <silent><leader>wl :lua require("extras.utils").save_session()<CR>
+nnoremap <silent><leader>ss :lua require("extras.utils").load_session()<CR>

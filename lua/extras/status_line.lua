@@ -6,10 +6,10 @@ local M = {}
 M.status_line = function ()
   local parts = {
     "%#StatusLineModes#",
-    [=[[ %{luaeval("require('util.status_line').get_mode()")} ]]=],
+    [=[[ %{luaeval("require('extras.status_line').get_mode()")} ]]=],
     "%*",
 
-    [[ %<%{luaeval("require('util.status_line').file_or_lsp_status()")} %m%r%= ]],
+    [[ %<%{luaeval("require('extras.status_line').file_or_lsp_status()")} %m%r%= ]],
 
     "%=",
     "%#StatusLineWarn#",
@@ -20,8 +20,8 @@ M.status_line = function ()
     "%{(&fenc != 'utf-8' && &fenc != '') ? '['.&fenc.']' : ''}",
     "%*",
 
-    [[%{luaeval("require('util.status_line').get_diagnostic_status()")}]],
-    [[%{luaeval("require('util.status_line').dap_status()")}]],
+    [[%{luaeval("require('extras.status_line').get_diagnostic_status()")}]],
+    [[%{luaeval("require('extras.status_line').dap_status()")}]],
     "[%l:%v]%y",
   }
 
