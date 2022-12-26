@@ -19,6 +19,10 @@ nnoremap <Leader>= <C-W>=
 nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>ma :MaximizerToggle!<CR>
 
+nnoremap <leader>go :DiffviewOpen<CR>
+nnoremap <leader>gq :DiffviewClose<CR>
+nnoremap <leader>gh :DiffviewFileHistory<CR>
+
 " Terminal keymaps
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-l> <C-\><C-n><C-w>j
