@@ -104,6 +104,11 @@ _G.packer_plugins = {
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
     url = "https://github.com/hrsh7th/cmp-vsnip"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/formatter.nvim",

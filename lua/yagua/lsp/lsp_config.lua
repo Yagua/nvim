@@ -208,6 +208,10 @@ M.setup_jdtls = function()
             name = "JavaSE-14",
             path = "/opt/jdks/jdk-14.0.2"
           },
+          {
+            name = "JavaSE-17",
+            path = "/opt/jdks/jdk-17.0.5"
+          },
         }
       }
     }
@@ -215,7 +219,7 @@ M.setup_jdtls = function()
 
   -- Cmd
   config.cmd = {
-    "/opt/jdks/jdk-14.0.2/bin/java",
+    "/opt/jdks/jdk-17.0.5/bin/java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
