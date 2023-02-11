@@ -8,8 +8,10 @@ M.status_line = function ()
     "%#StatusLineModes#",
     [=[[ %{luaeval("require('extras.status_line').get_mode()")} ]]=],
     "%*",
+    [[%{luaeval("require('extras.status_line').get_git_info()")}]],
 
-    [[ %<%{luaeval("require('extras.status_line').file_or_lsp_status()")} %m%r%= ]],
+    -- [[ %<%{luaeval("require('extras.status_line').file_or_lsp_status()")} %m%r%= ]],
+    [[ %<%{luaeval("require('extras.status_line').get_filename()")} %m%r%= ]],
 
     "%=",
     "%#StatusLineWarn#",
@@ -80,16 +82,20 @@ M.format_uri = function (uri)
   end
 end
 
+M.get_filename = function ()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local fname = M.format_uri(vim.uri_from_bufnr(bufnr))
+  return string.format("%s %s",
+    dvi.get_icon(vim.fn.fnamemodify(fname, ":e")) or "", fname)
+end
+
 -- get file name or lsp status
 M.file_or_lsp_status = function ()
   local messages = vim.lsp.util.get_progress_messages()
-  local bufnr = vim.api.nvim_get_current_buf()
   local mode = M.get_mode()
 
   if mode ~= 'Normal' or vim.tbl_isempty(messages) then
-    local fname = M.format_uri(vim.uri_from_bufnr(bufnr))
-    return string.format("%s %s",
-      dvi.get_icon(vim.fn.fnamemodify(fname, ":e")) or "", fname)
+    return M.get_filename()
   end
 
   local percentage
@@ -122,32 +128,12 @@ function M.dap_status()
   return string.format("[DAP: %s]", status)
 end
 
--- get git info
--- M.get_git_info = function ()
---   local items = {}
---   local is_git_dir = vim.fn.system("git rev-parse --git-dir 2>/dev/null")
---   is_git_dir = vim.fn.trim(is_git_dir)
---   if is_git_dir == "" then return "" end
---
---   items.git_branch = function ()
---     local job = Job:new({
---       command = "git",
---       args = { "branch", "--show-current" },
---       cwd = vim.fn.getcwd(),
---     })
---
---     local ok, result = pcall(function ()
---       return vim.trim(job:sync()[1])
---     end)
---
---     if ok then
---       local res = string.format("%s %s", dvi.get_icon(".gitattributes"), result)
---       return res
---     else return ""
---     end
---   end
---
---   return items.git_branch()
--- end
+-- get git info (requires fugitive)
+M.get_git_info = function ()
+  local is_git_dir = vim.fn["FugitiveIsGitDir"]()
+  if is_git_dir < 1 then return '' end
+  local current_branch = vim.fn["FugitiveHead"]()
+  return string.format("[ %s]", current_branch)
+end
 
 return M

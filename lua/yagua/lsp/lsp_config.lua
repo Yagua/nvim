@@ -54,6 +54,7 @@ local sumneko_root_path = string.format('%s/.local/servers/lua-language-server',
 local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 
 local servers = {
+  bashls = true,
   vimls = true,
   html = {
     cmd = {"vscode-html-language-server", "--stdio"},

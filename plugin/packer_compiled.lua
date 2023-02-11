@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/diffview.nvim",
     url = "https://github.com/sindrets/diffview.nvim"
   },
+  ["fidget.nvim"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/fidget.nvim",
+    url = "https://github.com/j-hui/fidget.nvim"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/formatter.nvim",
@@ -253,6 +258,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-devicons",
     url = "https://github.com/ryanoasis/vim-devicons"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/home/yagua/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   },
   ["vim-maximizer"] = {
     loaded = true,

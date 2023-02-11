@@ -25,5 +25,7 @@ nebulous.setup {
     -- highlight groups for custom status line
     StatusLineWarn = { fg = scheme.DarkOrange, bg = scheme.Grey, scheme.none },
     StatusLineModes = { fg = scheme.Aqua, bg = scheme.none, scheme.none },
+    --Fidget
+    FidgetTitle = { fg = scheme.DarkOrange, bg = scheme.none, style = scheme.none },
   }
 }
