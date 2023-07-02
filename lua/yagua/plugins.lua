@@ -42,7 +42,7 @@ return require('packer').startup(function(use)
   use 'ryanoasis/vim-devicons'
   use 'kyazdani42/nvim-web-devicons'
   use 'onsails/lspkind-nvim'
-  use 'j-hui/fidget.nvim'
+  use { 'j-hui/fidget.nvim', tag = 'legacy' }
 
   -- use 'tjdevries/cyclist.vim'
 
@@ -91,6 +91,8 @@ return require('packer').startup(function(use)
   use 'szw/vim-maximizer'
   use 'NTBBloodbath/rest.nvim'
   use {"akinsho/toggleterm.nvim", tag = "v2.*"}
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
 
   -- Tree
   use 'kyazdani42/nvim-tree.lua'

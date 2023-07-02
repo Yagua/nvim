@@ -2,6 +2,7 @@ local lsp = require('lspconfig')
 local jdtls = require("jdtls")
 local M = {}
 local HOME = os.getenv('HOME')
+local msn_path = vim.fn.stdpath("data") .. "/mason/packages/"
 
 --capabilities
 local custom_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -49,13 +50,16 @@ local custom_attach = function(_)
   set_keymaps(key_maps)
 end
 
--- server variables
-local sumneko_root_path = string.format('%s/.local/servers/lua-language-server', HOME)
-local sumneko_binary = string.format("%s/bin/lua-language-server", sumneko_root_path)
 
 local servers = {
-  bashls = true,
-  vimls = true,
+  bashls = {},
+  vimls = {},
+  cssls = {},
+  yamlls = {},
+  rust_analyzer = {},
+  sqlls = {},
+  dockerls = {},
+
   html = {
     cmd = {"vscode-html-language-server", "--stdio"},
     filetypes = {
@@ -63,11 +67,6 @@ local servers = {
       "jsp",
     }
   },
-  cssls = true,
-  yamlls = true,
-  rust_analyzer = true,
-  sqls = true,
-  dockerls = true,
 
   tsserver = {
     cmd = {"typescript-language-server", "--stdio"},
@@ -105,8 +104,7 @@ local servers = {
     filetypes = { "go", "gomod" },
   },
 
-  sumneko_lua = {
-    cmd = { sumneko_binary },
+  lua_ls = {
     settings = {
       Lua = {
         runtime = {
@@ -133,24 +131,12 @@ local servers = {
 
 -- load servers and its configs
 local load_servers = function (server, config)
-  if not config then
-    return
-  end
-
-  if type(config) ~= "table" then
-    config = {}
-  end
-
   config = vim.tbl_deep_extend("force", {
     on_attach = custom_attach,
     capabilities = custom_capabilities
-  }, config)
+  }, config or {})
 
   lsp[server].setup(config)
-end
-
-for server, config in pairs(servers) do
-  load_servers(server, config)
 end
 
 --# Java
@@ -158,7 +144,6 @@ end
 local function jdtls_on_attach(_)
   jdtls.setup_dap({hotcodereplace = 'auto'})
   jdtls.setup.add_commands()
-  require('jdtls.dap').setup_dap_main_class_configs() --temporary
 
   local jdtls_keymaps = {
     {"n", "<leader>or", "<Cmd>lua require('jdtls').organize_imports()"},
@@ -195,59 +180,82 @@ M.setup_jdtls = function()
 
   config.settings = {
     java = {
-      configuration = {
-        runtimes = {
-          {
-            name = "JavaSE-1.8",
-            path = "/opt/jdks/jdk1.8.0_202",
-          },
-          {
-            name = "JavaSE-11",
-            path = "/opt/jdks/jdk-11.0.3",
-          },
-          {
-            name = "JavaSE-14",
-            path = "/opt/jdks/jdk-14.0.2"
-          },
-          {
-            name = "JavaSE-17",
-            path = "/opt/jdks/jdk-17.0.5"
-          },
-        }
+      signatureHelp = { enabled = true },
+      completion = {
+        favoriteStaticMembers = {
+          "org.assertj.core.api.Assertions.assertThat",
+          "org.assertj.core.api.Assertions.assertThatThrownBy",
+          "org.assertj.core.api.Assertions.assertThatExceptionOfType",
+          "org.assertj.core.api.Assertions.catchThrowable",
+          "org.hamcrest.MatcherAssert.assertThat",
+          "org.hamcrest.Matchers.*",
+          "org.hamcrest.CoreMatchers.*",
+          "org.junit.jupiter.api.Assertions.*",
+          "java.util.Objects.requireNonNull",
+          "java.util.Objects.requireNonNullElse",
+          "org.mockito.Mockito.*"
+        },
+        filteredTypes = {
+          "com.sun.*",
+          "io.micrometer.shaded.*",
+          "java.awt.*",
+          "jdk.*",
+          "sun.*",
+        },
+      },
+    },
+    configuration = {
+      runtimes = {
+        {
+          name = "JavaSE-1.8",
+          path = "/opt/jdks/jdk1.8.0_202",
+        },
+        {
+          name = "JavaSE-11",
+          path = "/opt/jdks/jdk-11.0.18",
+        },
+        {
+          name = "JavaSE-14",
+          path = "/opt/jdks/jdk-14.0.2"
+        },
+        {
+          name = "JavaSE-17",
+          path = "/opt/jdks/jdk-17.0.7"
+        },
       }
     }
   }
 
   -- Cmd
   config.cmd = {
-    "/opt/jdks/jdk-17.0.5/bin/java",
+    "/opt/jdks/jdk-17.0.7/bin/java",
+    "-javaagent:" .. msn_path .. "jdtls/lombok.jar",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
-    "-Xms1g",
-    "-jar", vim.fn.glob(HOME .. "/.local/servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-    "-configuration", HOME .. "/.local/servers/jdtls/config_linux",
-    "-data", workspace_folder,
+    "-Xmx1g",
     "--add-modules=ALL-SYSTEM",
     "--add-opens", "java.base/java.util=ALL-UNNAMED",
     "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+    "-jar", vim.fn.glob(msn_path .. "jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    "-configuration", msn_path .. "jdtls/config_linux",
+    "-data", workspace_folder,
   }
-
-  --lombok support
-  local lombok_path = HOME .. "/.local/dev_tools/java/bundles/lombok/lombok.jar"
-  if vim.fn.filereadable(lombok_path) > 0 then
-    table.insert(config.cmd, 2, string.format("-javaagent:%s", lombok_path))
-  end
 
   config.on_attach = jdtls_on_attach
   config.capabilities = custom_capabilities
 
   local bundles = {
-    vim.fn.glob(HOME .. "/.local/dev_tools/java/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
+    vim.fn.glob(
+      msn_path .. "java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
+    )
   }
-  vim.list_extend(bundles, vim.split(vim.fn.glob(HOME .. "/.local/dev_tools/java/vscode-java-test/server/*.jar"), "\n"))
+  vim.list_extend(
+    bundles,
+    vim.split(vim.fn.glob(msn_path .. "java-test/extension/server/*.jar"), "\n")
+  )
 
   local extendedClientCapabilities = jdtls.extendedClientCapabilities
   extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
@@ -262,6 +270,18 @@ M.setup_jdtls = function()
 
   --Setup client
   jdtls.start_or_attach(config)
+end
+
+require("mason").setup({
+  ui = {
+    border = "rounded",
+    width = 0.9,
+    height = 0.9,
+  },
+})
+require("mason-lspconfig").setup()
+for server, config in pairs(servers) do
+  load_servers(server, config)
 end
 
 return M

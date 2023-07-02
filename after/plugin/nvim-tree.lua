@@ -1,8 +1,6 @@
 require("nvim-tree").setup({
   disable_netrw       = true,
   hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
   open_on_tab         = false,
   hijack_cursor       = false,
   update_cwd          = true,
@@ -15,35 +13,29 @@ require("nvim-tree").setup({
     number = true,
     relativenumber = true,
     adaptive_size = false,
-    mappings = {
-      list = {
-        { key = "<CR>",           action = "edit" },
-        { key = "l",              action = "edit" },
-        { key = "<C-]>",          action = "cd" },
-        { key = "<C-v>",          action = "vsplit" },
-        { key = "<C-s>",          action = "split" },
-        { key = "<C-t>",          action = "tabnew" },
-        { key = "<",              action = "prev_sibling" },
-        { key = ">",              action = "next_sibling" },
-        { key = "h",              action = "close_node" },
-        { key = "<Tab>",          action = "preview" },
-        { key = "I",              action = "toggle_ignored" },
-        { key = ".",              action = "toggle_dotfiles" },
-        { key = "R",              action = "refresh" },
-        { key = "a",              action = "create" },
-        { key = "<S-D>",          action = "remove" },
-        { key = "r",              action = "rename" },
-        { key = "<C-r>",          action = "full_rename" },
-        { key = "x",              action = "cut" },
-        { key = "c",              action = "copy" },
-        { key = "p",              action = "paste" },
-        { key = "[c",             action = "prev_git_item" },
-        { key = "]c",             action = "next_git_item" },
-        { key = "-",              action = "dir_up" },
-        { key = "q",              action = "close" }
-      },
-    },
   },
+  on_attach = function(bufnr)
+    local api = require "nvim-tree.api"
+
+    local function opts(desc)
+      return {
+        desc = "nvim-tree: " .. desc,
+        buffer = bufnr,
+        noremap = true,
+        silent = true,
+        nowait = true,
+      }
+    end
+
+    -- default mappings
+    api.config.mappings.default_on_attach(bufnr)
+
+    vim.keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+    vim.keymap.set("n", "l", api.node.open.edit, opts("Edit"))
+    vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close"))
+    vim.keymap.set("n", ".", api.tree.toggle_hidden_filter, opts("Dotfiles"))
+    vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Ignore"))
+  end,
   renderer = {
     group_empty = false,
     indent_markers = {
