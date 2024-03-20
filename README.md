@@ -1,1 +1,1 @@
-# Neovim config files
+# Yagua's Neovim Configuration
