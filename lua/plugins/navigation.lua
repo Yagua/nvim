@@ -42,7 +42,7 @@ return {
           { 'n', 'l', api.node.open.edit, opts('Edit') },
           { 'n', 'h', api.node.navigate.parent_close, opts('Close') },
           { 'n', '.', api.tree.toggle_hidden_filter, opts('Dotfiles') },
-          { 'n', 'I', api.tree.toggle_hidden_filter, opts('Ignore') },
+          { 'n', 'I', api.tree.toggle_gitignore_filter, opts('Ignore') },
         })
       end
 

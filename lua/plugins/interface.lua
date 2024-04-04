@@ -40,7 +40,6 @@ return {
   {
     'stevearc/dressing.nvim',
     event = 'VeryLazy',
-    commit = '1f2d120',
     opts = {
       input = {
         prompt_align = 'center',
@@ -171,22 +170,5 @@ return {
         },
       },
     },
-  },
-
-  -- Drops
-  {
-    'folke/drop.nvim',
-    event = 'VeryLazy',
-    enabled = false,
-    opts = {
-      max = 15,
-      interval = 200,
-      screensaver = false,
-    },
-    config = function(_, opts)
-      math.randomseed(os.time())
-      opts.theme = ({ 'stars', 'snow', 'leaves' })[math.random(1, 3)]
-      require('drop').setup(opts)
-    end,
   },
 }

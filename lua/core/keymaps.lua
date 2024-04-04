@@ -12,7 +12,6 @@ require('utils').set_keymap({
   { 'n', '<A-,>', '<C-W>5<' },
   { 'n', "<A-'>", '<C-W>+' },
   { 'n', '<A-;>', '<C-W>-' },
-  { 'n', '<localLeader>=', '<C-W>=' },
 
   -- Buffer utils
   { 'n', '<localleader>=', '<C-W>=' },

@@ -21,8 +21,12 @@ return {
       local scheme = require('nebulous.functions').get_colors('midnight')
       opts = vim.tbl_deep_extend('force', {
         custom_colors = {
-          LineNr = { fg = scheme.Blue, bg = scheme.none, style = scheme.none },
+          LineNr =       { fg = scheme.Blue,   bg = scheme.none, style = scheme.none },
           CursorLineNr = { fg = scheme.Yellow, bg = scheme.none, style = scheme.none },
+          TelescopeResultsBorder = { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
+          TelescopePreviewBorder = { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
+          TelescopePromptBorder =  { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
+          TelescopeBorder =        { fg = scheme.DarkGrey_2, bg = scheme.none, style = scheme.none },
         },
       }, opts)
       require('nebulous').setup(opts)

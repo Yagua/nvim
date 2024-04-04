@@ -21,7 +21,7 @@ require('utils').setting({
   tabstop = 4, -- Number of spaces that a <Tab> in the file counts for
   softtabstop = 4, -- Number of spaces that a <Tab> counts in <Tab> or <BS>.
   shiftwidth = 4, -- Number of spaces to use for each step of (auto)indent.
-  cmdheight = 2, -- Height of the command bar
+  cmdheight = 1, -- Height of the command bar
   scrolloff = 10, -- Limit number of the scroll action
   splitbelow = true, -- Sets the horizontal split's position to bottom
   splitright = true, -- Sets the vertical split's position to right

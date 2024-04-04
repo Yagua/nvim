@@ -328,7 +328,7 @@ return {
                 },
                 {
                   name = 'JavaSE-11',
-                  path = '/opt/jdks/jdk-11.0.16/',
+                  path = '/opt/jdks/jdk-11.0.21/',
                 },
                 {
                   name = 'JavaSE-14',

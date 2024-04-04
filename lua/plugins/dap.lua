@@ -49,6 +49,15 @@ local setup_adapters = function(dap)
       program = '${file}',
     },
     {
+      name = 'Debug With Args',
+      type = 'java',
+      request = 'launch',
+      program = '${file}',
+      args = function()
+        return vim.fn.trim(vim.fn.input("VM args: "))
+      end,
+    },
+    {
       name = 'Debug (Attach) - Remote',
       type = 'java',
       request = 'attach',
@@ -125,6 +134,7 @@ return {
     dependencies = {
       'rcarriga/nvim-dap-ui',
       'theHamsta/nvim-dap-virtual-text',
+      'nvim-neotest/nvim-nio'
     },
     config = function()
       local dap = require('dap')
@@ -134,12 +144,12 @@ return {
       dap.listeners.after.event_initialized['dapui_config'] = function()
         dapui.open(ui_opts)
       end
-      dap.listeners.before.event_terminated['dapui_config'] = function()
-        dapui.close(ui_opts)
-      end
-      dap.listeners.before.event_exited['dapui_config'] = function()
-        dapui.close(ui_opts)
-      end
+      -- dap.listeners.before.event_terminated['dapui_config'] = function()
+      --   dapui.close(ui_opts)
+      -- end
+      -- dap.listeners.before.event_exited['dapui_config'] = function()
+      --   dapui.close(ui_opts)
+      -- end
       setup_adapters(dap)
 
       require('utils').set_keymap({
@@ -167,6 +177,13 @@ return {
         { 'n', '<leader>rl', dap.run_last },
         { 'n', '<F4>', dap.terminate },
         { 'n', '<leader>.', dap.close },
+        {
+          'n',
+          '<leader>dc',
+          function()
+            dapui.close(ui_opts)
+          end,
+        },
         {
           'n',
           '<Home>',
