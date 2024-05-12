@@ -82,13 +82,13 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     opts = {
-      question_header = "## User ",
+      question_header = "## " .. os.getenv("USER"),
       answer_header = "## Copilot ",
       error_header = "## Error ",
-      separator = " ", -- Separator to use in chat
+      separator = " ",
       prompts = prompts,
-      auto_follow_cursor = false, -- Don't follow the cursor after getting response
-      show_help = false, -- Show help in virtual text, set to true if that's 1st time using Copilot Chat
+      auto_follow_cursor = false,
+      show_help = false,
       mappings = {
         -- Use tab for completion
         complete = {
@@ -225,15 +225,15 @@ return {
       { "<leader>an", "<cmd>CopilotChatBetterNamings<cr>", desc = "CopilotChat - Better Naming" },
       -- Chat with Copilot in visual mode
       {
-        "<leader>av",
+        "<leader>aV",
         ":CopilotChatVisual",
         mode = "x",
         desc = "CopilotChat - Open in vertical split",
       },
       {
-        "<leader>aI",
+        "<leader>aL",
         ":CopilotChatInline<cr>",
-        mode = "x",
+        -- mode = "n",
         desc = "CopilotChat - Inline chat",
       },
       -- Custom input for CopilotChat
