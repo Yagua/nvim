@@ -1,48 +1,5 @@
 local set_keymap = require('utils').set_keymap
 return {
-  -- ChatGPT.nvim
-  {
-    'jackMort/ChatGPT.nvim',
-    enabled = false,
-    cmd = {
-      'ChatGPT',
-      'ChatGPTActAs',
-      'ChatGPTEditWithInstructions',
-      'ChatGPTCompleteCode',
-      'ChatGPTRunCustomCodeAction',
-    },
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-    },
-    opts = {
-      keymaps = {
-        close = { '<C-c>' },
-        yank_last = '<C-y>',
-        yank_last_code = '<C-k>',
-        scroll_up = '<C-u>',
-        scroll_down = '<C-d>',
-        toggle_settings = '<C-o>',
-        new_session = '<C-n>',
-        cycle_windows = '<Tab>',
-        -- in the Sessions pane
-        select_session = 's',
-        rename_session = 'r',
-        delete_session = 'd',
-      },
-      popup_input = {
-        submit = '<CR>',
-      },
-      popup_layout = {
-        default = 'center',
-        center = {
-          width = '90%',
-          height = '80%',
-        },
-      },
-      openai_params = { max_tokens = 555 },
-    },
-  },
-
   -- Toggleterm
   {
     'akinsho/toggleterm.nvim',

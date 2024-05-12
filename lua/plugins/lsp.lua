@@ -41,6 +41,7 @@ return {
         'dockerfile-language-server',
         'docker-compose-language-service',
         'zls',
+        'typos-lsp'
       },
     },
     config = function(_, opts)

@@ -61,8 +61,20 @@ local setup_adapters = function(dap)
       name = 'Debug (Attach) - Remote',
       type = 'java',
       request = 'attach',
-      hostName = '127.0.0.1',
-      port = 5005,
+      hostName = function ()
+        local DEFAULT_HOST_NAME = "127.0.0.1"
+        local target_host_name = vim.fn.trim(
+          vim.fn.input(string.format("Host (empty for default -> %s): ", DEFAULT_HOST_NAME))
+          )
+        return vim.fn.empty(target_host_name) > 0 and DEFAULT_HOST_NAME or target_host_name
+      end,
+      port = function ()
+        local DEFAULT_PORT = "5005"
+        local target_port = vim.fn.trim(
+          vim.fn.input(string.format("Port: (empty for default -> %s): ", DEFAULT_PORT))
+        )
+        return vim.fn.empty(target_port) > 0 and DEFAULT_PORT or target_port
+      end,
     },
   }
 

@@ -42,7 +42,7 @@ return {
           { 'n', '<leader>hS', gitsigns.stage_buffer },
           { 'n', '<leader>hu', gitsigns.undo_stage_hunk },
           { 'n', '<leader>hR', gitsigns.reset_buffer },
-          { 'n', '<leader>hp', gitsigns.preview_hunk },
+          { 'n', '<leader>fi', gitsigns.preview_hunk },
           {
             'n',
             '<leader>hb',
