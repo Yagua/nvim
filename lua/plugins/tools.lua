@@ -246,4 +246,28 @@ return {
       },
     },
   },
+
+  {
+    'mfussenegger/nvim-lint',
+    config = function (_)
+      local lint = require('lint')
+      local linters = require('lint').linters
+      lint.linters_by_ft = {
+        markdown = {'vale'},
+        htmldjango = {'curlylint'},
+        rst = {'vale'},
+        java = {"cspell"},
+        lua = {'codespell', 'luacheck'},
+        yaml = {'yamllint'},
+        gitcommit = {'codespell'},
+        dockerfile = {'hadolint'},
+        ghaction = {"actionlint"},
+        ['yaml.ansible'] = {'ansible_lint'},
+      }
+
+      linters.codespell.args = {
+        "--builtin=rare,clear,informal,code,en-GB_to_en-US",
+      }
+    end
+  }
 }

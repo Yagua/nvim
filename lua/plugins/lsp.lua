@@ -41,7 +41,8 @@ return {
         'dockerfile-language-server',
         'docker-compose-language-service',
         'zls',
-        'typos-lsp'
+        'typos-lsp',
+        'eslint_d'
       },
     },
     config = function(_, opts)
