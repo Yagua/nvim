@@ -253,10 +253,10 @@ return {
       local lint = require('lint')
       local linters = require('lint').linters
       lint.linters_by_ft = {
-        markdown = {'vale'},
+        -- markdown = {'vale'},
         htmldjango = {'curlylint'},
         rst = {'vale'},
-        java = {"cspell"},
+        java = {"cspell", "codespell"},
         lua = {'codespell', 'luacheck'},
         yaml = {'yamllint'},
         gitcommit = {'codespell'},

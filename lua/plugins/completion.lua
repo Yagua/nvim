@@ -129,22 +129,26 @@ return {
     },
   },
 
-  -- Mini.surround
   {
-    'echasnovski/mini.surround',
-    event = 'VeryLazy',
-    opts = {
-      mappings = {
-        add = 'za', -- Add surrounding in Normal and Visual modes
-        delete = 'zd', -- Delete surrounding
-        find = 'zf', -- Find surrounding (to the right)
-        find_left = 'zF', -- Find surrounding (to the left)
-        highlight = 'zh', -- Highlight surrounding
-        replace = 'zr', -- Replace surrounding
-        update_n_lines = 'zn', -- Update `n_lines`
-        suffix_last = 'l', -- Suffix to search with "prev" method
-        suffix_next = 'n', -- Suffix to search with "next" method
-      },
-    },
-  },
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        keymaps = {
+          insert = "<C-g>s",
+          insert_line = "<C-g>S",
+          normal = "ys",
+          normal_cur = "yss",
+          normal_line = "yS",
+          normal_cur_line = "ySS",
+          visual = "S",
+          visual_line = "gS",
+          delete = "ds",
+          change = "cs",
+          change_line = "cS",
+        },
+      })
+    end
+  }
 }

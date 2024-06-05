@@ -98,12 +98,12 @@ return {
         -- Close the chat
         close = {
           normal = "q",
-          insert = "<C-c>",
+          insert = "<M-c>",
         },
         -- Reset the chat buffer
         reset = {
-          normal = "<C-l>",
-          insert = "<C-l>",
+          normal = "<M-l>",
+          insert = "<M-l>",
         },
         -- Submit the prompt to Copilot
         submit_prompt = {
@@ -274,7 +274,7 @@ return {
       -- Fix the issue with diagnostic
       { "<leader>aF", "<cmd>CopilotChatFixDiagnostic<cr>", desc = "CopilotChat - Fix Diagnostic" },
       -- Clear buffer and chat history
-      { "<leader>al", "<cmd>CopilotChatReset<cr>", desc = "CopilotChat - Clear buffer and chat history" },
+      { "<leader>cl", "<cmd>CopilotChatReset<cr>", desc = "CopilotChat - Clear buffer and chat history" },
       -- Toggle Copilot Chat Vsplit
       { "<leader>av", "<cmd>CopilotChatToggle<cr>", desc = "CopilotChat - Toggle" },
     },
