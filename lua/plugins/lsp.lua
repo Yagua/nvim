@@ -400,7 +400,32 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require("go").setup()
+      local opts = { noremap = true}
+      set_keymap({
+        { 'n', '<Space>Gr', '<cmd>GoRun<CR>', opts },
+        { 'n', '<Space>GA', '<cmd>GoModTidy<CR>', opts },
+        { 'n', '<Space>Gb', '<cmd>GoBuild<CR>', opts},
+        { 'n', '<Space>Gt', '<cmd>GoTestFunc<CR>', opts },
+        { 'n', '<Space>GT', '<cmd>GoTestFile<CR>', opts },
+        { 'n', '<Space>GC', '<cmd>GoCoverage -m<CR>', opts },
+        { 'n', '<Space>Gp', '<cmd>GoTestPkg<CR>', opts },
+        { 'n', '<Space>Gd', '<cmd>GoDoc<CR>', opts },
+        { 'n', '<Space>Gf', '<cmd>GoFillStruct<CR>', opts },
+        { 'n', '<Space>GD', '<cmd>GoDebug -t<CR>', opts },
+        { 'n', '<Space>Gi', '<cmd>GoImports<CR>', opts },
+        { 'n', '<Space>GF', '<cmd>GoFmt<CR>', opts },
+        { 'n', '<Space>Ga', '<cmd>GoAddTest<CR>', opts },
+        { 'n', '<Space>Gg', '<cmd>GoAddTag<CR>', opts },
+        { 'n', '<Space>Gl', '<cmd>GoClearTag<CR>', opts },
+        { 'n', '<Space>GI', '<cmd>GoImpl<CR>', opts },
+        { 'n', '<Space>Ge', '<cmd>GoIfErr<CR>', opts },
+        { 'n', '<Space>GR', '<cmd>GoGenReturn<CR>', opts },
+        { 'n', '<Space>GL', '<cmd>GoToggleInlay<CR>', opts },
+        { 'n', '<Space>Gm', '<cmd>GoCmt<CR>', opts },
+      })
+      require("go").setup({
+          icons = false,
+      })
     end,
     event = {"CmdlineEnter"},
     ft = {"go", 'gomod'},
