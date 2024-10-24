@@ -280,8 +280,12 @@ return {
         gitcommit = {'codespell'},
         dockerfile = {'hadolint'},
         ghaction = {"actionlint"},
+        go = {"codespell" },
         ['yaml.ansible'] = {'ansible_lint'},
       }
+      -- linters.codespell.args = {
+      --   "--builtin=rare,informal,code,en-GB_to_en-US",
+      -- }
     end
   }
 }

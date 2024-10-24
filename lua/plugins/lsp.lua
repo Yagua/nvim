@@ -425,6 +425,10 @@ return {
       })
       require("go").setup({
           icons = false,
+          lsp_keymaps = false,
+          dap_debug_keymap = false,
+          dap_debug_gui = false,
+          dap_debug_vt = false
       })
     end,
     event = {"CmdlineEnter"},
