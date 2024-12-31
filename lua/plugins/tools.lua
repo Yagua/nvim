@@ -287,5 +287,26 @@ return {
       --   "--builtin=rare,informal,code,en-GB_to_en-US",
       -- }
     end
+  },
+
+  {
+    'charm-and-friends/freeze.nvim',
+    lazy = false,
+    config = function(_)
+      require('freeze').setup({
+        command = "freeze",
+        open = false,
+        show_line_numbers = true,
+        output = function()
+          local res = vim.system({'uuidgen'}, { text = true }):wait()
+          return os.getenv("HOME") .. "/Pictures/" .. res.stdout .. ".png"
+        end,
+        theme = "catppuccin-mocha",
+      })
+      set_keymap({
+        { 'n', '<leader>fz', '<CMD>Freeze<CR>', { desc = 'Capture code image' } },
+        { 'n', '<leader>fo', '<CMD>Freeze open<CR>', { desc = 'Open captured images' } },
+      })
+    end
   }
 }

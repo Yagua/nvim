@@ -8,6 +8,49 @@ capabilities.textDocument.foldingRange = {
   lineFoldingOnly = true,
 }
 
+-- Floating preview window's borders
+local original_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = 'rounded' -- to force the rounded in everything
+  return original_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+local setup_lsp_keymaps = function(opts)
+  set_keymap({
+    { 'n', 'gD', vim.lsp.buf.declaration, opts },
+    { 'n', '<leader>du', vim.lsp.buf.definition, opts },
+    { 'n', '<leader>re', vim.lsp.buf.references, opts },
+    { 'n', '<leader>vi', vim.lsp.buf.implementation, opts },
+    { 'n', '<leader>sh', vim.lsp.buf.signature_help, opts },
+    { 'n', '<leader>gt', vim.lsp.buf.type_definition, opts },
+    { 'n', '<leader>gw', vim.lsp.buf.document_symbol, opts },
+    { 'n', '<leader>gW', vim.lsp.buf.workspace_symbol, opts },
+    --Actions mappings
+    { 'n', '<leader>ah', vim.lsp.buf.hover, opts },
+    { 'n', '<leader>ca', vim.lsp.buf.code_action, opts },
+    { 'n', '<leader>rn', vim.lsp.buf.rename, opts },
+    -- Few language severs support these three
+    { 'n', '<leader>=', function() vim.lsp.buf.format({ async = true }) end, opts, },
+    { 'n', '<leader>ai', vim.lsp.buf.incoming_calls, opts },
+    { 'n', '<leader>ao', vim.lsp.buf.outgoing_calls, opts },
+    --Diagnostics mappings
+    { 'n', '<leader>ee', vim.diagnostic.open_float, opts },
+    { 'n', '<leader>gp', function () vim.diagnostic.jump({count = -1}) end, opts },
+    { 'n', '<leader>gn', function () vim.diagnostic.jump({count = 1}) end, opts },
+    --Custom
+    {
+      'n',
+      '<leader>~',
+      function()
+        vim.notify("[LSP]: restarting server...", vim.log.levels.WARN)
+        vim.cmd("LspRestart")
+      end,
+      opts
+    },
+  })
+end
+
 return {
   --Mason
   {
@@ -100,7 +143,7 @@ return {
       servers = {
         -- Default
         pylsp = {},
-        tsserver = {},
+        ts_ls = {},
         cssls = {},
         yamlls = {},
         vimls = {},
@@ -180,57 +223,15 @@ return {
       },
     },
     config = function(_, opts)
-      vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-        callback = function(args)
-          local bufnr = args.buf
-          local buf = { buffer = bufnr }
-          set_keymap({
-            { 'n', 'gD', vim.lsp.buf.declaration, buf },
-            { 'n', '<leader>du', vim.lsp.buf.definition, buf },
-            { 'n', '<leader>re', vim.lsp.buf.references, buf },
-            { 'n', '<leader>vi', vim.lsp.buf.implementation, buf },
-            { 'n', '<leader>sh', vim.lsp.buf.signature_help, buf },
-            { 'n', '<leader>gt', vim.lsp.buf.type_definition, buf },
-            { 'n', '<leader>gw', vim.lsp.buf.document_symbol, buf },
-            { 'n', '<leader>gW', vim.lsp.buf.workspace_symbol, buf },
-            --Actions mappings
-            { 'n', '<leader>ah', vim.lsp.buf.hover, buf },
-            { 'n', '<leader>ca', vim.lsp.buf.code_action, buf },
-            { 'n', '<leader>rn', vim.lsp.buf.rename, buf },
-            -- Few language severs support these three
-            {
-              'n',
-              '<leader>=',
-              function()
-                vim.lsp.buf.format({ async = true })
-              end,
-              buf,
-            },
-            { 'n', '<leader>ai', vim.lsp.buf.incoming_calls, buf },
-            { 'n', '<leader>ao', vim.lsp.buf.outgoing_calls, buf },
-            --Diagnostics mappings
-            { 'n', '<leader>ee', vim.diagnostic.open_float, buf },
-            { 'n', '<leader>gp', vim.diagnostic.goto_prev, buf },
-            { 'n', '<leader>gn', vim.diagnostic.goto_next, buf },
-            --Custom
-            { 'n', '<leader>~', '<CMD>LspRestart<CR>', buf },
-          })
-        end,
-      })
-
-
-      -- Floating preview window's borders
-      local original_util_open_floating_preview = vim.lsp.util.open_floating_preview
-      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-        opts = opts or {}
-        opts.border = 'rounded' -- to force the rounded in everything
-        return original_util_open_floating_preview(contents, syntax, opts, ...)
+      local keymaps_opts = { buffer = 0 }
+      local default_on_attach = function()
+        setup_lsp_keymaps(keymaps_opts)
       end
-
       -- Setup servers
       local servers = opts.servers
       local setup_server = function(server)
         local server_opts = vim.tbl_deep_extend('force', {
+          on_attach = default_on_attach,
           capabilities = vim.deepcopy(capabilities),
           flags = {
             debounce_text_changes = nil,
@@ -248,148 +249,7 @@ return {
   },
 
   -- Nvim-jdtls
-  {
-    'mfussenegger/nvim-jdtls',
-    ft = 'java',
-    config = function()
-      local home = os.getenv('HOME')
-      local jdtls = require('jdtls')
-      local root_markers = { '.gradlew', '.mvnw', '.git' }
-      local root_dir = jdtls.setup.find_root(root_markers)
-      local workspace_folder = string.format('%s/.local/share/eclipse/%s', home, vim.fn.fnamemodify(root_dir, ':p:h:t'))
-
-      -- Extended capabilities
-      local extendedClientCapabilities = jdtls.extendedClientCapabilities
-      extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
-
-      local msn_path = vim.fn.stdpath('data') .. '/mason/packages/'
-      local bundles = {
-        vim.fn.glob(msn_path .. 'java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar'),
-      }
-      vim.list_extend(bundles, vim.split(vim.fn.glob(msn_path .. 'java-test/extension/server/*.jar'), '\n'))
-
-      local config = {
-        init_options = {
-          bundles = bundles,
-          extendedClientCapabilities = extendedClientCapabilities,
-        },
-        capabilities = vim.deepcopy(capabilities),
-        flags = { debounce_text_changes = 100 },
-        handlers = { ['language/status'] = function() end },
-        cmd = {
-          '/opt/jdks/jdk-17.0.10/bin/java',
-          '-javaagent:' .. msn_path .. 'jdtls/lombok.jar',
-          '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-          '-Dosgi.bundles.defaultStartLevel=4',
-          '-Declipse.product=org.eclipse.jdt.ls.core.product',
-          '-Dlog.protocol=true',
-          '-Dlog.level=ALL',
-          '-Xmx1g',
-          '--add-modules=ALL-SYSTEM',
-          '--add-opens',
-          'java.base/java.util=ALL-UNNAMED',
-          '--add-opens',
-          'java.base/java.lang=ALL-UNNAMED',
-          '-jar',
-          vim.fn.glob(msn_path .. 'jdtls/plugins/org.eclipse.equinox.launcher_*.jar'),
-          '-configuration',
-          msn_path .. 'jdtls/config_linux',
-          '-data',
-          workspace_folder,
-        },
-        settings = {
-          java = {
-            signatureHelp = { enabled = true },
-            completion = {
-              favoriteStaticMembers = {
-                'org.assertj.core.api.Assertions.assertThat',
-                'org.assertj.core.api.Assertions.assertThatThrownBy',
-                'org.assertj.core.api.Assertions.assertThatExceptionOfType',
-                'org.assertj.core.api.Assertions.catchThrowable',
-                'org.hamcrest.MatcherAssert.assertThat',
-                'org.hamcrest.Matchers.*',
-                'org.hamcrest.CoreMatchers.*',
-                'org.junit.jupiter.api.Assertions.*',
-                'java.util.Objects.requireNonNull',
-                'java.util.Objects.requireNonNullElse',
-                'org.mockito.Mockito.*',
-              },
-              filteredTypes = {
-                'com.sun.*',
-                'io.micrometer.shaded.*',
-                'java.awt.*',
-                'jdk.*',
-                'sun.*',
-              },
-            },
-            configuration = {
-              runtimes = {
-                {
-                  name = 'JavaSE-1.8',
-                  path = '/opt/jdks/jdk1.8.0_202/',
-                },
-                {
-                  name = 'JavaSE-11',
-                  path = '/opt/jdks/jdk-11.0.21/',
-                },
-                {
-                  name = 'JavaSE-14',
-                  path = '/opt/jdks/jdk-14.0.2/',
-                },
-                {
-                  name = 'JavaSE-17',
-                  path = '/opt/jdks/jdk-17.0.10/',
-                },
-              },
-            },
-          },
-        },
-        on_attach = function(_, bufnr)
-          local opt = { buffer = bufnr }
-          set_keymap({
-            { 'n', '<leader>or', jdtls.organize_imports, opt },
-            { 'n', '<leader>am', jdtls.extract_variable, opt },
-            { 'n', '<leader>om', jdtls.extract_constant, opt },
-            { 'v', '<leader>am', "[[<ESC><CMD>lua require('jdtls').extract_variable(true)<CR>]]", opt },
-            { 'v', '<leader>om', "[[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]]", opt },
-            { 'v', '<leader>dm', "[[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]]", opt },
-            -- Testing
-            {
-              'n',
-              '<leader>tc',
-              function()
-                if vim.bo.modified then
-                  vim.cmd('w')
-                end
-                jdtls.test_class()
-              end,
-              opt,
-            },
-            {
-              'n',
-              '<leader>tn',
-              function()
-                if vim.bo.modified then
-                  vim.cmd('w')
-                end
-                jdtls.test_nearest_method()
-              end,
-              opt,
-            },
-          })
-        end,
-      }
-
-      vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufNewFile' }, {
-        pattern = '*.java',
-        callback = function()
-          jdtls.start_or_attach(config)
-        end,
-      })
-
-      jdtls.start_or_attach(config)
-    end,
-  },
+  { 'mfussenegger/nvim-jdtls', lazy = false},
 
   -- go.nvim
   {
