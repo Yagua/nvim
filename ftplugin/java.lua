@@ -5,15 +5,12 @@ local root_markers = { '.gradlew', '.mvnw', '.git' }
 local root_dir = jdtls.setup.find_root(root_markers)
 local workspace_folder = string.format('%s/.local/share/eclipse/%s', home, vim.fn.fnamemodify(root_dir, ':p:h:t'))
 
-vim.opt_local.shiftwidth = 4
-vim.opt_local.tabstop = 4
-vim.opt_local.softtabstop = 4
-
 -- Global build of clients' capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Extended capabilities
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.onCompletionItemSelectedCommand = "editor.action.triggerParameterHints"
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 local msn_path = vim.fn.stdpath('data') .. '/mason/packages/'
