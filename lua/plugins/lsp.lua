@@ -68,7 +68,6 @@ return {
         'java-test',
         'java-debug-adapter',
         'jdtls',
-        'gradle-language-server',
         'css-lsp',
         'html-lsp',
         'gopls',
@@ -86,7 +85,8 @@ return {
         'docker-compose-language-service',
         'zls',
         'typos-lsp',
-        'eslint_d'
+        'eslint_d',
+        "groovy-language-server"
       },
     },
     config = function(_, opts)
@@ -99,29 +99,6 @@ return {
           pack:install()
         end
       end
-    end,
-  },
-
-  -- Null-ls
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'mason.nvim' },
-    opts = function()
-      local nls = require('null-ls')
-      return {
-        border = 'rounded',
-        debounce = 100,
-        save_after_format = false,
-        sources = {
-          nls.builtins.formatting.stylua,
-          nls.builtins.formatting.shfmt,
-          nls.builtins.diagnostics.zsh,
-          nls.builtins.diagnostics.sqlfluff.with({
-            extra_args = { '--dialect', 'mysql' },
-          }),
-        },
-      }
     end,
   },
 
@@ -153,7 +130,7 @@ return {
         jsonls = {},
         dockerls = {},
         docker_compose_language_service = {},
-        gradle_ls = {},
+        groovyls = {},
 
         -- Lua
         lua_ls = {
@@ -192,9 +169,6 @@ return {
 
         -- Go
         gopls = {
-          cmd = { 'gopls', 'serve' },
-          filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
-          single_file_support = true,
           settings = {
             gopls = {
               gofumpt = true,

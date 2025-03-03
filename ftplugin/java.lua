@@ -37,7 +37,7 @@ local config = {
   flags = { debounce_text_changes = 100 },
   handlers = { ['language/status'] = function() end },
   cmd = {
-    '/opt/jdks/jdk-17.0.10/bin/java',
+    '/opt/jdks/jdk-21.0.5/bin/java',
     '-javaagent:' .. msn_path .. 'jdtls/lombok.jar',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
@@ -99,6 +99,10 @@ local config = {
           {
             name = 'JavaSE-17',
             path = '/opt/jdks/jdk-17.0.10/',
+          },
+          {
+            name = 'JavaSE-21',
+            path = '/opt/jdks/jdk-21.0.5/',
           },
         },
       },

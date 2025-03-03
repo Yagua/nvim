@@ -308,5 +308,21 @@ return {
         { 'n', '<leader>fo', '<CMD>Freeze open<CR>', { desc = 'Open captured images' } },
       })
     end
-  }
+  },
+
+  -- db management
+  {
+    "kndndrj/nvim-dbee",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    build = function()
+      require("dbee").install("go")
+    end,
+    config = function()
+      require("dbee").setup({
+      })
+    end,
+  },
+
 }

@@ -13,6 +13,7 @@ return {
         'go',
         'graphql',
         'java',
+        'groovy',
         'javascript',
         'lua',
         'markdown',
