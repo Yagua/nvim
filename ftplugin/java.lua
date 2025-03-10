@@ -19,6 +19,28 @@ local bundles = {
 }
 vim.list_extend(bundles, vim.split(vim.fn.glob(msn_path .. 'java-test/extension/server/*.jar'), '\n'))
 
+local resolve_jdtls_config = function()
+  local uname = vim.loop.os_uname()
+  local sysname = uname.sysname
+  local machine = uname.machine
+
+  if sysname == 'Darwin' then
+    if machine == 'arm64' then
+      return 'config_mac_arm'
+    else
+      return 'config_mac'
+    end
+  elseif sysname == 'Linux' then
+    if machine == 'arm64' then
+      return 'config_linux_arm'
+    else
+      return 'config_linux'
+    end
+  else
+    return nil
+  end
+end
+
 local trigger_test_func = function(callback)
   return function()
     if vim.bo.modified then
@@ -34,10 +56,13 @@ local config = {
     extendedClientCapabilities = extendedClientCapabilities,
   },
   capabilities = capabilities,
-  flags = { debounce_text_changes = 100 },
+  flags = {
+    debounce_text_changes = 100,
+    allow_incremental_sync = true,
+  },
   handlers = { ['language/status'] = function() end },
   cmd = {
-    '/opt/jdks/jdk-21.0.5/bin/java',
+    os.getenv("JAVA_21") .. '/bin/java',
     '-javaagent:' .. msn_path .. 'jdtls/lombok.jar',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
@@ -53,12 +78,18 @@ local config = {
     '-jar',
     vim.fn.glob(msn_path .. 'jdtls/plugins/org.eclipse.equinox.launcher_*.jar'),
     '-configuration',
-    msn_path .. 'jdtls/config_linux',
+    msn_path .. 'jdtls/' .. resolve_jdtls_config(),
     '-data',
     workspace_folder,
   },
   settings = {
     java = {
+      eclipse = {
+        downloadSources = true,
+      },
+      gradle = {
+        enabled = true,
+      },
       signatureHelp = { enabled = true },
       completion = {
         favoriteStaticMembers = {
@@ -85,24 +116,20 @@ local config = {
       configuration = {
         runtimes = {
           {
-            name = 'JavaSE-1.8',
-            path = '/opt/jdks/jdk1.8.0_202/',
-          },
-          {
             name = 'JavaSE-11',
-            path = '/opt/jdks/jdk-11.0.21/',
+            path = os.getenv('JAVA_11'),
           },
           {
             name = 'JavaSE-14',
-            path = '/opt/jdks/jdk-14.0.2/',
+            path = os.getenv('JAVA_14'),
           },
           {
             name = 'JavaSE-17',
-            path = '/opt/jdks/jdk-17.0.10/',
+            path = os.getenv('JAVA_17'),
           },
           {
             name = 'JavaSE-21',
-            path = '/opt/jdks/jdk-21.0.5/',
+            path = os.getenv('JAVA_21'),
           },
         },
       },
