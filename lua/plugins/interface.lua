@@ -31,8 +31,11 @@ return {
     },
     config = function(_, opts)
       local notify = require('notify')
+      local colors = require("nebulous.colors").get_scheme("night")
       vim.notify = notify
-      notify.setup(opts)
+      notify.setup(vim.tbl_extend("force", opts, {
+        background_colour = colors.background
+      }))
     end,
   },
 

@@ -276,7 +276,7 @@ return {
         rst = {'vale'},
         java = {"cspell", "codespell"},
         lua = {'codespell', 'luacheck'},
-        yaml = {'yamllint'},
+        -- yaml = {'yamllint'},
         gitcommit = {'codespell'},
         dockerfile = {'hadolint'},
         ghaction = {"actionlint"},
