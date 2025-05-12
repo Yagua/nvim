@@ -39,6 +39,18 @@ return {
     end,
   },
 
+  -- Dressing
+  {
+    'stevearc/dressing.nvim',
+    event = 'VeryLazy',
+    opts = {
+      input = {
+        prompt_align = 'center',
+        relative = 'editor',
+      },
+    },
+  },
+
   -- Vim-Illuminate
   {
     'RRethy/vim-illuminate',

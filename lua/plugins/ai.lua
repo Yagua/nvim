@@ -61,7 +61,7 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     opts = {
-      -- model = "DeepSeek-R1",
+      model = "gpt-4",
       -- sticky = {
       --   '#buffers',
       -- },

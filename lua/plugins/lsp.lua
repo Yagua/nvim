@@ -23,6 +23,7 @@ local setup_lsp_keymaps = function(opts)
     { 'n', '<leader>re', vim.lsp.buf.references, opts },
     { 'n', '<leader>vi', vim.lsp.buf.implementation, opts },
     { 'n', '<leader>sh', vim.lsp.buf.signature_help, opts },
+    { 'i', '<C-s>',      vim.lsp.buf.signature_help, opts },
     { 'n', '<leader>gt', vim.lsp.buf.type_definition, opts },
     { 'n', '<leader>gw', vim.lsp.buf.document_symbol, opts },
     { 'n', '<leader>gW', vim.lsp.buf.workspace_symbol, opts },
@@ -84,7 +85,6 @@ return {
         'dockerfile-language-server',
         'docker-compose-language-service',
         'zls',
-        'typos-lsp',
         'eslint_d',
         "groovy-language-server"
       },
@@ -110,7 +110,6 @@ return {
       'mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'hrsh7th/cmp-nvim-lsp',
-      { 'folke/neodev.nvim', opts = { experimental = { pathStrict = true } } },
     },
     opts = {
       autoformat = true,
@@ -199,6 +198,8 @@ return {
       },
     },
     config = function(_, opts)
+      vim.diagnostic.config(opts.diagnostics)
+
       local keymaps_opts = { buffer = 0 }
       local default_on_attach = function()
         setup_lsp_keymaps(keymaps_opts)
@@ -215,12 +216,9 @@ return {
         }, servers[server] or {})
         require('lspconfig')[server].setup(server_opts)
       end
-
-      require('mason-lspconfig').setup()
       for server, _ in pairs(servers) do
         setup_server(server)
       end
-      require('neodev').setup()
     end,
   },
 
@@ -230,7 +228,7 @@ return {
   -- go.nvim
   {
     "ray-x/go.nvim",
-    dependencies = {  -- optional packages
+    dependencies = {
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
