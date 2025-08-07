@@ -17,24 +17,15 @@ return {
     },
     keys = {
       {
-        '<A-TAB>',
-        function()
-          return require('luasnip').jumpable(1) and '<PLUG>luasnip-jump-next' or '<TAB>'
-        end,
-        expr = true,
-        silent = true,
-        mode = 'i',
-      },
-      {
-        '<A-TAB>',
+        '<C-k>',
         function()
           require('luasnip').jump(1)
         end,
         silent = true,
-        mode = 's',
+        mode = { 'i', 's' },
       },
       {
-        '<S-TAB>',
+        '<C-j>',
         function()
           require('luasnip').jump(-1)
         end,
@@ -58,7 +49,7 @@ return {
       'saadparwaiz1/cmp_luasnip',
       'onsails/lspkind-nvim',
     },
-    opts = function()
+    config = function ()
       local cmp = require('cmp')
       local lk = require('lspkind')
 
@@ -69,9 +60,10 @@ return {
         }, {
           { name = 'cmdline' },
         }),
+        matching = { disallow_symbol_nonprefix_matching = false }
       })
 
-      return {
+      cmp.setup({
         snippet = {
           expand = function(args)
             require('luasnip').lsp_expand(args.body)
@@ -97,7 +89,6 @@ return {
           { name = 'nvim_lua' },
           { name = 'buffer' },
           { name = 'path' },
-          { name = 'crates' },
         }),
         formatting = {
           format = lk.cmp_format({
@@ -111,7 +102,7 @@ return {
             },
           }),
         },
-      }
+      })
     end,
   },
 

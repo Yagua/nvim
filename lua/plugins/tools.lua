@@ -274,7 +274,7 @@ return {
         -- markdown = {'vale'},
         htmldjango = {'curlylint'},
         rst = {'vale'},
-        java = {"cspell", "codespell"},
+        -- java = {"cspell", "codespell"},
         lua = {'codespell', 'luacheck'},
         -- yaml = {'yamllint'},
         gitcommit = {'codespell'},
@@ -325,4 +325,20 @@ return {
     end,
   },
 
+  {
+    "hedyhli/outline.nvim",
+    keys = {
+      { "<leader>ol", "<cmd>Outline<cr>", desc = "Toggle Outline" }
+    },
+    cmd = "Outline",
+    opts = function()
+      local opts = {
+        keymaps = {
+          up_and_jump = "<up>",
+          down_and_jump = "<down>",
+        },
+      }
+      return opts
+    end,
+  }
 }

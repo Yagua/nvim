@@ -65,7 +65,7 @@ return {
       },
       ensure_installed = {
         'debugpy',
-        'node-debug2-adapter',
+        -- 'node-debug2-adapter',
         'java-test',
         'java-debug-adapter',
         'jdtls',
@@ -116,10 +116,25 @@ return {
       diagnostics = {
         underline = true,
         severity_sort = true,
+        update_in_insert = false,
+        virtual_text = {
+          prefix = "■",
+          spacing = 2,
+          source = "if_many"
+        }
       },
       servers = {
-        -- Default
-        pylsp = {},
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                pycodestyle = {
+                  enabled = false,
+                }
+              }
+            }
+          }
+        },
         ts_ls = {},
         cssls = {},
         yamlls = {},
@@ -235,6 +250,7 @@ return {
     },
     config = function()
       require("go").setup({
+          diagnostic = false,
           icons = false,
           lsp_keymaps = false,
           dap_debug_keymap = false,

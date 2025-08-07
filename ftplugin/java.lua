@@ -90,7 +90,7 @@ local config = {
       gradle = {
         enabled = true,
       },
-      signatureHelp = { enabled = true },
+      signatureHelp = { enabled = false },
       completion = {
         favoriteStaticMembers = {
           'org.assertj.core.api.Assertions.assertThat',
