@@ -61,14 +61,16 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     opts = {
-      model = "gpt-4",
+      model = "claude-3.7-sonnet",
+      headers = {
+        user = "▶ " .. (os.getenv("USER") or "User") .. " ",
+        assistant = '▶ Copilot ',
+        tool = '▶ Tool ',
+      },
       -- sticky = {
       --   '#buffers',
       -- },
-      question_header = "## " .. os.getenv("USER"),
-      answer_header = "## Copilot ",
-      error_header = "## Error ",
-      separator = " ",
+      separator = '───',
       auto_follow_cursor = false,
       show_help = false,
       highlight_selection = false,

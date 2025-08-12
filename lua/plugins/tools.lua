@@ -320,8 +320,7 @@ return {
       require("dbee").install("go")
     end,
     config = function()
-      require("dbee").setup({
-      })
+      require("dbee").setup()
     end,
   },
 
