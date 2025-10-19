@@ -1,7 +1,6 @@
 local setup_adapters = function(dap)
   local msn_path = vim.fn.stdpath('data') .. '/mason/packages/'
 
-  -- Lua
   dap.adapters.nlua = function(callback, config)
     local port = config.port
     local opts = {
@@ -40,7 +39,6 @@ local setup_adapters = function(dap)
     },
   }
 
-  -- -- Java
   dap.configurations.java = {
     {
       name = 'Debug',
@@ -78,7 +76,6 @@ local setup_adapters = function(dap)
     },
   }
 
-  -- Node
   dap.adapters.node2 = {
     type = 'executable',
     command = 'node',
@@ -130,7 +127,6 @@ local setup_adapters = function(dap)
     },
   }
 
-  -- Python
   require('dap-python').setup(msn_path .. 'debugpy/venv/bin/python')
   require('dap-go').setup {
     dap_configurations = {
@@ -154,26 +150,25 @@ local setup_adapters = function(dap)
 end
 
 return {
-  -- Debug adapters
-  'leoluz/nvim-dap-go',
-  'mfussenegger/nvim-dap-python',
-  'jbyuki/one-small-step-for-vimkind',
-
-  -- Dap
   {
     'mfussenegger/nvim-dap',
     dependencies = {
       'rcarriga/nvim-dap-ui',
       'theHamsta/nvim-dap-virtual-text',
-      'nvim-neotest/nvim-nio'
+      'nvim-neotest/nvim-nio',
+      'leoluz/nvim-dap-go',
+      'mfussenegger/nvim-dap-python',
+      'jbyuki/one-small-step-for-vimkind',
     },
     config = function()
       local dap = require('dap')
       local dapui = require('dapui')
 
-      local ui_opts = { reset = true }
+      setup_adapters(dap)
+      dapui.setup()
+
       dap.listeners.after.event_initialized['dapui_config'] = function()
-        dapui.open(ui_opts)
+        dapui.open()
       end
       -- dap.listeners.before.event_terminated['dapui_config'] = function()
       --   dapui.close(ui_opts)
@@ -181,7 +176,6 @@ return {
       -- dap.listeners.before.event_exited['dapui_config'] = function()
       --   dapui.close(ui_opts)
       -- end
-      setup_adapters(dap)
 
       require('utils').set_keymap({
         {
@@ -212,7 +206,7 @@ return {
           'n',
           '<leader>dc',
           function()
-            dapui.close(ui_opts)
+            dapui.close()
           end,
         },
         {
@@ -240,34 +234,5 @@ return {
         },
       })
     end,
-  },
-
-  -- Dap ui
-  {
-    'rcarriga/nvim-dap-ui',
-    opts = {
-      icons = { expanded = ' ', collapsed = ' ', current_frame = ' ' },
-      mappings = { expand = { '<Tab>' } },
-      layouts = {
-        {
-          elements = {
-            --Elements can be strings or table with id and size keys.
-            'watches',
-            { id = 'scopes', size = 0.34 },
-            { id = 'stacks', size = 0.34 },
-          },
-          size = 38,
-          position = 'left',
-        },
-        {
-          elements = {
-            'repl',
-            'console',
-          },
-          size = 10,
-          position = 'bottom',
-        },
-      },
-    },
   },
 }

@@ -1,6 +1,4 @@
-local set_keymap = require('utils').set_keymap
 return {
-  -- Gitsigns
   {
     'lewis6991/gitsigns.nvim',
     event = 'BufReadPre',
@@ -23,7 +21,7 @@ return {
       on_attach = function(bufnr)
         local gitsigns = package.loaded.gitsigns
         local opts = { expr = true, buffer = bufnr }
-        set_keymap({
+        require('utils').set_keymap({
           -- Actions
           { 'n' , '<leader>fs', gitsigns.stage_hunk },
           { 'n' , '<leader>fr', gitsigns.reset_hunk },
@@ -92,7 +90,6 @@ return {
     },
   },
 
-  -- Diffview
   {
     'sindrets/diffview.nvim',
     config = true,
@@ -118,7 +115,6 @@ return {
     },
   },
 
-  -- Git-worktree
   {
     'ThePrimeagen/git-worktree.nvim', -- TODO: Configure Git-worktree
     enabled = false,

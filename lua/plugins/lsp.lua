@@ -49,14 +49,29 @@ local setup_lsp_keymaps = function(opts)
       end,
       opts
     },
+    {
+      "n",
+      "<leader>tl",
+      function ()
+        local config = vim.diagnostic.config() or {}
+        if config.virtual_text then
+          vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+        else
+          vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+        end
+      end,
+      opts
+    },
   })
 end
 
 return {
-  --Mason
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
+    dependencies = {
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+    },
     opts = {
       ui = {
         border = 'rounded',
@@ -90,26 +105,28 @@ return {
       },
     },
     config = function(_, opts)
-      -- Helper to install tools via `ensure_installed` key
       require('mason').setup(opts)
-      local mr = require('mason-registry')
-      for _, tool in ipairs(opts.ensure_installed) do
-        local pack = mr.get_package(tool)
-        if not pack:is_installed() then
-          pack:install()
-        end
-      end
+      require("mason-tool-installer").setup({
+        ensure_installed = opts.ensure_installed
+      })
     end,
   },
 
-  --Lsp
   {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'mason.nvim',
+      {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+          library = {
+            { path = "luvit-meta/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+      { "Bilal2453/luvit-meta", lazy = true },
       'williamboman/mason-lspconfig.nvim',
-      'hrsh7th/cmp-nvim-lsp',
     },
     opts = {
       autoformat = true,
@@ -146,7 +163,6 @@ return {
         docker_compose_language_service = {},
         groovyls = {},
 
-        -- Lua
         lua_ls = {
           single_file_support = true,
           settings = {
@@ -181,7 +197,6 @@ return {
           },
         },
 
-        -- Go
         gopls = {
           settings = {
             gopls = {
@@ -194,7 +209,6 @@ return {
           },
         },
 
-        -- C/C++
         clangd = {
           cmd = {
             'clangd',
@@ -208,7 +222,6 @@ return {
           },
         },
 
-        -- Html
         html = { filetypes = { 'html', 'jsp' } },
       },
     },
@@ -219,17 +232,22 @@ return {
       local default_on_attach = function()
         setup_lsp_keymaps(keymaps_opts)
       end
+
+      vim.lsp.config("*", {
+        capabilities = capabilities
+      })
+
       -- Setup servers
       local servers = opts.servers
       local setup_server = function(server)
         local server_opts = vim.tbl_deep_extend('force', {
           on_attach = default_on_attach,
-          capabilities = vim.deepcopy(capabilities),
           flags = {
             debounce_text_changes = nil,
           },
         }, servers[server] or {})
-        require('lspconfig')[server].setup(server_opts)
+
+        vim.lsp.config(server, server_opts)
       end
       for server, _ in pairs(servers) do
         setup_server(server)
@@ -237,29 +255,5 @@ return {
     end,
   },
 
-  -- Nvim-jdtls
   { 'mfussenegger/nvim-jdtls', lazy = false},
-
-  -- go.nvim
-  {
-    "ray-x/go.nvim",
-    dependencies = {
-      "ray-x/guihua.lua",
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("go").setup({
-          diagnostic = false,
-          icons = false,
-          lsp_keymaps = false,
-          dap_debug_keymap = false,
-          dap_debug_gui = false,
-          dap_debug_vt = false
-      })
-    end,
-    event = {"CmdlineEnter"},
-    ft = {"go", 'gomod'},
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  }
 }

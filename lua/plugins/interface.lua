@@ -1,5 +1,4 @@
 return {
-  -- Notifications
   {
     'rcarriga/nvim-notify',
     event = 'VeryLazy',
@@ -39,7 +38,6 @@ return {
     end,
   },
 
-  -- Dressing
   {
     'stevearc/dressing.nvim',
     event = 'VeryLazy',
@@ -51,7 +49,6 @@ return {
     },
   },
 
-  -- Vim-Illuminate
   {
     'RRethy/vim-illuminate',
     event = { 'BufReadPost', 'BufNewFile' },
@@ -96,7 +93,6 @@ return {
     end,
   },
 
-  -- Ident guides
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
@@ -162,7 +158,6 @@ return {
     end,
   },
 
-  -- Lsp servers' status spiner
   {
     'j-hui/fidget.nvim',
     event = 'LspAttach',

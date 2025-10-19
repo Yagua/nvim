@@ -1,41 +1,4 @@
 return {
-  -- LuaSnip
-  {
-    'L3MON4D3/LuaSnip',
-    event = 'VeryLazy',
-    build = 'make install_jsregexp',
-    dependencies = {
-      'rafamadriz/friendly-snippets',
-      config = function()
-        require('luasnip.loaders.from_vscode').lazy_load()
-      end,
-    },
-    opts = {
-      history = true,
-      region_check_events = 'InsertEnter',
-      delete_check_events = 'TextChanged,InsertLeave',
-    },
-    keys = {
-      {
-        '<C-k>',
-        function()
-          require('luasnip').jump(1)
-        end,
-        silent = true,
-        mode = { 'i', 's' },
-      },
-      {
-        '<C-j>',
-        function()
-          require('luasnip').jump(-1)
-        end,
-        silent = true,
-        mode = { 'i', 's' },
-      },
-    },
-  },
-
-  -- Cmp
   {
     'hrsh7th/nvim-cmp',
     lazy = false,
@@ -106,40 +69,38 @@ return {
     end,
   },
 
-  -- Comment.nvim
   {
-    'numToStr/Comment.nvim',
-    dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    'L3MON4D3/LuaSnip',
     event = 'VeryLazy',
-    opts = {
-      pre_hook = function()
-        vim.g.skip_ts_context_commentstring_module = true
-        require('ts_context_commentstring').setup({ enable_autocmd = true })
-        require('ts_context_commentstring.internal').update_commentstring({})
+    build = 'make install_jsregexp',
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      config = function()
+        require('luasnip.loaders.from_vscode').lazy_load()
       end,
     },
+    opts = {
+      history = true,
+      region_check_events = 'InsertEnter',
+      delete_check_events = 'TextChanged,InsertLeave',
+    },
+    keys = {
+      {
+        '<C-k>',
+        function()
+          require('luasnip').jump(1)
+        end,
+        silent = true,
+        mode = { 'i', 's' },
+      },
+      {
+        '<C-j>',
+        function()
+          require('luasnip').jump(-1)
+        end,
+        silent = true,
+        mode = { 'i', 's' },
+      },
+    },
   },
-
-  {
-    "kylechui/nvim-surround",
-    version = "*",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        keymaps = {
-          insert = "<C-g>s",
-          insert_line = "<C-g>S",
-          normal = "ys",
-          normal_cur = "yss",
-          normal_line = "yS",
-          normal_cur_line = "ySS",
-          visual = "S",
-          visual_line = "gS",
-          delete = "ds",
-          change = "cs",
-          change_line = "cS",
-        },
-      })
-    end
-  }
 }

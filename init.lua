@@ -21,11 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup('plugins', {
   dev = { path = '~/Plugins' },
   install = { colorscheme = { 'nebulous' } },
-  defaults = { lazy = true },
-  checker = { enabled = false },
   change_detection = { notify = false },
-  diff = { cmd = 'terminal_git' },
-  debug = false,
   ui = {
     size = { width = 0.9, height = 0.9 },
     border = 'rounded',

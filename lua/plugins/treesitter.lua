@@ -1,8 +1,4 @@
 return {
-  -- TS playground
-  'nvim-treesitter/playground',
-
-  -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     opts = {

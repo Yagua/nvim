@@ -1,5 +1,4 @@
 return {
-  -- copilot.lua
   {
     'zbirenbaum/copilot.lua',
     cmd = {
@@ -53,6 +52,7 @@ return {
       require("copilot").setup(opts)
     end
   },
+
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     lazy = false,
@@ -61,7 +61,7 @@ return {
       { "nvim-lua/plenary.nvim" },
     },
     opts = {
-      model = "claude-3.7-sonnet",
+      model = "claude-sonnet-4",
       headers = {
         user = "▶ " .. (os.getenv("USER") or "User") .. " ",
         assistant = '▶ Copilot ',

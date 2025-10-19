@@ -1,6 +1,7 @@
 local set_keymap = require('utils').set_keymap
 return {
-  -- Toggleterm
+  "nvim-tree/nvim-web-devicons",
+
   {
     'akinsho/toggleterm.nvim',
     event = 'VeryLazy',
@@ -11,10 +12,8 @@ return {
       direction = 'horizontal'
     },
     config = function(_, opts)
-      local dark_orange = vim.api.nvim_get_color_by_name('DarkOrange')
       require('toggleterm').setup(opts)
 
-      --Term spawner
       local spawn_term = function(cmd, dir)
         require('toggleterm.terminal').Terminal
           :new({
@@ -26,7 +25,6 @@ return {
           :toggle()
       end
 
-      -- Toggleterm keymaps
       set_keymap({
         {
           'n',
@@ -48,36 +46,16 @@ return {
     end,
   },
 
-  -- Markdown preview
   {
     "iamcco/markdown-preview.nvim",
-    enabled = vim.fn.executable("yarn") == 1,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = "cd app && yarn install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
-      vim.g.mkdp_auto_close = 0
-      vim.g.mkdp_command_for_global = 1
-      vim.g.mkdp_combine_preview = 1
-
-      local function load_then_exec(cmd)
-        return function()
-          vim.cmd.delcommand(cmd)
-          require("lazy").load({ plugins = { "markdown-preview.nvim" } })
-          vim.api.nvim_exec_autocmds("BufEnter", {}) -- commands appear only after BufEnter
-          vim.cmd(cmd)
-        end
-      end
-
-      ---Fixes "No command :MarkdownPreview"
-      ---https://github.com/iamcco/markdown-preview.nvim/issues/585#issuecomment-1724859362
-      for _, cmd in pairs({ "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" }) do
-        vim.api.nvim_create_user_command(cmd, load_then_exec(cmd), {})
-      end
     end,
+    ft = { "markdown" },
   },
 
-  -- Colorizer
   {
     'NvChad/nvim-colorizer.lua',
     event = 'BufReadPre',
@@ -102,24 +80,6 @@ return {
     },
   },
 
-  -- Harpoon
-  {
-    'ThePrimeagen/harpoon',
-    event = 'VeryLazy',
-    config = function()
-      local hpm = require('harpoon.mark')
-      local hpui = require('harpoon.ui')
-
-      set_keymap({
-        { 'n', '<leader>hm', hpui.toggle_quick_menu, { desc = 'Telescope: Harpoon marks' } },
-        { 'n', '<leader>ha', hpm.add_file, { desc = 'Harpoon: Add file' } },
-        { 'n', '<leader>hn', hpui.nav_prev, { desc = 'Harpoon: Previous file' } },
-        { 'n', '<leader>hp', hpui.nav_next, { desc = 'Harpoon: Next file' } },
-      })
-    end,
-  },
-
-  -- Persistence.nvim
   {
     'folke/persistence.nvim',
     event = 'VeryLazy',
@@ -152,7 +112,6 @@ return {
     end,
   },
 
-  -- Leap
   {
     'ggandor/leap.nvim',
     keys = {
@@ -171,7 +130,6 @@ return {
     end,
   },
 
-  --Todo-comments
   {
     'folke/todo-comments.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
@@ -199,26 +157,44 @@ return {
     },
   },
 
-  -- Trouble.nivm
   {
-    'folke/trouble.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
+    "folke/trouble.nvim",
+    opts = {},
+    cmd = "Trouble",
     keys = {
       {
-        '<localleader>tt',
-        '<CMD>TroubleToggle<CR>',
-        desc = 'Trouble: Toggle',
-        silent = true,
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
       },
-    },
-    opts = {
-      position = 'top',
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
     },
   },
 
-  -- Ssr.nvim
   {
     'cshuaimin/ssr.nvim',
     keys = {
@@ -233,7 +209,6 @@ return {
     },
   },
 
-  -- Yanky.nvim
   {
     'gbprod/yanky.nvim',
     enabled = false,
@@ -241,7 +216,6 @@ return {
     config = function() end, -- TODO: Config Yanky
   },
 
-  -- Undo tree
   {
     'mbbill/undotree',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -252,7 +226,6 @@ return {
     end,
   },
 
-  -- Maximizer
   {
     'szw/vim-maximizer',
     keys = {
@@ -310,18 +283,27 @@ return {
     end
   },
 
-  -- db management
   {
-    "kndndrj/nvim-dbee",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    build = function()
-      require("dbee").install("go")
-    end,
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
     config = function()
-      require("dbee").setup()
-    end,
+      require("nvim-surround").setup({
+        keymaps = {
+          insert = "<C-g>s",
+          insert_line = "<C-g>S",
+          normal = "ys",
+          normal_cur = "yss",
+          normal_line = "yS",
+          normal_cur_line = "ySS",
+          visual = "S",
+          visual_line = "gS",
+          delete = "ds",
+          change = "cs",
+          change_line = "cS",
+        },
+      })
+    end
   },
 
   {
