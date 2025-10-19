@@ -69,15 +69,19 @@ return {
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
-    dependencies = {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-    },
     opts = {
       ui = {
         border = 'rounded',
         width = 0.9,
         height = 0.9,
       },
+    },
+  },
+
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    dependencies = { 'williamboman/mason.nvim' },
+    opts = {
       ensure_installed = {
         'debugpy',
         -- 'node-debug2-adapter',
@@ -104,12 +108,6 @@ return {
         "groovy-language-server"
       },
     },
-    config = function(_, opts)
-      require('mason').setup(opts)
-      require("mason-tool-installer").setup({
-        ensure_installed = opts.ensure_installed
-      })
-    end,
   },
 
   {
@@ -163,39 +161,7 @@ return {
         docker_compose_language_service = {},
         groovyls = {},
 
-        lua_ls = {
-          single_file_support = true,
-          settings = {
-            Lua = {
-              runtime = {
-                version = 'LuaJIT',
-                path = vim.split(package.path, ';'),
-              },
-              workspace = { checkThirdParty = false },
-              diagnostics = {
-                globals = { 'vim' },
-                unusedLocalExclude = { '_*' },
-                groupSeverity = {
-                  strong = 'Warning',
-                  strict = 'Warning',
-                },
-              },
-              format = {
-                enable = false,
-                defaultConfig = {
-                  indent_style = 'space',
-                  indent_size = '2',
-                  continuation_indent_size = '2',
-                },
-              },
-              completion = {
-                workspaceWord = true,
-                callSnippet = 'Both',
-              },
-              semantic = { enable = false },
-            },
-          },
-        },
+        lua_ls = { },
 
         gopls = {
           settings = {
@@ -239,7 +205,7 @@ return {
 
       -- Setup servers
       local servers = opts.servers
-      local setup_server = function(server)
+      for server, _ in pairs(servers) do
         local server_opts = vim.tbl_deep_extend('force', {
           on_attach = default_on_attach,
           flags = {
@@ -248,12 +214,10 @@ return {
         }, servers[server] or {})
 
         vim.lsp.config(server, server_opts)
-      end
-      for server, _ in pairs(servers) do
-        setup_server(server)
+        vim.lsp.enable(server)
       end
     end,
   },
 
-  { 'mfussenegger/nvim-jdtls', lazy = false},
+  { 'mfussenegger/nvim-jdtls' },
 }

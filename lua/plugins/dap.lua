@@ -76,57 +76,6 @@ local setup_adapters = function(dap)
     },
   }
 
-  dap.adapters.node2 = {
-    type = 'executable',
-    command = 'node',
-    args = { msn_path .. 'node-debug2-adapter/out/src/nodeDebug.js' },
-  }
-
-  dap.configurations.javascript = {
-    {
-      name = 'Launch',
-      type = 'node2',
-      request = 'launch',
-      program = '${file}',
-      cwd = vim.fn.getcwd(),
-      sourceMaps = true,
-      protocol = 'inspector',
-      console = 'integratedTerminal',
-    },
-    {
-      name = 'Attach to process',
-      type = 'node2',
-      request = 'attach',
-      processId = require('dap.utils').pick_process,
-    },
-  }
-
-  dap.configurations.typescript = {
-    {
-      name = 'ts-node (Node2 with ts-node)',
-      type = 'node2',
-      request = 'launch',
-      cwd = vim.loop.cwd(),
-      runtimeExecutable = 'node',
-      runtimeArgs = { '-r', 'ts-node/register' },
-      args = { '--inspect', '${file}' },
-      sourceMaps = true,
-      skipFiles = { '<node_internals>/**', 'node_modules/**' },
-    },
-    {
-      name = 'Jest (Node2 with ts-node)',
-      type = 'node2',
-      request = 'launch',
-      cwd = vim.loop.cwd(),
-      runtimeExecutable = 'node',
-      runtimeArgs = { '--inspect-brk', '${workspaceFolder}/node_modules/.bin/jest' },
-      args = { '${file}', '--runInBand', '--coverage', 'false' },
-      sourceMaps = true,
-      port = 9229,
-      skipFiles = { '<node_internals>/**', 'node_modules/**' },
-    },
-  }
-
   require('dap-python').setup(msn_path .. 'debugpy/venv/bin/python')
   require('dap-go').setup {
     dap_configurations = {
@@ -156,26 +105,14 @@ return {
       'rcarriga/nvim-dap-ui',
       'theHamsta/nvim-dap-virtual-text',
       'nvim-neotest/nvim-nio',
-      'leoluz/nvim-dap-go',
       'mfussenegger/nvim-dap-python',
       'jbyuki/one-small-step-for-vimkind',
+      'leoluz/nvim-dap-go',
     },
     config = function()
       local dap = require('dap')
-      local dapui = require('dapui')
 
       setup_adapters(dap)
-      dapui.setup()
-
-      dap.listeners.after.event_initialized['dapui_config'] = function()
-        dapui.open()
-      end
-      -- dap.listeners.before.event_terminated['dapui_config'] = function()
-      --   dapui.close(ui_opts)
-      -- end
-      -- dap.listeners.before.event_exited['dapui_config'] = function()
-      --   dapui.close(ui_opts)
-      -- end
 
       require('utils').set_keymap({
         {
@@ -202,37 +139,32 @@ return {
         { 'n', '<leader>rl', dap.run_last },
         { 'n', '<F4>', dap.terminate },
         { 'n', '<leader>.', dap.close },
-        {
-          'n',
-          '<leader>dc',
-          function()
-            dapui.close()
-          end,
-        },
-        {
-          'n',
-          '<Home>',
-          function()
-            dapui.toggle({ layout = 1, reset = true })
-          end,
-        },
-        {
-          'n',
-          '<End>',
-          function()
-            dapui.toggle({ layout = 2, reset = true })
-          end,
-        },
-        {
-          'n',
-          '<leader>sw',
-          function()
-            if dap.session() then
-              vim.api.nvim_command('DapUiFloat')
-            end
-          end,
-        },
       })
     end,
+  },
+
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = { 'mfussenegger/nvim-dap' },
+    config = function()
+      local dap = require('dap')
+      local dapui = require('dapui')
+
+      dap.listeners.after.event_initialized['dapui_config'] = function()
+        dapui.open()
+      end
+      -- dap.listeners.before.event_terminated['dapui_config'] = function()
+      --   dapui.close()
+      -- end
+      -- dap.listeners.before.event_exited['dapui_config'] = function()
+      --   dapui.close()
+      -- end
+    end,
+    keys = {
+      { "<leader>dc", function() require('dapui').close() end, desc = "DAP: Close UI" },
+      { "<Home>",     function() require('dapui').toggle({ layout = 1, reset = true }) end, desc = "DAP: UI Layout 1" },
+      { "<End>",      function() require('dapui').toggle({ layout = 2, reset = true }) end, desc = "DAP: UI Layout 2" },
+      { "<leader>sw", function() if require('dap').session() then require('dapui').float_element() end end, desc = "DAP: UI Float" },
+    },
   },
 }

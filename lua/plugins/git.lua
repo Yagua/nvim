@@ -2,9 +2,6 @@ return {
   {
     'lewis6991/gitsigns.nvim',
     event = 'BufReadPre',
-    keys = {
-      { '<leader>go', '<CMD>Gitsigns<CR>', silent = true },
-    },
     opts = {
       signs = {
         add = { text = '│' },
@@ -18,75 +15,60 @@ return {
         border = 'rounded',
         style = 'minimal',
       },
-      on_attach = function(bufnr)
-        local gitsigns = package.loaded.gitsigns
-        local opts = { expr = true, buffer = bufnr }
-        require('utils').set_keymap({
-          -- Actions
-          { 'n' , '<leader>fs', gitsigns.stage_hunk },
-          { 'n' , '<leader>fr', gitsigns.reset_hunk },
-          { 'v' , '<leader>fs', function()
-              gitsigns.stage_hunk {
-                vim.fn.line('.'), vim.fn.line('v')
-              }
-            end
-          },
-          { 'v' , '<leader>fr', function()
-              gitsigns.reset_hunk {
-                vim.fn.line('.'), vim.fn.line('v')
-              }
-            end
-          },
-          { 'n', '<leader>hS', gitsigns.stage_buffer },
-          { 'n', '<leader>hu', gitsigns.undo_stage_hunk },
-          { 'n', '<leader>hR', gitsigns.reset_buffer },
-          { 'n', '<leader>fi', gitsigns.preview_hunk },
-          {
-            'n',
-            '<leader>hb',
-            function()
-              gitsigns.blame_line({ full = true })
-            end,
-          },
-          { 'n', '<leader>tb', gitsigns.toggle_current_line_blame },
-          { 'n', '<leader>hd', gitsigns.diffthis },
-          {
-            'n',
-            '<leader>hD',
-            function()
-              gitsigns.diffthis('~')
-            end,
-          },
-          { 'n', '<leader>fd', gitsigns.toggle_deleted },
-          -- Text object
-          { { 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>' },
-          -- Navigation
-          {
-            'n',
-            ']c',
-            function()
-              if vim.wo.diff then
-                return ']c'
-              end
-              vim.schedule(gitsigns.next_hunk)
-              return '<Ignore>'
-            end,
-            opts,
-          },
-          {
-            'n',
-            '[c',
-            function()
-              if vim.wo.diff then
-                return '[c'
-              end
-              vim.schedule(gitsigns.prev_hunk)
-              return '<Ignore>'
-            end,
-            opts,
-          },
-        })
-      end,
+    },
+    keys = {
+      { '<leader>go', '<CMD>Gitsigns<CR>', silent = true },
+      -- Actions
+      { '<leader>fs', function() require('gitsigns').stage_hunk() end, desc = 'Git: Stage Hunk' },
+      { '<leader>fr', function() require('gitsigns').reset_hunk() end, desc = 'Git: Reset Hunk' },
+      { '<leader>hS', function() require('gitsigns').stage_buffer() end,    desc = 'Git: Stage Buffer' },
+      { '<leader>hu', function() require('gitsigns').undo_stage_hunk() end, desc = 'Git: Undo Stage Hunk' },
+      { '<leader>hR', function() require('gitsigns').reset_buffer() end,    desc = 'Git: Reset Buffer' },
+      { '<leader>fi', function() require('gitsigns').preview_hunk() end,    desc = 'Git: Preview Hunk' },
+      { '<leader>hb', function() require('gitsigns').blame_line({ full = true }) end, desc = 'Git: Blame Line' },
+      { '<leader>tb', function() require('gitsigns').toggle_current_line_blame() end, desc = 'Git: Toggle Blame' },
+      { '<leader>hd', function() require('gitsigns').diffthis() end, desc = 'Git: Diff This' },
+      { '<leader>hD', function() require('gitsigns').diffthis('~') end, desc = 'Git: Diff This ~' },
+      { '<leader>fd', function() require('gitsigns').toggle_deleted() end,  desc = 'Git: Toggle Deleted' },
+      {
+        '<leader>fs',
+        function()
+          require('gitsigns').stage_hunk({vim.fn.line("."), vim.fn.line("v")})
+        end,
+        mode = 'v',
+        desc = 'Git: Stage Hunk (Visual)'
+      },
+      {
+        '<leader>fr',
+        function()
+          require('gitsigns').reset_hunk({vim.fn.line("."), vim.fn.line("v")})
+        end,
+        mode = 'v',
+        desc = 'Git: Reset Hunk (Visual)'
+      },
+      -- Text object
+      { 'ih', ':<C-U>Gitsigns select_hunk<CR>', mode = { 'o', 'x' }, desc = 'Git: Select Hunk' },
+      -- Navigation
+      {
+        ']c',
+        function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(function() require('gitsigns').next_hunk() end)
+          return '<Ignore>'
+        end,
+        expr = true,
+        desc = 'Git: Next Hunk',
+      },
+      {
+        '[c',
+        function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(function() require('gitsigns').prev_hunk() end)
+          return '<Ignore>'
+        end,
+        expr = true,
+        desc = 'Git: Previous Hunk',
+      },
     },
   },
 

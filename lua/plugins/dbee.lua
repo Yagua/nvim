@@ -7,8 +7,5 @@ return {
     build = function()
       require("dbee").install("go")
     end,
-    config = function()
-      require("dbee").setup()
-    end,
   },
 }

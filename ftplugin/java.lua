@@ -1,3 +1,7 @@
+vim.opt_local.shiftwidth = 4
+vim.opt_local.tabstop = 4
+vim.opt_local.softtabstop = 4
+
 local set_keymap = require('utils').set_keymap
 local home = os.getenv('HOME')
 local jdtls = require('jdtls')

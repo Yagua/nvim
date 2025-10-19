@@ -1,21 +1,22 @@
 return {
   {
     'nvim-lualine/lualine.nvim',
-    lazy = false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     commit = '5f68f070e4f7158517afc55f125a6f5ed1f7db47',
     opts = function()
       -- State symbols
       local symbols = { modified = ' [+]', readonly = ' [-]', unnamed = '[No Name]' }
+
       -- Helper functions
       local scape = function(fname)
         return fname:gsub('%%', '%%%%')
       end
 
-      -- Format_filename formats the files names
+      -- Format_filename formats the file names
       local format_filename = function()
         local fname = scape(vim.fn.expand('%:p'))
 
-        -- Sanitizes and formats the java's packages contents names
+        -- Sanitizes and formats the Java package content names
         if vim.startswith(fname, 'jdt://') then
           local package = fname:match('contents/[%a%d.-]+/([%a%d.-]+)') or ''
           local class = fname:match('contents/[%a%d.-]+/[%a%d.-]+/([%a%d$]+).class') or ''
@@ -37,7 +38,7 @@ return {
         return fname
       end
 
-      -- Format_tab_label sanitizes the java's packages contents names in the tabs
+      -- Format_tab_label sanitizes the Java package content names in the tabs
       local format_tab_label = function(fname)
         if vim.startswith(fname, '%') then
           local package = fname:match('[%l.?]+') or ''
@@ -47,7 +48,7 @@ return {
         return fname
       end
 
-      -- Nick_or_dap_status shows either my nick name or dap's status
+      -- Nick_or_dap_status shows either my nickname or DAP's status
       local nick_or_dap_status = function()
         local dap = require('dap')
         if dap.session() then
@@ -74,7 +75,14 @@ return {
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff', 'diagnostics' },
+          lualine_b = {
+            'branch',
+            'diff',
+            {
+              'diagnostics',
+              symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+            },
+          },
           lualine_c = { format_filename },
           lualine_x = { 'encoding', 'fileformat', 'filetype' },
           lualine_y = { 'progress' },
@@ -91,14 +99,11 @@ return {
           },
           lualine_z = { nick_or_dap_status },
         },
-        inactive_winbar = {
-          lualine_a = { format_filename, 'diagnostics' },
-        },
         extensions = {
           'nvim-dap-ui',
           'nvim-tree',
         },
       }
     end,
-  }
+  },
 }

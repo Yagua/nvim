@@ -2,7 +2,7 @@ return {
   {
     'hrsh7th/nvim-cmp',
     lazy = false,
-    event = 'InsertEnter',
+    priority = 100,
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
@@ -15,6 +15,9 @@ return {
     config = function ()
       local cmp = require('cmp')
       local lk = require('lspkind')
+
+      vim.opt.completeopt = { "menu", "menuone", "noselect" }
+      vim.opt.shortmess:append "c"
 
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
@@ -29,11 +32,8 @@ return {
       cmp.setup({
         snippet = {
           expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            vim.snippet.expand(args.body)
           end,
-        },
-        completion = {
-          completeopt = 'menu,menuone,noinsert',
         },
         window = {
           completion = cmp.config.window.bordered(),
@@ -54,6 +54,7 @@ return {
           { name = 'path' },
         }),
         formatting = {
+          expandable_indicator = true,
           format = lk.cmp_format({
             with_text = true,
             menu = {

@@ -83,33 +83,30 @@ return {
   {
     'folke/persistence.nvim',
     event = 'VeryLazy',
-    config = function()
-      local persistence = require('persistence')
-      persistence.setup()
-      set_keymap({
-        -- restore the session for the current directory
-        {
-          'n',
-          '<localleader>ls',
-          persistence.load,
-          { desc = 'Persistence: Restore current dir session' },
-        },
-        {
-          'n',
-          '<localleader>ll',
-          function()
-            persistence.load({ last = true })
-          end,
-          { desc = 'Persistence: Restore last session' },
-        },
-        {
-          'n',
-          '<localleader>ld',
-          persistence.stop,
-          { desc = 'Persistence: Stop persistence' },
-        },
-      })
-    end,
+    opts = {},
+    keys = {
+      {
+        '<localleader>ls',
+        function()
+          require('persistence').load()
+        end,
+        desc = 'Persistence: Restore current session',
+      },
+      {
+        '<localleader>ll',
+        function()
+          require('persistence').load({ last = true })
+        end,
+        desc = 'Persistence: Restore last session',
+      },
+      {
+        '<localleader>ld',
+        function()
+          require('persistence').stop()
+        end,
+        desc = 'Persistence: Stop persistence',
+      },
+    },
   },
 
   {
@@ -119,12 +116,13 @@ return {
       { 'S', mode = { 'n', 'x', 'o' }, desc = 'Leap: backward to' },
       { 'gs', mode = { 'n', 'x', 'o' }, desc = 'Leap: from windows' },
     },
+    opts = { },
     config = function(_, opts)
       local leap = require('leap')
-      for k, v in pairs(opts) do
-        leap.opts[k] = v
-      end
-      leap.add_default_mappings(true)
+      leap.setup(opts)
+
+      leap.add_default_mappings()
+
       vim.keymap.del({ 'x', 'o' }, 'x')
       vim.keymap.del({ 'x', 'o' }, 'X')
     end,
@@ -219,11 +217,9 @@ return {
   {
     'mbbill/undotree',
     event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      set_keymap({
-        { 'n', '<leader>u', '<CMD>UndotreeShow<CR>', { desc = 'Undotree toggle' } },
-      })
-    end,
+    keys = {
+      { '<leader>u', '<CMD>UndotreeShow<CR>', mode = 'n', desc = 'Undotree: Toggle' },
+    },
   },
 
   {
@@ -264,46 +260,42 @@ return {
 
   {
     'charm-and-friends/freeze.nvim',
-    lazy = false,
-    config = function(_)
-      require('freeze').setup({
-        command = "freeze",
-        open = false,
-        show_line_numbers = true,
-        output = function()
-          local res = vim.system({'uuidgen'}, { text = true }):wait()
-          return os.getenv("HOME") .. "/Pictures/" .. res.stdout .. ".png"
-        end,
-        theme = "catppuccin-mocha",
-      })
-      set_keymap({
-        { 'n', '<leader>fz', '<CMD>Freeze<CR>', { desc = 'Capture code image' } },
-        { 'n', '<leader>fo', '<CMD>Freeze open<CR>', { desc = 'Open captured images' } },
-      })
-    end
+    cmd = { 'Freeze' },
+    opts = {
+      open = false,
+      show_line_numbers = true,
+      output = function()
+        local res = vim.system({ 'uuidgen' }, { text = true }):wait()
+        local filename = vim.trim(res.stdout)
+        return os.getenv("HOME") .. "/Pictures/" .. filename .. ".png"
+      end,
+      theme = "catppuccin-mocha",
+    },
+    keys = {
+      { '<leader>fz', '<CMD>Freeze<CR>',       mode = 'n', desc = 'Freeze: Capture code image' },
+      { '<leader>fo', '<CMD>Freeze open<CR>',  mode = 'n', desc = 'Freeze: Open captured images' },
+    },
   },
 
   {
     "kylechui/nvim-surround",
     version = "*",
     event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        keymaps = {
-          insert = "<C-g>s",
-          insert_line = "<C-g>S",
-          normal = "ys",
-          normal_cur = "yss",
-          normal_line = "yS",
-          normal_cur_line = "ySS",
-          visual = "S",
-          visual_line = "gS",
-          delete = "ds",
-          change = "cs",
-          change_line = "cS",
-        },
-      })
-    end
+    opts = {
+      keymaps = {
+        insert = "<C-g>s",
+        insert_line = "<C-g>S",
+        normal = "ys",
+        normal_cur = "yss",
+        normal_line = "yS",
+        normal_cur_line = "ySS",
+        visual = "S",
+        visual_line = "gS",
+        delete = "ds",
+        change = "cs",
+        change_line = "cS",
+      },
+    },
   },
 
   {
@@ -312,14 +304,11 @@ return {
       { "<leader>ol", "<cmd>Outline<cr>", desc = "Toggle Outline" }
     },
     cmd = "Outline",
-    opts = function()
-      local opts = {
-        keymaps = {
-          up_and_jump = "<up>",
-          down_and_jump = "<down>",
-        },
-      }
-      return opts
-    end,
+    opts = {
+      keymaps = {
+        up_and_jump = "<up>",
+        down_and_jump = "<down>",
+      },
+    },
   }
 }

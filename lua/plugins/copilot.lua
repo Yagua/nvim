@@ -47,10 +47,7 @@ return {
       },
       copilot_node_command = 'node', -- Node.js version must be > 18.x
       server_opts_overrides = {},
-    },
-    config = function(_, opts)
-      require("copilot").setup(opts)
-    end
+    }
   },
 
   {
