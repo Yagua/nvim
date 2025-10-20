@@ -16,9 +16,6 @@ return {
       local cmp = require('cmp')
       local lk = require('lspkind')
 
-      vim.opt.completeopt = { "menu", "menuone", "noselect" }
-      vim.opt.shortmess:append "c"
-
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
@@ -46,6 +43,9 @@ return {
           ['<C-e>'] = cmp.mapping.close(),
           ['<CR>'] = cmp.mapping.confirm({ select = false }),
         }),
+        completion = {
+          completeopt = 'menu,menuone,noinsert',
+        },
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
