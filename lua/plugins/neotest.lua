@@ -111,16 +111,6 @@ return {
       },
     } ,
     config = function()
-      local namespace = vim.api.nvim_create_namespace('neotest')
-      vim.diagnostic.config({
-        virtual_text = {
-          format = function(diagnostic)
-            local value = diagnostic.message:gsub('\n', ' '):gsub('\t', ' '):gsub('%s+', ' '):gsub('^%s+', '')
-            return value
-          end,
-        },
-      }, namespace)
-
       require("neotest").setup({
         adapters = {
           require("neotest-golang")({
@@ -128,8 +118,8 @@ return {
           })
         },
         discovery = { enabled = true, },
-        running = { concurrent = true},
-        summary = { animated = true, },
+        running = { concurrent = true },
+        summary = { animated = true, expand_errors = true },
         diagnostic = { enabled = true },
       })
     end,
