@@ -310,5 +310,25 @@ return {
         down_and_jump = "<down>",
       },
     },
+  },
+
+  {
+    'stevearc/conform.nvim',
+    build = function ()
+      vim.system({ "go", "install", "golang.org/x/tools/cmd/goimports@latest" }):wait()
+    end,
+    keys = {
+      {
+        "<leader>fc",
+        function () require("conform").format({}) end,
+        desc = "Format code"
+      }
+    },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        go = { "gofmt", "goimports" },
+      },
+    },
   }
 }
