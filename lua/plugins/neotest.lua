@@ -64,14 +64,21 @@ return {
         desc = "Toggle Summary",
       },
       {
-        "<leader>to",
+        "<leader>tO",
         function()
           require("neotest").output.open({ enter = true, auto_close = true })
         end,
         desc = "Show Output",
       },
       {
-        "<leader>tO",
+        "<leader>oc",
+        function()
+          require("neotest").output_panel.clear()
+        end,
+        desc = "Clear Output Panel",
+      },
+      {
+        "<leader>to",
         function()
           require("neotest").output_panel.toggle()
         end,
@@ -114,22 +121,14 @@ return {
         },
       }, namespace)
 
-
       require("neotest").setup({
         adapters = {
           require("neotest-golang")({
             runner = "gotestsum",
           })
         },
-        discovery = {
-          enabled = true,
-        },
-        running = {
-          concurrent = true,
-        },
-        summary = {
-          animated = true,
-        },
+        discovery = { enabled = true, },
+        summary = { animated = true, },
         diagnostic = { enabled = true },
       })
     end,
