@@ -2,7 +2,7 @@ return {
   {
     'hrsh7th/nvim-cmp',
     lazy = false,
-    priority = 100,
+    event = 'InsertEnter',
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
@@ -12,7 +12,7 @@ return {
       'saadparwaiz1/cmp_luasnip',
       'onsails/lspkind-nvim',
     },
-    config = function ()
+    opts = function()
       local cmp = require('cmp')
       local lk = require('lspkind')
 
@@ -23,14 +23,16 @@ return {
         }, {
           { name = 'cmdline' },
         }),
-        matching = { disallow_symbol_nonprefix_matching = false }
       })
 
-      cmp.setup({
+      return {
         snippet = {
           expand = function(args)
-            vim.snippet.expand(args.body)
+            require('luasnip').lsp_expand(args.body)
           end,
+        },
+        completion = {
+          completeopt = 'menu,menuone,noinsert',
         },
         window = {
           completion = cmp.config.window.bordered(),
@@ -43,9 +45,6 @@ return {
           ['<C-e>'] = cmp.mapping.close(),
           ['<CR>'] = cmp.mapping.confirm({ select = false }),
         }),
-        completion = {
-          completeopt = 'menu,menuone,noinsert',
-        },
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
@@ -54,7 +53,6 @@ return {
           { name = 'path' },
         }),
         formatting = {
-          expandable_indicator = true,
           format = lk.cmp_format({
             with_text = true,
             menu = {
@@ -66,7 +64,7 @@ return {
             },
           }),
         },
-      })
+      }
     end,
   },
 
