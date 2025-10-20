@@ -50,7 +50,7 @@ return {
         desc = "Run Nearest",
       },
       {
-        "<leader>tl",
+        "<leader>tL",
         function()
           require("neotest").run.run_last()
         end,
@@ -128,6 +128,7 @@ return {
           })
         },
         discovery = { enabled = true, },
+        running = { concurrent = true},
         summary = { animated = true, },
         diagnostic = { enabled = true },
       })
