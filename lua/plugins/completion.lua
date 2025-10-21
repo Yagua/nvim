@@ -13,6 +13,9 @@ return {
       'onsails/lspkind-nvim',
     },
     opts = function()
+      vim.opt.completeopt = { "menu", "menuone", "noinsert" }
+      vim.opt.shortmess:append('c')
+
       local cmp = require('cmp')
       local lk = require('lspkind')
 
@@ -30,9 +33,6 @@ return {
           expand = function(args)
             require('luasnip').lsp_expand(args.body)
           end,
-        },
-        completion = {
-          completeopt = 'menu,menuone,noinsert',
         },
         window = {
           completion = cmp.config.window.bordered(),
