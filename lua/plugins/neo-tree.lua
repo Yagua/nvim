@@ -42,15 +42,10 @@ return {
       },
       sources = { "filesystem", "buffers", "git_status" },
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
-      source_selector = {
-        winbar = true,
-      },
-      close_if_last_window = false,
-      enable_git_status = true,
-      enable_diagnostics = true,
+      source_selector = { winbar = true, },
       default_component_configs = {
         container = {
-          enable_character_fade = true,
+          enable_character_fade = false,
         },
         indent = {
           with_expanders = true,
@@ -88,9 +83,9 @@ return {
               use_float = false,
             },
           },
+          ["<C-t>"] = "open_tabnew",
           ["S"] = "open_split",
           ["s"] = "open_vsplit",
-          ["t"] = "open_tabnew",
           ["w"] = "open_with_window_picker",
           ["h"] = "close_node",
           ["H"] = "close_all_nodes",
@@ -118,6 +113,12 @@ return {
           ["i"] = "show_file_details",
         },
       },
+      buffers = {
+        follow_current_file = {
+          enabled = true,
+          leave_dirs_open = true,
+        },
+      },
       filesystem = {
         filtered_items = {
           hide_dotfiles = true,
@@ -125,8 +126,9 @@ return {
           hide_ignored = true,
           hide_hidden = true,
         },
+        bind_to_cwd = false,
         follow_current_file = {
-          enabled = false,
+          enabled = true,
           leave_dirs_open = true,
         },
         group_empty_dirs = false,
