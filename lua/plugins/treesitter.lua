@@ -16,6 +16,7 @@ return {
         'gomod',
         'gosum',
         'gowork',
+        'gotmpl',
         'graphql',
         'java',
         'groovy',
