@@ -3,6 +3,8 @@ local set_keymap = require('utils').set_keymap
 -- Global build of clients' capabilities
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+local msn_path = vim.fn.stdpath('data') .. '/mason/packages/'
+
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true,
@@ -23,7 +25,7 @@ local setup_lsp_keymaps = function(opts)
     { 'n', '<leader>re', vim.lsp.buf.references, opts },
     { 'n', '<leader>vi', vim.lsp.buf.implementation, opts },
     { 'n', '<leader>sh', vim.lsp.buf.signature_help, opts },
-    { 'i', '<C-s>',      vim.lsp.buf.signature_help, opts },
+    { 'i', '<C-s>', vim.lsp.buf.signature_help, opts },
     { 'n', '<leader>gt', vim.lsp.buf.type_definition, opts },
     { 'n', '<leader>gw', vim.lsp.buf.document_symbol, opts },
     { 'n', '<leader>gW', vim.lsp.buf.workspace_symbol, opts },
@@ -32,35 +34,56 @@ local setup_lsp_keymaps = function(opts)
     { 'n', '<leader>ca', vim.lsp.buf.code_action, opts },
     { 'n', '<leader>rn', vim.lsp.buf.rename, opts },
     -- Few language severs support these three
-    { 'n', '<leader>=', function() vim.lsp.buf.format({ async = true }) end, opts, },
+    {
+      'n',
+      '<leader>=',
+      function()
+        vim.lsp.buf.format({ async = true })
+      end,
+      opts,
+    },
     { 'n', '<leader>ai', vim.lsp.buf.incoming_calls, opts },
     { 'n', '<leader>ao', vim.lsp.buf.outgoing_calls, opts },
     --Diagnostics mappings
     { 'n', '<leader>ee', vim.diagnostic.open_float, opts },
-    { 'n', '<leader>gp', function () vim.diagnostic.jump({count = -1}) end, opts },
-    { 'n', '<leader>gn', function () vim.diagnostic.jump({count = 1}) end, opts },
+    {
+      'n',
+      '<leader>gp',
+      function()
+        vim.diagnostic.jump({ count = -1 })
+      end,
+      opts,
+    },
+    {
+      'n',
+      '<leader>gn',
+      function()
+        vim.diagnostic.jump({ count = 1 })
+      end,
+      opts,
+    },
     --Custom
     {
       'n',
       '<leader>~',
       function()
-        vim.notify("[LSP]: restarting server...", vim.log.levels.WARN)
-        vim.cmd("LspRestart")
+        vim.notify('[LSP]: restarting server...', vim.log.levels.WARN)
+        vim.cmd('LspRestart')
       end,
-      opts
+      opts,
     },
     {
-      "n",
-      "<leader>tl",
-      function ()
+      'n',
+      '<leader>tl',
+      function()
         local config = vim.diagnostic.config() or {}
         if config.virtual_text then
-          vim.diagnostic.config { virtual_text = false, virtual_lines = true }
+          vim.diagnostic.config({ virtual_text = false, virtual_lines = true })
         else
-          vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+          vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
         end
       end,
-      opts
+      opts,
     },
   })
 end
@@ -105,7 +128,9 @@ return {
         'docker-compose-language-service',
         'zls',
         'eslint_d',
-        "groovy-language-server"
+        'groovy-language-server',
+        'bash-language-server',
+        'kotlin-lsp',
       },
     },
   },
@@ -115,15 +140,15 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       {
-        "folke/lazydev.nvim",
-        ft = "lua",
+        'folke/lazydev.nvim',
+        ft = 'lua',
         opts = {
           library = {
-            { path = "luvit-meta/library", words = { "vim%.uv" } },
+            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
           },
         },
       },
-      { "Bilal2453/luvit-meta", lazy = true },
+      { 'Bilal2453/luvit-meta', lazy = true },
       'williamboman/mason-lspconfig.nvim',
     },
     opts = {
@@ -133,10 +158,10 @@ return {
         severity_sort = true,
         update_in_insert = false,
         virtual_text = {
-          prefix = "■",
+          prefix = '■',
           spacing = 2,
-          source = "if_many"
-        }
+          source = 'if_many',
+        },
       },
       servers = {
         pylsp = {
@@ -145,10 +170,10 @@ return {
               plugins = {
                 pycodestyle = {
                   enabled = false,
-                }
-              }
-            }
-          }
+                },
+              },
+            },
+          },
         },
         ts_ls = {},
         cssls = {},
@@ -159,9 +184,15 @@ return {
         jsonls = {},
         dockerls = {},
         docker_compose_language_service = {},
-        groovyls = {},
+        groovyls = {
+          cmd = {
+            'java',
+            '-jar',
+            msn_path .. '/groovy-language-server/build/libs/groovy-language-server-all.jar',
+          },
+        },
 
-        lua_ls = { },
+        lua_ls = {},
 
         gopls = {
           settings = {
@@ -199,8 +230,8 @@ return {
         setup_lsp_keymaps(keymaps_opts)
       end
 
-      vim.lsp.config("*", {
-        capabilities = capabilities
+      vim.lsp.config('*', {
+        capabilities = capabilities,
       })
 
       -- Setup servers

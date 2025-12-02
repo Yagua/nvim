@@ -30,6 +30,7 @@ return {
         'tsx',
         'typescript',
         'zig',
+        'kotlin',
       },
     },
     config = function(_, opts)
