@@ -114,6 +114,7 @@ return {
         'css-lsp',
         'html-lsp',
         'gopls',
+        'buf',
         'json-lsp',
         'lua-language-server',
         'shfmt',
@@ -205,6 +206,8 @@ return {
             },
           },
         },
+
+        buf_ls = {},
 
         clangd = {
           cmd = {
