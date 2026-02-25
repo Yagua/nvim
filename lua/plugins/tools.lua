@@ -279,7 +279,7 @@ return {
 
   {
     "kylechui/nvim-surround",
-    version = "*",
+    version = "^3.1.8",
     event = "VeryLazy",
     opts = {
       keymaps = {

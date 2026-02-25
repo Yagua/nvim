@@ -31,6 +31,8 @@ return {
         'typescript',
         'zig',
         'kotlin',
+        'yaml',
+        'json',
       },
     },
     config = function(_, opts)
