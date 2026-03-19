@@ -1,50 +1,5 @@
-local set_keymap = require('utils').set_keymap
 return {
   "nvim-tree/nvim-web-devicons",
-
-  {
-    'akinsho/toggleterm.nvim',
-    event = 'VeryLazy',
-    version = '*',
-    opts = {
-      open_mapping = [[<A-t>]],
-      shading_factor = 1,
-      direction = 'horizontal'
-    },
-    config = function(_, opts)
-      require('toggleterm').setup(opts)
-
-      local spawn_term = function(cmd, dir)
-        require('toggleterm.terminal').Terminal
-          :new({
-            cmd = cmd,
-            dir = dir or vim.fn.expand('%:p:h'),
-            start_in_insert = true,
-            close_on_exit = true,
-          })
-          :toggle()
-      end
-
-      set_keymap({
-        {
-          'n',
-          '<localleader>gg',
-          function()
-            spawn_term('lazygit')
-          end,
-          { desc = 'Toggle Lazygit' },
-        },
-        {
-          'n',
-          '<localleader>gd',
-          function()
-            spawn_term('lazydocker')
-          end,
-          { desc = 'Toggle Lazydocker' },
-        },
-      })
-    end,
-  },
 
   {
     "iamcco/markdown-preview.nvim",

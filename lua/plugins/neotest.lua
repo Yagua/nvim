@@ -1,126 +1,142 @@
+local tags = "-tags=wireinject,integration"
+
 return {
   {
-    "nvim-neotest/neotest",
+    'nvim-neotest/neotest',
     dependencies = {
-      "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      'nvim-neotest/nvim-nio',
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-treesitter/nvim-treesitter',
       {
-        "fredrikaverpil/neotest-golang",
+        'fredrikaverpil/neotest-golang',
+        dependencies = {
+          "uga-rosa/utf8.nvim",
+        },
         build = function()
-          vim.system({ "go", "install", "gotest.tools/gotestsum@latest" }):wait()
+          vim.system({ 'go', 'install', 'gotest.tools/gotestsum@latest' }):wait()
         end,
       },
     },
     keys = {
       {
-        "<leader>ta",
+        '<leader>ta',
         function()
-          require("neotest").run.attach()
+          require('neotest').run.attach()
         end,
-        desc = "Attach",
+        desc = 'Attach',
       },
       {
-        "<leader>tf",
+        '<leader>tf',
         function()
-          require("neotest").run.run(vim.fn.expand("%"))
+          require('neotest').run.run(vim.fn.expand('%'))
         end,
-        desc = "Run File",
+        desc = 'Run File',
       },
       {
-        "<leader>tA",
+        '<leader>tA',
         function()
-          require("neotest").run.run(vim.uv.cwd())
+          require('neotest').run.run(vim.uv.cwd())
         end,
-        desc = "Run All Test Files",
+        desc = 'Run All Test Files',
       },
       {
-        "<leader>tT",
+        '<leader>tT',
         function()
-          require("neotest").run.run({ suite = true })
+          require('neotest').run.run({ suite = true })
         end,
-        desc = "Run Test Suite",
+        desc = 'Run Test Suite',
       },
       {
-        "<leader>tn",
+        '<leader>tn',
         function()
-          require("neotest").run.run()
+          require('neotest').run.run()
         end,
-        desc = "Run Nearest",
+        desc = 'Run Nearest',
       },
       {
-        "<leader>tL",
+        '<leader>tL',
         function()
-          require("neotest").run.run_last()
+          require('neotest').run.run_last()
         end,
-        desc = "Run Last",
+        desc = 'Run Last',
       },
       {
-        "<leader>ts",
+        '<leader>ts',
         function()
-          require("neotest").summary.toggle()
+          require('neotest').summary.toggle()
         end,
-        desc = "Toggle Summary",
+        desc = 'Toggle Summary',
       },
       {
-        "<leader>tO",
+        '<leader>tO',
         function()
-          require("neotest").output.open({ enter = true, auto_close = true })
+          require('neotest').output.open({ enter = true, auto_close = true })
         end,
-        desc = "Show Output",
+        desc = 'Show Output',
       },
       {
-        "<leader>oc",
+        '<leader>oc',
         function()
-          require("neotest").output_panel.clear()
+          require('neotest').output_panel.clear()
         end,
-        desc = "Clear Output Panel",
+        desc = 'Clear Output Panel',
       },
       {
-        "<leader>to",
+        '<leader>to',
         function()
-          require("neotest").output_panel.toggle()
+          require('neotest').output_panel.toggle()
         end,
-        desc = "Toggle Output Panel",
+        desc = 'Toggle Output Panel',
       },
       {
-        "<leader>tt",
+        '<leader>tt',
         function()
-          require("neotest").run.stop()
+          require('neotest').run.stop()
         end,
-        desc = "Terminate",
+        desc = 'Terminate',
       },
       {
-        "<leader>dt",
+        '<leader>dt',
         function()
-          require("neotest").summary.close()
-          require("neotest").output_panel.close()
-          require("neotest").run.run({ suite = false, strategy = "dap" })
+          require('neotest').summary.close()
+          require('neotest').output_panel.close()
+          require('neotest').run.run({ suite = false, strategy = 'dap' })
         end,
-        desc = "Debug nearest test",
+        desc = 'Debug nearest test',
       },
       {
-        "<leader>dT",
+        '<leader>dT',
         function()
-          require("neotest").summary.close()
-          require("neotest").output_panel.close()
-          require("neotest").run.run({ vim.fn.expand("%"), suite = false, strategy = "dap" })
+          require('neotest').summary.close()
+          require('neotest').output_panel.close()
+          require('neotest').run.run({ vim.fn.expand('%'), suite = false, strategy = 'dap' })
         end,
-        desc = "Debug current file",
+        desc = 'Debug current file',
       },
-    } ,
+    },
     config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-golang")({
-            runner = "gotestsum",
-          })
-        },
-        discovery = { enabled = true, },
+      require('neotest').setup({
+        discovery = { enabled = true, concurrent = 0 },
         running = { concurrent = true },
-        summary = { animated = true, expand_errors = true },
+        summary = { animated = true },
         diagnostic = { enabled = true },
+        adapters = {
+          require('neotest-golang')({
+            runner = 'gotestsum',
+            gotestsum_args = { '--format=standard-verbose' },
+            go_list_args = { tags },
+            go_test_args = {
+              '-v',
+              '-count=1',
+              '-race',
+              '-coverprofile=' .. vim.fn.getcwd() .. '/coverage.out',
+              -- "-p=1",
+              '-parallel=1',
+              tags,
+            },
+          }),
+        },
       })
     end,
   },

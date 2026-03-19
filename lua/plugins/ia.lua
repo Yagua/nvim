@@ -62,13 +62,13 @@ return {
           chat = {
             roles = {
               llm = function(adapter)
-                return adapter.formatted_name
+                return adapter.formatted_name .. " (" .. adapter.schema.model.default .. ")"
               end,
               user = os.getenv('USER') or 'User',
             },
             adapter = {
               name = 'copilot',
-              model = 'claude-sonnet-4',
+              model = 'claude-opus-4.6',
             },
             keymaps = {
               send = {
